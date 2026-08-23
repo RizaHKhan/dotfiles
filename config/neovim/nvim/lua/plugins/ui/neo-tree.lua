@@ -45,7 +45,7 @@ return {
 						["<Tab>"] = "toggle_preview", -- Toggle preview window
 						["<space>"] = false,
 						["f"] = function()
-							require("fzf-lua").files()
+							Snacks.picker.files()
 						end,
 						["/"] = "fuzzy_finder",
 						["P"] = function(state)

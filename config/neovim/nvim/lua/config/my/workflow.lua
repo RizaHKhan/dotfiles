@@ -8,14 +8,6 @@ local actions = {
 		command = "Atlas pulls gitlab",
 	},
 	{
-		label = " Bitbucket",
-		command = "Atlas pulls bitbucket",
-	},
-	{
-		label = " Gitea",
-		command = "Atlas pulls gitea",
-	},
-	{
 		label = "󰌃 JIRA",
 		command = "Atlas issues jira",
 	},

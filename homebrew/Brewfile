@@ -75,6 +75,7 @@ brew "luarocks"             # lua package manager
 brew "tree-sitter-cli"      # tree-sitter cli for nvim
 brew "tree-sitter"
 brew "httpstat"             # http request stats
+brew "cloudflared"          # cloudflare cli
 
 # all those below are required by xcodebuild.nvim. Some might have been listed above already.
 brew "xcode-build-server"   # xcode lsp server

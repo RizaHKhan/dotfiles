@@ -14,11 +14,6 @@ return {
 		end,
 	},
 	{
-		"nvim-mini/mini.animate",
-		version = "*",
-		event = "VeryLazy",
-	},
-	{
 		"nvim-mini/mini.files",
 		version = "*",
 		opts = {

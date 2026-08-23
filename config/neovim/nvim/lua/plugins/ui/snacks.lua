@@ -52,7 +52,6 @@ return {
 				end
 
 				vim.b[ctx.buf].completion = false
-				vim.b[ctx.buf].minianimate_disable = true
 				vim.b[ctx.buf].minihipatterns_disable = true
 				vim.bo[ctx.buf].swapfile = false
 				vim.bo[ctx.buf].undofile = false
