@@ -32,9 +32,10 @@ return {
 			symbols = {
 				desc = "Document Symbols",
 				mode = "lsp_document_symbols",
+				format = "{kind_icon} {symbol.name}",
 				win = {
 					position = "right",
-					size = 0.3,
+					size = 0.2,
 				},
 				groups = {
 					{ "kind", format = "{kind_icon} {kind} ({count})" },

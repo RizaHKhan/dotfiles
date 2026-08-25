@@ -40,7 +40,8 @@ wk.add({
 	{
 		"gra",
 		function()
-			vim.lsp.buf.code_action()
+			-- vim.lsp.buf.code_action()
+			require("actions-preview").code_actions()
 		end,
 		desc = "Code Actions",
 		mode = { "n", "v" },
@@ -113,7 +114,7 @@ wk.add({
 	-- Hover & Signature
 	{ "K", vim.lsp.buf.hover, desc = "Hover Documentation" },
 	-- Currently used by tmux for pane navigation
-	-- { "<C-k>", vim.lsp.buf.signature_help, desc = "Signature Help", mode = { "i", "n" } },
+	-- { "<C-;>", vim.lsp.buf.signature_help, desc = "Signature Help", mode = { "i", "n" } },
 
 	-- Diagnostic Movement
 	{
@@ -147,9 +148,33 @@ wk.add({
 		desc = "Next Reference",
 	},
 
-	-- Quickfix Navigation
+	-- Quickfix / Location List Navigation
 	{ "[q", ":cprev<CR>", desc = "Previous quickfix" },
 	{ "]q", ":cnext<CR>", desc = "Next quickfix" },
+	{ "[l", ":lprevious<CR>", desc = "Previous location" },
+	{ "]l", ":lnext<CR>", desc = "Next location" },
+
+	-- ╭────────────────────────────────────────────────────╮
+	-- │               Tabs / Splits / Buffers              │
+	-- ╰────────────────────────────────────────────────────╯
+	{ "<C-n>", "<cmd>bnext<CR>", desc = "Next Buffer", mode = "n" },
+	{ "<C-p>", "<cmd>bprevious<CR>", desc = "Previous Buffer", mode = "n" },
+	{ "<Tab>", "<cmd>bnext<CR>", desc = "Next Buffer", mode = "n" },
+	{ "<S-Tab>", "<cmd>bprevious<CR>", desc = "Previous Buffer", mode = "n" },
+	{
+		"<C-x>",
+		function()
+			local bufnr = vim.api.nvim_get_current_buf()
+			local listed = vim.fn.getbufinfo({ buflisted = 1 })
+			if #listed > 1 then
+				vim.cmd("bnext | bdelete " .. bufnr)
+			else
+				vim.cmd("enew | bdelete " .. bufnr)
+			end
+		end,
+		desc = "Close current buffer",
+	},
+	-- { "<C-x>", "<cmd>bdelete<CR>", desc = "Close current buffer", mode = "n" },
 
 	-- ╭────────────────────────────────────────────────────╮
 	-- │                      Tree                          │
@@ -216,6 +241,13 @@ wk.add({
 		end,
 		desc = "Search word under cursor",
 	},
+	{
+		"<leader>fl",
+		function()
+			require("snacks.picker").lines()
+		end,
+		desc = "Search current buffer",
+	},
 	{ "<leader>fm", "<cmd>MyAllMarks<CR>", desc = "Marks" },
 	{
 		"<leader>fh",
@@ -242,28 +274,6 @@ wk.add({
 	{ "<leader>fo", ":!open %:h<CR>", desc = "Open in Finder" },
 	{ "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols" },
 	{ "<leader>fS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", desc = "Workspace Symbols" },
-
-	-- ╭────────────────────────────────────────────────────╮
-	-- │               Tabs / Splits / Buffers              │
-	-- ╰────────────────────────────────────────────────────╯
-	{ "<C-n>", "<cmd>bnext<CR>", desc = "Next Buffer", mode = "n" },
-	{ "<C-p>", "<cmd>bprevious<CR>", desc = "Previous Buffer", mode = "n" },
-	{ "<Tab>", "<cmd>bnext<CR>", desc = "Next Buffer", mode = "n" },
-	{ "<S-Tab>", "<cmd>bprevious<CR>", desc = "Previous Buffer", mode = "n" },
-	{
-		"<C-x>",
-		function()
-			local bufnr = vim.api.nvim_get_current_buf()
-			local listed = vim.fn.getbufinfo({ buflisted = 1 })
-			if #listed > 1 then
-				vim.cmd("bnext | bdelete " .. bufnr)
-			else
-				vim.cmd("enew | bdelete " .. bufnr)
-			end
-		end,
-		desc = "Close current buffer",
-	},
-	-- { "<C-x>", "<cmd>bdelete<CR>", desc = "Close current buffer", mode = "n" },
 
 	-- ╭────────────────────────────────────────────────────╮
 	-- │                 Quick / File Actions               │
@@ -391,6 +401,20 @@ wk.add({
 	},
 
 	-- Symbols / References
+	{
+		"<leader>ci",
+		function()
+			require("snacks.picker").lsp_incoming_calls()
+		end,
+		desc = "Incoming Calls (Snacks)",
+	},
+	{
+		"<leader>co",
+		function()
+			require("snacks.picker").lsp_outgoing_calls()
+		end,
+		desc = "Outgoing Calls (Snacks)",
+	},
 	{ "<leader>cs", "<cmd>Trouble symbols toggle focus=false win.id=dock<cr>", desc = "Document Symbols (Trouble)" },
 	{ "<leader>cS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", desc = "Workspace Symbols" },
 	{ "<leader>cl", "<cmd>Trouble lsp_bottom toggle<cr>", desc = "LSP References (Trouble)" },
@@ -421,13 +445,6 @@ wk.add({
 			require("snacks.picker").lsp_implementations()
 		end,
 		desc = "Go to Implementation (Snacks)",
-	},
-	{
-		"gr",
-		function()
-			snacks.picker.lsp_references()
-		end,
-		desc = "Find References (Snacks)",
 	},
 	{
 		"gs",

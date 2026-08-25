@@ -29,7 +29,7 @@ alias lsd='eza -lh --only-dirs --color=always --icons --no-user'
 
 # ── copy paths to clipboard (macOS pbcopy) ───────────────────────────────
 alias cpwd="pwd | tr -d '\n' | pbcopy"
-cppath() {
+cpath() {
   [[ -e "$1" ]] || { echo "usage: cppath <file-or-directory>" >&2; return 1; }
   printf '%s' "${1:A}" | pbcopy
 }

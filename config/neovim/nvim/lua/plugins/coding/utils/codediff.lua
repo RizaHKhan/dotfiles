@@ -15,6 +15,9 @@ return {
 				explorer = {
 					view_mode = "tree",
 					flatten_dirs = true,
+					line_stats = {
+						enabled = true,
+					},
 					-- focus_on_select = false,
 				},
 				view = {

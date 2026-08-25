@@ -170,7 +170,7 @@ return {
 						-- preview
 						{
 							win = "preview",
-							width = 0.45,
+							width = 0.6,
 							border = "left",
 						},
 					},
@@ -228,7 +228,16 @@ return {
 					no_ignore = false,
 					exclude = picker_exclude,
 					live = true,
+					format = "filename",
 					preview = "file",
+				},
+
+				grep_word = {
+					format = "filename",
+				},
+
+				lsp_references = {
+					format = "filename",
 				},
 
 				git_files = {
@@ -239,7 +248,7 @@ return {
 
 			formatters = {
 			file = {
-				filename_first = false,
+				filename_first = true,
 				truncate = "left",
 				min_width = 0,
 			},

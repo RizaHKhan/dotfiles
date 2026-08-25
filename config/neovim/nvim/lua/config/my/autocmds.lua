@@ -81,6 +81,8 @@ vim.api.nvim_create_autocmd("FileType", {
 	callback = function(event)
 		local opts = { buffer = event.buf, silent = true, desc = "Remove qf entry" }
 
+		vim.fn.matchadd("Comment", [[\s\zs\%(\.\./\|\./\|\~\/\|/\).\{-}\ze\s*│]])
+
 		local function remove_entries(rows)
 			local qf = vim.fn.getqflist({ title = 0, items = 0 })
 			local is_haunt = qf.title == "Haunt" or qf.title == "Haunt (buffer)"
@@ -147,7 +149,23 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	end,
 })
 
--- Columnized formatting for quickfix entries: "<filename> │<lnum>:<col>│<type> <text>"
+local function truncate_qf_path(path, width)
+	if #path <= width then
+		return path
+	end
+	if width <= 2 then
+		return path:sub(-width)
+	end
+
+	local suffix = path:sub(-(width - 2))
+	local separator = suffix:find("[/\\]")
+	if separator then
+		suffix = suffix:sub(separator)
+	end
+	return ".." .. suffix
+end
+
+-- Columnized formatting for quickfix entries: "<filename> <path> │<lnum>:<col>│<type> <text>"
 function _G.qftf(info)
 	local fn = vim.fn
 	local items
@@ -157,32 +175,41 @@ function _G.qftf(info)
 		items = fn.getloclist(info.winid, { id = info.id, items = 0 }).items
 	end
 	local limit = 31
-	local fname_fmt_short = "%-" .. limit .. "s"
-	local fname_fmt_long = "..%." .. (limit - 1) .. "s"
+	local location_fmt = "%-" .. limit .. "s"
 	local valid_fmt = "%s │%5d:%-3d│%s %s"
 	local ret = {}
 	for i = info.start_idx, info.end_idx do
 		local e = items[i]
 		local str
 		if e.valid == 1 then
-			local fname = ""
+			local location = ""
 			if e.bufnr > 0 then
-				fname = fn.bufname(e.bufnr)
-				if fname == "" then
-					fname = "[No Name]"
+				local path = fn.bufname(e.bufnr)
+				if path == "" then
+					location = "[No Name]"
 				else
-					fname = fname:gsub("^" .. vim.env.HOME, "~")
+					local filename = fn.fnamemodify(path, ":t")
+					local parent = fn.fnamemodify(path, ":h"):gsub("^" .. vim.env.HOME, "~")
+					if parent ~= "." then
+						if not parent:match("^[/~.]") then
+							parent = "./" .. parent
+						end
+						local path_width = limit - #filename - 1
+						if path_width >= 4 then
+							location = filename .. " " .. truncate_qf_path(parent, path_width)
+						else
+							location = truncate_qf_path(filename, limit)
+						end
+					else
+						location = truncate_qf_path(filename, limit)
+					end
 				end
-				if #fname <= limit then
-					fname = fname_fmt_short:format(fname)
-				else
-					fname = fname_fmt_long:format(fname:sub(1 - limit))
-				end
+				location = location_fmt:format(location)
 			end
 			local lnum = e.lnum > 99999 and -1 or e.lnum
 			local col = e.col > 999 and -1 or e.col
 			local qtype = e.type == "" and "" or " " .. e.type:sub(1, 1):upper()
-			str = valid_fmt:format(fname, lnum, col, qtype, e.text)
+			str = valid_fmt:format(location, lnum, col, qtype, e.text)
 		else
 			str = e.text
 		end

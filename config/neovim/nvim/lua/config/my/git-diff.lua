@@ -25,9 +25,13 @@ vim.api.nvim_create_user_command("GitOriginDiff", function()
 	end
 
 	helper.select_origin_branch(cwd, current_branch, function(selection)
+		local origin_branch = "origin/" .. selection
+		local args = open_cmd == "CodeDiff" and { origin_branch .. "..." }
+			or { origin_branch .. "...HEAD", "--imply-local" }
+
 		vim.api.nvim_cmd({
 			cmd = open_cmd,
-			args = { "origin/" .. selection .. "...HEAD" },
+			args = args,
 		}, {})
 	end)
 end, {})

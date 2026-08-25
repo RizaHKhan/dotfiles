@@ -2,9 +2,6 @@ return {
 	-- "emrearmagan/atlas.nvim",
 	name = "atlas.nvim",
 	-- dir = "/Users/emrearmagan/development/nvim/atlas/atlas.nvim",
-	-- dir = "/Users/emrearmagan/development/nvim/atlas/atlas.nvim/.worktrees/release-0.7.0",
-	dir = "/Users/emrearmagan/development/nvim/atlas/gitea-forgejo",
-	-- dir = "/Users/emrearmagan/development/nvim/atlas/worktrees/atlas.nvim/feat-shortcut",
 	cmd = { "Atlas", "AtlasDiff" },
 	init = function()
 		vim.cmd("cabbrev atlas Atlas")
@@ -38,6 +35,7 @@ return {
 					show_commits = false,
 					width = 40,
 					initial_focus = "diff",
+					preview = true,
 					ignore = { ".git/**", ".jj/**" },
 				},
 			},
@@ -147,13 +145,14 @@ return {
 
 			gitlab = {
 				views = {
-					{ name = "Assigned", key = "1", scope = "assigned_to_me" },
+					{ name = "assigned", key = "1", scope = "assigned_to_me" },
 					{ name = "Created", key = "2", scope = "created_by_me" },
 					{
 						name = "GitLab",
 						key = "3",
 						group = "gitlab-org",
 					},
+					{ name = "Repo", key = "4", current_repo = true, scope = "assigned_to_me" },
 				},
 				bookmarks = {
 					key = "S",
@@ -413,10 +412,10 @@ return {
 						search = "!is:done !is:archived",
 					},
 					{
-						name = "Bugs",
+						name = "Plain",
 						key = "2",
 						layout = "plain",
-						search = "type:bug !is:done !is:archived",
+						search = "!is:done !is:archived",
 					},
 				},
 				bookmarks = {
@@ -600,7 +599,7 @@ return {
 							hl_group = "AtlasTextMuted",
 							display = "table",
 						},
-						customfield_10019 = {
+						customfield_10017 = {
 							name = "Other",
 
 							---@param value any
