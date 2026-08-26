@@ -169,7 +169,7 @@ alias gswitch='git checkout $(git branch --format="%(refname:short)%09%(upstream
 # Fetch + prune, pull, then delete local branches whose upstream is gone.
 alias git-sync="git fetch --prune && git pull && git branch -vv | awk '/: gone]/{print $1}' | xargs -r git branch -d"
 # Delete local branches already merged into HEAD (skips master/main/dev/current).
-alias git-purge='git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d'
+alias git-purge='git branch --merged | egrep -v "(^\*|master|main|dev|integration)" | xargs git branch -d'
 # Hard-reset all submodules — wipes uncommitted submodule changes.
 alias submodule-reset='git submodule deinit -f . && git submodule update --init --recursive'
 

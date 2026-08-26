@@ -751,6 +751,27 @@ wk.add({
 		desc = "Git Changes (Hunks)",
 	},
 	{
+		"<leader>ga",
+		function()
+			require("gitsigns").stage_hunk()
+		end,
+		desc = "Stage/Unstage Hunk",
+	},
+	{
+		"<leader>gA",
+		function()
+			require("gitsigns").stage_buffer()
+		end,
+		desc = "Stage File",
+	},
+	{
+		"<leader>gU",
+		function()
+			require("gitsigns").reset_buffer_index()
+		end,
+		desc = "Unstage File",
+	},
+	{
 		"<leader>gS",
 		function()
 			snacks.picker.git_diff({
@@ -787,7 +808,7 @@ wk.add({
 		"[h",
 		function()
 			local gitsigns = require("gitsigns")
-			gitsigns.nav_hunk("prev")
+			gitsigns.nav_hunk("prev", { target = "all" })
 		end,
 		desc = "Git Previous Hunk",
 	},
@@ -795,7 +816,7 @@ wk.add({
 		"]h",
 		function()
 			local gitsigns = require("gitsigns")
-			gitsigns.nav_hunk("next")
+			gitsigns.nav_hunk("next", { target = "all" })
 		end,
 		desc = "Git Next Hunk",
 	},

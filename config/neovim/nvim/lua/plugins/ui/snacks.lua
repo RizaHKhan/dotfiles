@@ -406,7 +406,7 @@ return {
 						icon = " ",
 						key = "s",
 						desc = "Git Status",
-						action = ":lua Snacks.picker.git_status()",
+						action = "<leader>gs",
 					},
 					{
 						icon = " ",

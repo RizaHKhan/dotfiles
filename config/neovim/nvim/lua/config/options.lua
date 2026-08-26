@@ -27,6 +27,8 @@ vim.opt.scrolloff = 8 -- Lines to keep above and below the cursor
 vim.opt.wrap = false -- Keep code lines from soft-wrapping by default
 vim.opt.clipboard = "unnamedplus" -- Sync yank with clipboard
 vim.opt.fillchars = { eob = " ", fold = " " } -- Hide ~ on empty lines, no fold fill
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 vim.env.PATH = table.concat({
 	"/opt/homebrew/bin",

@@ -71,6 +71,11 @@ vim.api.nvim_create_user_command("Workflow", function()
 		format_item = function(item)
 			return item.label
 		end,
+		snacks = {
+			format = function(item)
+				return { { item.label } }
+			end,
+		},
 	}, function(choice)
 		if not choice then
 			return

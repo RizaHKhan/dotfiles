@@ -150,7 +150,7 @@ COMMAND=" pi --no-session --model '$MODEL' '$ESCAPED_PROMPT'"
 printf -v ATLAS_COMMAND 'nvim -c %q' "Atlas diff $DIFF_TARGET"
 
 while IFS= read -r pane; do
-	diff_pane="$(tmux split-window -h -p 70 -t "$pane" -c '#{pane_current_path}' -P -F '#{pane_id}')"
+	diff_pane="$(tmux split-window -h -p 80 -t "$pane" -c '#{pane_current_path}' -P -F '#{pane_id}')"
 	tmux send-keys -t "$diff_pane" "$ATLAS_COMMAND" Enter
 	tmux send-keys -t "$pane" "$COMMAND" Enter
 done < <(tmux list-panes -t "$WINDOW_TARGET" -F '#{pane_id}')

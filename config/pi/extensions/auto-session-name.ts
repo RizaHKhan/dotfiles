@@ -5,11 +5,12 @@
  * model when possible, then falls back to a simple prompt-derived title.
  *
  * Usage:
- *   /auto-session-name              Regenerate from the last 5 user/assistant messages
+ *   /auto-session-name              Regenerate from compacted and recent conversation context
  *
  * Environment:
  *   PI_AUTO_SESSION_NAME=0          Disable automatic naming
- *   PI_AUTO_SESSION_NAME_NOTIFY=0   Hide notifications
+ *   PI_AUTO_SESSION_NAME_INTERVAL   User turns between renames (default: 20, 0 disables periodic renaming)
+ *   PI_AUTO_SESSION_NAME_NOTIFY=0   Hide automatic naming notifications
  *   PI_AUTO_SESSION_NAME_PROVIDER   Override naming provider
  *   PI_AUTO_SESSION_NAME_MODEL      Override naming model
  */
@@ -18,73 +19,65 @@ import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-a
 import { completeSimple, type AssistantMessage, type Model } from "@earendil-works/pi-ai/compat";
 
 const MAX_PROMPT_CHARS = 2500;
+const MAX_CONTEXT_SECTION_CHARS = 1200;
 const MAX_TITLE_CHARS = 60;
 const REQUEST_TIMEOUT_MS = 5000;
+const RENAME_INTERVAL = Number(process.env.PI_AUTO_SESSION_NAME_INTERVAL || 20);
 
 export default function (pi: ExtensionAPI) {
-	let hadUserPromptAtSessionStart = false;
-	let namedThisRuntime = false;
+	let isNewSession = false;
+	let lastRenameUserCount = 0;
 	let warnedMissingProvider = false;
 
 	const reconstructState = (ctx: ExtensionContext) => {
-		const entries = ctx.sessionManager.getBranch();
-		hadUserPromptAtSessionStart = entries.some(
-			(entry) => entry.type === "message" && entry.message.role === "user",
-		);
-		namedThisRuntime = false;
+		lastRenameUserCount = countUserMessages(ctx);
+		isNewSession = lastRenameUserCount === 0;
+	};
+
+	const renameSession = async (ctx: ExtensionContext, fallbackPrompt?: string, notify = true) => {
+		const prompt = getConversationPrompt(ctx, fallbackPrompt);
+		if (!prompt) {
+			if (notify) ctx.ui.notify("Auto session naming: no user prompt found.", "warning");
+			return;
+		}
+
+		if (notify) ctx.ui.notify("Generating session name…", "info");
+		const title = await generateTitle(prompt, ctx);
+		if (!title) {
+			if (notify) ctx.ui.notify("Auto session naming: failed to generate title.", "warning");
+			return;
+		}
+
+		pi.setSessionName(title);
+		lastRenameUserCount = countUserMessages(ctx);
+		if (notify) ctx.ui.notify(`Session named: ${title}`, "info");
 	};
 
 	pi.on("session_start", async (_event, ctx) => reconstructState(ctx));
 	pi.on("session_tree", async (_event, ctx) => reconstructState(ctx));
 
 	pi.registerCommand("auto-session-name", {
-		description: "Regenerate the session name from the last 5 user/assistant messages",
-		handler: async (_args, ctx) => {
-			const prompt = getRecentConversationPrompt(ctx);
-			if (!prompt) {
-				ctx.ui.notify("Auto session naming: no user prompt found.", "warning");
-				return;
-			}
-
-			ctx.ui.notify("Generating session name…", "info");
-			const title = await generateTitle(prompt, ctx);
-			if (!title) {
-				ctx.ui.notify("Auto session naming: failed to generate title.", "warning");
-				return;
-			}
-
-			pi.setSessionName(title);
-			ctx.ui.notify(`Session named: ${title}`, "info");
-		},
+		description: "Regenerate the session name from compacted and recent conversation context",
+		handler: async (_args, ctx) => renameSession(ctx),
 	});
 
 	pi.on("before_agent_start", (event, ctx) => {
-		if (process.env.PI_AUTO_SESSION_NAME === "0") return;
-		if (namedThisRuntime) return;
-		if (hadUserPromptAtSessionStart) return;
-		if (pi.getSessionName()) return;
+		if (process.env.PI_AUTO_SESSION_NAME === "0" || !isNewSession) return;
 
-		namedThisRuntime = true;
+		isNewSession = false;
+		if (!pi.getSessionName()) {
+			void renameSession(ctx, event.prompt, process.env.PI_AUTO_SESSION_NAME_NOTIFY !== "0");
+		}
+	});
 
-		void (async () => {
-			if (process.env.PI_AUTO_SESSION_NAME_NOTIFY !== "0") {
-				ctx.ui.notify("Generating session name…", "info");
-			}
+	pi.on("agent_settled", async (_event, ctx) => {
+		if (process.env.PI_AUTO_SESSION_NAME === "0" || RENAME_INTERVAL <= 0) return;
 
-			const title = await generateTitle(event.prompt, ctx);
-			if (!title) {
-				if (process.env.PI_AUTO_SESSION_NAME_NOTIFY !== "0") {
-					ctx.ui.notify("Auto session naming: failed to generate title.", "warning");
-				}
-				return;
-			}
-			if (pi.getSessionName()) return;
+		const userCount = countUserMessages(ctx);
+		if (userCount - lastRenameUserCount < RENAME_INTERVAL) return;
 
-			pi.setSessionName(title);
-			if (process.env.PI_AUTO_SESSION_NAME_NOTIFY !== "0") {
-				ctx.ui.notify(`Session named: ${title}`, "info");
-			}
-		})();
+		lastRenameUserCount = userCount;
+		await renameSession(ctx, undefined, process.env.PI_AUTO_SESSION_NAME_NOTIFY !== "0");
 	});
 
 	async function generateTitle(prompt: string, ctx: ExtensionContext): Promise<string | undefined> {
@@ -143,21 +136,34 @@ export default function (pi: ExtensionAPI) {
 	}
 }
 
-function getRecentConversationPrompt(ctx: ExtensionContext): string | undefined {
-	const messages = ctx.sessionManager
-		.getBranch()
+function getConversationPrompt(ctx: ExtensionContext, fallbackPrompt?: string): string | undefined {
+	const entries = ctx.sessionManager.getBranch();
+	const summary = entries.findLast((entry) => entry.type === "compaction")?.summary;
+	const recentConversation = entries
 		.filter((entry) => entry.type === "message" && ["user", "assistant"].includes(entry.message.role))
 		.slice(-5)
 		.map((entry) => {
 			if (entry.type !== "message") return undefined;
 			const text = getMessageText(entry.message.content);
 			if (!text) return undefined;
-			const label = entry.message.role === "user" ? "User" : "Assistant";
-			return `${label}: ${text}`;
+			return `${entry.message.role === "user" ? "User" : "Assistant"}: ${text}`;
 		})
-		.filter((message): message is string => Boolean(message));
+		.filter((message): message is string => Boolean(message))
+		.join("\n\n");
 
-	return messages.length ? messages.join("\n\n") : undefined;
+	const recent = recentConversation || (fallbackPrompt ? `User: ${fallbackPrompt}` : "");
+	const sections = [
+		summary ? `Compacted session:\n${summary.slice(0, MAX_CONTEXT_SECTION_CHARS)}` : "",
+		recent ? `Recent conversation:\n${recent.slice(-MAX_CONTEXT_SECTION_CHARS)}` : "",
+	].filter(Boolean);
+
+	return sections.length ? sections.join("\n\n") : undefined;
+}
+
+function countUserMessages(ctx: ExtensionContext): number {
+	return ctx.sessionManager
+		.getBranch()
+		.filter((entry) => entry.type === "message" && entry.message.role === "user").length;
 }
 
 function getMessageText(content: unknown): string | undefined {
@@ -212,6 +218,7 @@ function sanitizeTitle(value: string | undefined): string | undefined {
 
 function fallbackTitle(prompt: string): string | undefined {
 	const cleaned = prompt
+		.replace(/^(?:Compacted session|Recent conversation|User|Assistant):/gim, " ")
 		.replace(/```[\s\S]*?```/g, " ")
 		.replace(/https?:\/\/\S+/g, " ")
 		.replace(/[^\p{L}\p{N}\s_-]/gu, " ")
