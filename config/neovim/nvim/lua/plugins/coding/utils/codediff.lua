@@ -31,10 +31,8 @@ return {
 					view = {
 						next_hunk = "]h",
 						prev_hunk = "[h",
+						stage_hunk = "<leader>gs",
 						toggle_compact = "gc",
-					},
-					explorer = {
-						select = "<cr>",
 					},
 				},
 			})

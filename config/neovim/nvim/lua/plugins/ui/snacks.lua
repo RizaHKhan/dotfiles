@@ -406,7 +406,7 @@ return {
 						icon = " ",
 						key = "s",
 						desc = "Git Status",
-						action = "<leader>gs",
+						action = "<leader>gS",
 					},
 					{
 						icon = " ",

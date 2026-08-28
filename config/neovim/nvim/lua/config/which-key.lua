@@ -8,6 +8,8 @@ wk.add({
 	-- ╰────────────────────────────────────────────────────╯
 	{ "J", "mzJ`z", desc = "Join lines (cursor stays)", mode = "n" },
 	{ "Y", "y$", desc = "Yank to end of line", mode = "n" },
+	{ "p", "p=`]", desc = "Paste and reindent", mode = "n" },
+	{ "P", "P=`]", desc = "Paste before and reindent", mode = "n" },
 	{ "jk", "<ESC>", desc = "Exit insert mode", mode = "i" },
 
 	-- Disable plain <Space> in normal mode so it doesn't move the cursor when used as <leader>
@@ -698,7 +700,7 @@ wk.add({
 	-- ╰────────────────────────────────────────────────────╯
 	{ "<leader>g", group = "Git" },
 	{
-		"<leader>gG",
+		"<leader>gx",
 		function()
 			snacks.gitbrowse()
 		end,
@@ -719,7 +721,7 @@ wk.add({
 		desc = "Git Log",
 	},
 	{
-		"<leader>gs",
+		"<leader>gS",
 		function()
 			--- Tab is by default mapped to stage/unstage in git_status picker, but we want it to also move selection so we add that here
 			snacks.picker.git_status({
@@ -751,7 +753,7 @@ wk.add({
 		desc = "Git Changes (Hunks)",
 	},
 	{
-		"<leader>ga",
+		"<leader>gs",
 		function()
 			require("gitsigns").stage_hunk()
 		end,
@@ -770,15 +772,6 @@ wk.add({
 			require("gitsigns").reset_buffer_index()
 		end,
 		desc = "Unstage File",
-	},
-	{
-		"<leader>gS",
-		function()
-			snacks.picker.git_diff({
-				base = "origin/HEAD",
-			})
-		end,
-		desc = "Git Diff Against Branch Base",
 	},
 	{
 		"<leader>gb",
