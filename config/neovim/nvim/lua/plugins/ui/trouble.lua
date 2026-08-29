@@ -32,6 +32,8 @@ return {
 			symbols = {
 				desc = "Document Symbols",
 				mode = "lsp_document_symbols",
+				auto_open = false,
+				auto_close = true,
 				format = "{kind_icon} {symbol.name}",
 				win = {
 					position = "right",
@@ -64,5 +66,22 @@ return {
 	config = function(_, opts)
 		local trouble = require("trouble")
 		trouble.setup(opts)
+
+		vim.api.nvim_create_autocmd("QuitPre", {
+			group = vim.api.nvim_create_augroup("trouble_close_last", { clear = true }),
+			callback = function()
+				local current = vim.api.nvim_get_current_win()
+				local windows = vim.tbl_filter(function(win)
+					return vim.api.nvim_win_get_config(win).relative == ""
+				end, vim.api.nvim_tabpage_list_wins(0))
+				if #windows ~= 2 or vim.bo[vim.api.nvim_win_get_buf(current)].filetype == "trouble" then
+					return
+				end
+				local other = windows[1] == current and windows[2] or windows[1]
+				if vim.bo[vim.api.nvim_win_get_buf(other)].filetype == "trouble" then
+					vim.api.nvim_win_close(other, true)
+				end
+			end,
+		})
 	end,
 }
