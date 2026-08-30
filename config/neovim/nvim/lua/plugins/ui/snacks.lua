@@ -267,7 +267,7 @@ return {
 		quickfile = { enabled = true },
 		scope = { enabled = true },
 		scroll = {
-			enabled = false,
+			enabled = true,
 			animate = {
 				duration = { step = 10, total = 250 }, -- step: per-frame delay; total: total ms per scroll
 				easing = "outQuad", -- smooth and natural easing
@@ -279,9 +279,13 @@ return {
 			},
 
 			filter = function(buf)
-				-- animate only “normal” buffers; skip terminals/pickers/etc.
+				-- Diff synchronization conflicts with animated scrolling.
+				local in_diff = vim.iter(vim.api.nvim_tabpage_list_wins(0)):any(function(win)
+					return vim.wo[win].diff or vim.w[win].codediff_restore ~= nil
+				end)
 				local bt = vim.bo[buf].buftype
-				return vim.g.snacks_scroll ~= false
+				return not in_diff
+					and vim.g.snacks_scroll ~= false
 					and vim.b[buf].snacks_scroll ~= false
 					and bt ~= "terminal"
 					and bt ~= "nofile"
