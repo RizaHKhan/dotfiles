@@ -100,13 +100,18 @@ function M.select_origin_branch(cwd, current_branch, on_select)
 	local choices = {}
 	local seen = {}
 
-	if default_branch and default_branch ~= current_branch then
+	if vim.tbl_contains(branches, current_branch) then
+		table.insert(choices, current_branch)
+		seen[current_branch] = true
+	end
+
+	if default_branch and not seen[default_branch] then
 		table.insert(choices, default_branch)
 		seen[default_branch] = true
 	end
 
 	for _, branch in ipairs(branches) do
-		if branch ~= current_branch and not seen[branch] then
+		if not seen[branch] then
 			table.insert(choices, branch)
 			seen[branch] = true
 		end

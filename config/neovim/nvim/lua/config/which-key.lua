@@ -159,10 +159,10 @@ wk.add({
 	-- ╭────────────────────────────────────────────────────╮
 	-- │               Tabs / Splits / Buffers              │
 	-- ╰────────────────────────────────────────────────────╯
-	{ "<C-n>", "<cmd>bnext<CR>", desc = "Next Buffer", mode = "n" },
-	{ "<C-p>", "<cmd>bprevious<CR>", desc = "Previous Buffer", mode = "n" },
-	{ "<Tab>", "<cmd>bnext<CR>", desc = "Next Buffer", mode = "n" },
-	{ "<S-Tab>", "<cmd>bprevious<CR>", desc = "Previous Buffer", mode = "n" },
+	{ "<C-n>", "<cmd>BufferLineCycleNext<CR>", desc = "Next Buffer", mode = "n" },
+	{ "<C-p>", "<cmd>BufferLineCyclePrev<CR>", desc = "Previous Buffer", mode = "n" },
+	{ "<Tab>", "<cmd>BufferLineCycleNext<CR>", desc = "Next Buffer", mode = "n" },
+	{ "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", desc = "Previous Buffer", mode = "n" },
 	{
 		"<C-x>",
 		function()
