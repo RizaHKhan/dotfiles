@@ -13,6 +13,9 @@ elif [[ -r "$HOME/.env" ]]; then
   source "$HOME/.env"
 fi
 
+# Keep system tools available in both interactive and non-interactive shells.
+export PATH="/opt/homebrew/bin:/opt/homebrew/opt/openssh/bin:$HOME/.config/scripts:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+
 # Only run the interactive setup below in interactive shells.
 [[ ! -o interactive ]] && return
 
@@ -27,7 +30,6 @@ export EDITOR=nvim
 export VISUAL=nvim
 export MANPAGER='nvim +Man!'
 
-export PATH="/opt/homebrew/bin:/opt/homebrew/opt/openssh/bin:$HOME/.config/scripts:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 export GOBIN="$HOME/go/bin"
 export LUA_PATH="lua/?.lua;lua/?/init.lua;;"
 
