@@ -27,10 +27,12 @@ iTerm or WezTerm settings.
 
 ### Local secrets
 
-Do not put credentials, tokens, private keys, or machine-specific values in
-this repository. The managed `~/.zshrc` optionally loads an unmanaged,
-Git-ignored `~/.zshrc.local`; copy `~/.zshrc.local.example` as a starting
-point and keep real values only in that local file.
+Do not put credentials, tokens, or private keys in this repository. During the
+Fish migration, machine-specific values belong in the unmanaged,
+Git-ignored `~/.config/fish/local.fish` (see
+`config/fish/local.fish.example`). Fish is the managed interactive and login
+shell; applying Ansible with `--ask-become-pass` registers it in `/etc/shells`
+and sets it as the macOS account login shell.
 
 ### Herdr
 
@@ -74,8 +76,8 @@ dotfiles/
 │── iterm/        # iTerm2 preferences
 │── neovim/       # Neovim configuration
 │── system/       # System-wide aliases and functions
-│── tmux/         # Tmux configuration
-│── zsh/          # Zsh config files (.zshrc, .zprofile)
+│── fish/         # Fish config and functions
+│── zsh/          # Zsh config files (.zshrc, .zprofile; rollback)
 │── setup.sh      # Setup script to symlink files and install dependencies
 ```
 

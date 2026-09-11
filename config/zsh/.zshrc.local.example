@@ -1,5 +1,0 @@
-# This file is only a reference. Put real machine-specific values in
-# ~/.zshrc.local; that file is intentionally ignored by Git.
-#
-# export SOME_SERVICE_TOKEN='replace-me'
-# export PATH="$HOME/private-tools/bin:$PATH"

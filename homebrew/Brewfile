@@ -33,19 +33,14 @@ brew "jq"                   # json processor
 brew "fx"                   # json viewer
 
 # Shell Enhancement
+brew "fish"                 # interactive shell
 brew "starship"             # shell prompt
 brew "thefuck"              # fix typos
 brew "tldr"                 # short man pages
-brew "zsh-autosuggestions"  # zsh helper
-brew "zsh-syntax-highlighting" # zsh colors
-brew "zsh-completions"      # zsh completions
-brew "zsh-vi-mode"            # zsh vi key bindings
-brew "fzf-tab"              # fzf based zsh autocomplete
 # used for opencode. Run "rtk init -g --opencode"
 brew "rtk"                  # run tool for shell commands
 brew "ical-buddy"           # calendar cli
 brew "atuin"                # shell history sync/search
-brew "fastfetch"            # system information
 brew "mise"                 # runtime manager
 brew "yazi"                 # terminal file manager
 brew "television"           # fuzzy finder channels
@@ -53,7 +48,6 @@ brew "sesh"                 # tmux session manager
 
 # Core Dev Tools
 brew "neovim"               # editor
-brew "tmux"                 # terminal multiplexer
 brew "lazygit"              # git ui
 brew "opencode"             # ai code cli
 brew "pi-coding-agent"      # ai code cli
@@ -113,7 +107,6 @@ brew "xcbeautify"           # xcode build formatter (duplicate)
 # Otherwise manually run:
 #   brew services start sketchybar
 #   brew services start borders
-brew "borders"                 # window borders
 brew "sketchybar"              # status bar
 brew "mole"                    # mac cleaner
 

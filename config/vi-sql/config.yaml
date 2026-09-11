@@ -1,0 +1,23 @@
+version: 0.4.0
+log:
+    path: /var/folders/h8/b1py2n8s1bv93vx6kx4p7ztw0000gn/T/vi-sql.log
+    level: info
+    prettyPrint: true
+editor:
+    command: ""
+    env: EDITOR
+    enabled: false
+ui:
+    schemaPanelWidth: 30
+    vimMode: true
+mcp:
+    enabled: false
+    port: 0
+    allowRead: false
+    allowWrite: false
+security:
+    method: keyring
+showConnectionPage: false
+styles:
+    nerdFont: true
+    currentStyle: default.yaml

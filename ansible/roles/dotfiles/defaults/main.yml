@@ -1,18 +1,9 @@
 dotfiles:
-  # Zsh config
+  # Fish config (managed alongside Zsh during the migration)
   - {
-      src: "{{ playbook_dir }}/../config/zsh/.zshrc",
-      dest: "{{ ansible_env.HOME }}/.zshrc",
+      src: "{{ playbook_dir }}/../config/fish",
+      dest: "{{ ansible_env.HOME }}/.config/fish",
     }
-  - {
-      src: "{{ playbook_dir }}/../config/zsh/.zprofile",
-      dest: "{{ ansible_env.HOME }}/.zprofile",
-    }
-  - {
-      src: "{{ playbook_dir }}/../config/zsh/.zshrc.local.example",
-      dest: "{{ ansible_env.HOME }}/.zshrc.local.example",
-    }
-
     # Alias
   - {
       src: "{{ playbook_dir }}/../config/system/alias",
@@ -38,15 +29,6 @@ dotfiles:
       src: "{{ playbook_dir }}/../config/kitty",
       dest: "{{ ansible_env.HOME }}/.config/kitty",
     }
-  - {
-      src: "{{ playbook_dir }}/../config/tmux",
-      dest: "{{ ansible_env.HOME }}/.config/tmux",
-    }
-  - {
-      src: "{{ playbook_dir }}/../config/tmux/tmux.conf",
-      dest: "{{ ansible_env.HOME }}/.tmux.conf",
-    }
-
   - {
       src: "{{ playbook_dir }}/../config/neovim/nvim",
       dest: "{{ ansible_env.HOME }}/.config/nvim",
@@ -74,10 +56,6 @@ dotfiles:
   - {
       src: "{{ playbook_dir }}/../config/sketchybar",
       dest: "{{ ansible_env.HOME }}/.config/sketchybar",
-    }
-  - {
-      src: "{{ playbook_dir }}/../config/borders",
-      dest: "{{ ansible_env.HOME }}/.config/borders",
     }
   - {
       src: "{{ playbook_dir }}/../config/opencode",
@@ -129,20 +107,12 @@ dotfiles:
       dest: "{{ ansible_env.HOME }}/.config/atuin",
     }
   - {
-      src: "{{ playbook_dir }}/../config/fastfetch",
-      dest: "{{ ansible_env.HOME }}/.config/fastfetch",
-    }
-  - {
       src: "{{ playbook_dir }}/../config/fzf",
       dest: "{{ ansible_env.HOME }}/.config/fzf",
     }
   - {
       src: "{{ playbook_dir }}/../config/mise",
       dest: "{{ ansible_env.HOME }}/.config/mise",
-    }
-  - {
-      src: "{{ playbook_dir }}/../config/seshagy",
-      dest: "{{ ansible_env.HOME }}/.config/seshagy",
     }
   - {
       src: "{{ playbook_dir }}/../config/television",

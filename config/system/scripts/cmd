@@ -41,8 +41,8 @@ PROMPT="You translate natural-language requests into shell commands.
 
 Environment:
 - Operating system: macOS
-- Shell: zsh
-- Standard macOS command-line utilities and zsh builtins are available.
+- Interactive shell: fish
+- Standard macOS command-line utilities and Fish builtins are available.
 
 Generate 8 distinct command candidates that satisfy the user request.
 
@@ -51,7 +51,7 @@ Rules:
 - Do not include Markdown, code fences, numbering, descriptions, or commentary.
 - Keep every candidate on a single line.
 - Put the most direct and idiomatic option first.
-- Quote paths, globs, and user-controlled values correctly for zsh.
+- Quote paths, globs, and user-controlled values correctly for Fish.
 - Prefer read-only commands for informational requests.
 - Do not use sudo or destructive operations unless the request explicitly requires them.
 - Do not attempt to inspect files, execute commands, browse the web, or modify anything. Only return command text.

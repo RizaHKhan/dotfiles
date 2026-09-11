@@ -33,13 +33,6 @@
         path: "{{ ansible_env.HOME }}/.local/share/nvim/codelldb/codelldb-darwin-arm64.vsix"
         state: absent
 
-    - name: Set Ruby path for xcodebuild.nvim
-      lineinfile:
-        path: "{{ ansible_env.HOME }}/.zprofile"
-        line: 'export PATH="/opt/homebrew/opt/ruby/bin:$PATH"'
-        create: yes
-        insertafter: EOF
-
     - name: Run `make install` for xcodebuild.nvim
       make:
         chdir: "{{ ansible_env.HOME }}/.local/share/nvim/lazy/xcodebuild.nvim"

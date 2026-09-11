@@ -4,6 +4,35 @@
     path: "{{ dotfiles_backup_path }}"
     state: directory
 
+- name: Ensure XDG directories exist for Fish and other CLI tools
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ ansible_env.HOME }}/.local/share"
+    - "{{ ansible_env.HOME }}/.local/state"
+    - "{{ ansible_env.HOME }}/.cache"
+
+- name: Register Homebrew Fish as an allowed login shell
+  lineinfile:
+    path: /etc/shells
+    line: /opt/homebrew/bin/fish
+    state: present
+  become: true
+  when: ansible_system == "Darwin"
+
+- name: Read the configured login shell
+  command: "dscl . -read /Users/{{ ansible_user_id }} UserShell"
+  register: configured_login_shell
+  changed_when: false
+  when: ansible_system == "Darwin"
+
+- name: Set Fish as the user's login shell
+  command: "chsh -s /opt/homebrew/bin/fish {{ ansible_user_id }}"
+  when:
+    - ansible_system == "Darwin"
+    - configured_login_shell.stdout is not search('UserShell: /opt/homebrew/bin/fish')
+
 - name: Stat existing dotfiles
   stat:
     path: "{{ item.dest }}"

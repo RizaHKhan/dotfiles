@@ -1,0 +1,5 @@
+# Copy this file to ~/.config/fish/local.fish for machine-specific values.
+# Never put credentials, tokens, or private keys in the dotfiles repository.
+#
+# Example:
+# set -gx CROWDSEC_API_KEY 'replace-me'

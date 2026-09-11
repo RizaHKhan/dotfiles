@@ -19,4 +19,5 @@ Icon
 .pi/tasks
 .pi/subagents.json
 config/zsh/.zshrc.local
+config/fish/local.fish
 config/neovim/nvim/nvim.log
