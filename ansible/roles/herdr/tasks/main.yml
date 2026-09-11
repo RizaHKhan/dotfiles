@@ -1,0 +1,44 @@
+---
+- name: Query the installed Herdr Lazy plugin
+  command: herdr plugin list --plugin herdr-lazy --json
+  register: herdr_lazy_plugin
+  changed_when: false
+  failed_when: false
+
+- name: Install Herdr Lazy when missing
+  command: herdr plugin install natori-hrj/herdr-lazy --yes
+  when: herdr_lazy_plugin.rc != 0 or '"plugin_id":"herdr-lazy"' not in herdr_lazy_plugin.stdout
+
+- name: Query Herdr Lazy after installation
+  command: herdr plugin list --plugin herdr-lazy --json
+  register: herdr_lazy_plugin
+  changed_when: false
+
+- name: Resolve the Herdr Lazy managed configuration directory
+  command: herdr plugin config-dir herdr-lazy
+  register: herdr_lazy_config_dir
+  changed_when: false
+
+- name: Resolve the Herdr Lazy plugin root
+  set_fact:
+    herdr_lazy_plugin_root: "{{ ((herdr_lazy_plugin.stdout | from_json).result.plugins | first).plugin_root }}"
+
+- name: Link the declarative Herdr plugin list
+  file:
+    src: "{{ playbook_dir }}/../config/herdr/herdr-lazy/plugins.list"
+    dest: "{{ herdr_lazy_config_dir.stdout }}/plugins.list"
+    state: link
+    force: true
+  register: herdr_lazy_list
+
+- name: Link the reproducible Herdr plugin lockfile
+  file:
+    src: "{{ playbook_dir }}/../config/herdr/herdr-lazy/plugins.lock"
+    dest: "{{ herdr_lazy_config_dir.stdout }}/plugins.lock"
+    state: link
+    force: true
+  register: herdr_lazy_lock
+
+- name: Restore Herdr plugins from the lockfile
+  command: "{{ herdr_lazy_plugin_root }}/target/release/herdr-lazy restore"
+  when: herdr_lazy_list.changed or herdr_lazy_lock.changed

@@ -1,0 +1,253 @@
+# Profile: normal
+# runes:  literal characters, case-sensitive (e.g. [a], [A])
+# keys:   named/combo keys (e.g. [Enter], [Esc], [Tab], [Space], [Ctrl+Space])
+#         Ctrl+<letter>: case-insensitive in config, use lowercase (e.g. Ctrl+l)
+#         Alt+<char>:    case-sensitive, both upper and lower work (e.g. Alt+a)
+
+navigation:
+    moveUp:
+        keys: [Up]
+        description: Move up
+    moveDown:
+        keys: [Down]
+        description: Move down
+    moveLeft:
+        keys: [Left]
+        description: Move left
+    moveRight:
+        keys: [Right]
+        description: Move right
+    goTop:
+        keys: [Ctrl+Home]
+        description: Go top
+    goBottom:
+        keys: [Ctrl+End]
+        description: Go bottom
+    focusUp:
+        keys: [Alt+Up]
+        description: Focus up
+    focusDown:
+        keys: [Alt+Down]
+        description: Focus down
+    focusLeft:
+        keys: [Alt+Left]
+        description: Focus left
+    focusRight:
+        keys: [Alt+Right]
+        description: Focus right
+    autocompleteUp:
+        keys: [Ctrl+p, Up]
+        description: Autocomplete up
+    autocompleteDown:
+        keys: [Ctrl+n, Down]
+        description: Autocomplete down
+    autocompleteAccept:
+        keys: [Ctrl+y, Enter]
+        description: Autocomplete accept
+common:
+    close:
+        keys: [Esc]
+        description: Close
+    delete:
+        keys: [Ctrl+d]
+        description: Delete
+    add:
+        runes: [a]
+        description: Add
+    edit:
+        runes: [e]
+        description: Edit
+    copy:
+        runes: [c]
+        description: Copy
+    confirm:
+        keys: [Ctrl+s]
+        description: Confirm
+    filter:
+        runes: [/]
+        description: Filter
+    select:
+        keys: [Enter, Space]
+        description: Select
+    refresh:
+        keys: [Ctrl+r]
+        description: Refresh
+    clear:
+        keys: [Ctrl+u]
+        description: Clear
+    paste:
+        keys: [Ctrl+v]
+        description: Paste
+global:
+    closeApp:
+        keys: [Ctrl+c]
+        description: Close app
+    fullScreenHelp:
+        keys: [F1]
+        description: Help
+    openConnection:
+        keys: [Ctrl+o]
+        description: Open connections
+    changeStyle:
+        keys: [Alt+t]
+        description: Change style
+    togglefooter:
+        keys: [Alt+f]
+        description: Toggle footer
+main:
+    serverInfo:
+        keys: [Alt+s]
+        description: Server info
+    hideSchema:
+        runes: ['|']
+        description: Hide schemas
+    newTab:
+        keys: [Ctrl+t]
+        description: New tab
+    closeTab:
+        keys: [Ctrl+x]
+        description: Close tab
+    renameTab:
+        keys: [F2]
+        description: Rename tab
+    focusSchemaTree:
+        keys: [Ctrl+/]
+        description: Focus schemas
+    openActions:
+        keys: [Ctrl+Space]
+        description: Actions
+    importData:
+        keys: [Alt+i]
+        description: Import CSV
+    goToTable:
+        keys: [Ctrl+g]
+        description: Go to table
+    goToView:
+        keys: [Alt+v]
+        description: Go to view
+schema:
+    expandAll:
+        runes: [E]
+        description: Expand all
+    collapseAll:
+        runes: [W]
+        description: Collapse all
+    renameTable:
+        runes: [R]
+        description: Rename table
+    expandTable:
+        runes: [e]
+        description: Expand table
+    openStructure:
+        runes: [s]
+        description: Open structure
+    openIndexes:
+        runes: [i]
+        description: Open indexes
+data:
+    peekRow:
+        keys: [Enter]
+        runes: [o]
+        description: Peek row
+    fullPagePeek:
+        runes: [O]
+        description: Full peek
+    editRow:
+        runes: [E]
+        description: Edit
+    duplicateRow:
+        runes: [D]
+        description: Duplicate
+    copyCell:
+        runes: [c]
+        description: Copy cell
+    copyRow:
+        runes: [C]
+        description: Copy row
+    copyRowJSON:
+        keys: [Alt+j]
+        description: Copy row as JSON
+    copyRowCSV:
+        keys: [Alt+c]
+        description: Copy row as CSV
+    toggleOrderBar:
+        runes: [s]
+        description: Order bar
+    orderByColumn:
+        runes: [S]
+        description: Order by column
+    hideColumn:
+        runes: [H]
+        description: Hide column
+    resetHiddenColumns:
+        runes: [r]
+        description: Reset cols
+    multipleSelect:
+        runes: [V]
+        description: Start select
+    clearSelection:
+        keys: [Esc]
+        description: Clear selection
+    explainQuery:
+        keys: [Alt+e]
+        description: Explain query
+    exportData:
+        keys: [Alt+m]
+        description: Export data
+    followForeignKey:
+        keys: [Ctrl+b]
+        description: Follow FK
+    findReferences:
+        keys: [Alt+r]
+        description: Find references
+peeker:
+    copyHighlight:
+        runes: [C]
+        description: Copy highlight
+    expandRow:
+        keys: [Enter]
+        description: Expand
+    openValueViewer:
+        runes: [v]
+        description: Viewer
+    toggleFullScreen:
+        runes: [f]
+        description: Full screen
+sqlQueryEditor:
+    fullscreen:
+        keys: [Alt+z]
+        description: Toggle
+    openHistory:
+        keys: [Alt+r]
+        description: History
+    termEditor:
+        keys: [Ctrl+e]
+        description: Open in $EDITOR
+    prettify:
+        keys: [Ctrl+f]
+        description: Format SQL
+indexAddForm:
+    toggleSQLMode:
+        keys: [Ctrl+e]
+        description: SQL editor
+    addColumn:
+        keys: [Ctrl+a]
+        description: Add column
+structure:
+    renameColumn:
+        runes: [R]
+        description: Rename column
+    toggleDDLPane:
+        runes: [p]
+        description: Toggle DDL
+history:
+    purgeHistory:
+        keys: [Alt+d]
+        description: Purge history
+    copyQuery:
+        runes: [c]
+        description: Copy query
+explainViewer:
+    toggleMode:
+        runes: [t]
+        description: Toggle ANALYZE

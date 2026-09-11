@@ -18,3 +18,5 @@ Icon
 .com.apple.timemachine.donotpresent
 .pi/tasks
 .pi/subagents.json
+config/zsh/.zshrc.local
+config/neovim/nvim/nvim.log

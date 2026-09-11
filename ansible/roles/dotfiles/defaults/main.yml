@@ -8,6 +8,10 @@ dotfiles:
       src: "{{ playbook_dir }}/../config/zsh/.zprofile",
       dest: "{{ ansible_env.HOME }}/.zprofile",
     }
+  - {
+      src: "{{ playbook_dir }}/../config/zsh/.zshrc.local.example",
+      dest: "{{ ansible_env.HOME }}/.zshrc.local.example",
+    }
 
     # Alias
   - {
@@ -31,16 +35,16 @@ dotfiles:
 
   # --- Some more stuff
   - {
-      src: "{{ playbook_dir }}/../config/wezterm",
-      dest: "{{ ansible_env.HOME }}/.config/wezterm",
-    }
-  - {
-      src: "{{ playbook_dir }}/../config/ghostty",
-      dest: "{{ ansible_env.HOME }}/.config/ghostty",
+      src: "{{ playbook_dir }}/../config/kitty",
+      dest: "{{ ansible_env.HOME }}/.config/kitty",
     }
   - {
       src: "{{ playbook_dir }}/../config/tmux",
       dest: "{{ ansible_env.HOME }}/.config/tmux",
+    }
+  - {
+      src: "{{ playbook_dir }}/../config/tmux/tmux.conf",
+      dest: "{{ ansible_env.HOME }}/.tmux.conf",
     }
 
   - {
@@ -115,6 +119,42 @@ dotfiles:
   - {
       src: "{{ playbook_dir }}/../config/worktrunk",
       dest: "{{ ansible_env.HOME }}/.config/worktrunk",
+    }
+  - {
+      src: "{{ playbook_dir }}/../config/herdr/config.toml",
+      dest: "{{ ansible_env.HOME }}/.config/herdr/config.toml",
+    }
+  - {
+      src: "{{ playbook_dir }}/../config/atuin",
+      dest: "{{ ansible_env.HOME }}/.config/atuin",
+    }
+  - {
+      src: "{{ playbook_dir }}/../config/fastfetch",
+      dest: "{{ ansible_env.HOME }}/.config/fastfetch",
+    }
+  - {
+      src: "{{ playbook_dir }}/../config/fzf",
+      dest: "{{ ansible_env.HOME }}/.config/fzf",
+    }
+  - {
+      src: "{{ playbook_dir }}/../config/mise",
+      dest: "{{ ansible_env.HOME }}/.config/mise",
+    }
+  - {
+      src: "{{ playbook_dir }}/../config/seshagy",
+      dest: "{{ ansible_env.HOME }}/.config/seshagy",
+    }
+  - {
+      src: "{{ playbook_dir }}/../config/television",
+      dest: "{{ ansible_env.HOME }}/.config/television",
+    }
+  - {
+      src: "{{ playbook_dir }}/../config/vi-sql",
+      dest: "{{ ansible_env.HOME }}/.config/vi-sql",
+    }
+  - {
+      src: "{{ playbook_dir }}/../config/yazi",
+      dest: "{{ ansible_env.HOME }}/.config/yazi",
     }
 
 dotfiles_path: "{{ playbook_dir }}/../config"

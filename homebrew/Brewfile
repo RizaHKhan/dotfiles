@@ -44,6 +44,12 @@ brew "fzf-tab"              # fzf based zsh autocomplete
 # used for opencode. Run "rtk init -g --opencode"
 brew "rtk"                  # run tool for shell commands
 brew "ical-buddy"           # calendar cli
+brew "atuin"                # shell history sync/search
+brew "fastfetch"            # system information
+brew "mise"                 # runtime manager
+brew "yazi"                 # terminal file manager
+brew "television"           # fuzzy finder channels
+brew "sesh"                 # tmux session manager
 
 # Core Dev Tools
 brew "neovim"               # editor
@@ -51,6 +57,7 @@ brew "tmux"                 # terminal multiplexer
 brew "lazygit"              # git ui
 brew "opencode"             # ai code cli
 brew "pi-coding-agent"      # ai code cli
+brew "herdr"                # terminal workspace manager
 
 # Security
 brew "pass"                 # password manager
@@ -114,6 +121,7 @@ brew "mole"                    # mac cleaner
 # Applications (Casks)
 # ───────────────────────────────
 cask "iterm2"               # terminal emulator
+cask "kitty"                # primary terminal emulator
 cask "wezterm@nightly"      # gpu terminal
 cask "docker-desktop"       # container platform
 cask "mitmproxy"            # http proxy
@@ -130,7 +138,5 @@ cask "google-chrome"        # web browser
 cask "shortcat"             # mouse-free navigation
 cask "kindavim"             # vim keybindings for mac apps
 cask "aerospace"            # tiling window manager
-cask "obsidian"             # note taking
-cask "zed"                  # code editor
 cask "claude-code"          # ai assistant
 cask "momenbasel/tap/puremac"

@@ -1,0 +1,196 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode-go/deepseek-v4-pro",
+  "autoupdate": true,
+  "lsp": true,
+  "mcp": {
+    "slack": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "SLACK_BOT_TOKEN",
+        "-e",
+        "SLACK_TEAM_ID",
+        "-e",
+        "SLACK_CHANNEL_IDS",
+        "mcp/slack"
+      ],
+      "environment": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_TEAM_ID": "${SLACK_TEAM_ID}",
+        "SLACK_CHANNEL_IDS": "${SLACK_CHANNEL_IDS}"
+      }
+    },
+    "aws-cdk-mcp-server": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "mcp/aws-cdk-mcp-server"
+      ]
+    },
+    "aws-core-mcp-server": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "mcp/aws-core-mcp-server"
+      ]
+    },
+    "aws-diagram": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "mcp/aws-diagram"
+      ]
+    },
+    "aws-documentation": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "mcp/aws-documentation"
+      ]
+    },
+    "awslabs-cdk-mcp-server": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "uvx",
+        "awslabs.cdk-mcp-server@latest"
+      ],
+      "environment": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "playwright": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "--init",
+        "--pull=always",
+        "mcr.microsoft.com/playwright/mcp"
+      ]
+    },
+    "vi-sql": {
+      "type": "remote",
+      "enabled": true,
+      "url": "http://127.0.0.1:9741/mcp"
+    }
+  },
+  "permission": {
+    "edit": "allow",
+    "bash": {
+      "*": "allow",
+      "git commit *": "deny",
+      "git push *": "deny",
+      "ssh *": "deny",
+      "npm *": "allow",
+      "pytest *": "allow",
+      "aws *": "deny",
+      "*/aws *": "deny",
+      "bash -c *aws*": "deny",
+      "sh -c *aws*": "deny",
+      "pip install awscli*": "deny",
+      "pip3 install awscli*": "deny",
+      "python*import boto3*": "deny",
+      "python*import botocore*": "deny",
+      "node*aws-sdk*": "deny",
+      "node*@aws-sdk*": "deny"
+    },
+    "webfetch": "allow"
+  },
+  "command": {
+    "test": {
+      "template": "Run the test suite and fix any failures",
+      "description": "Run tests"
+    },
+    "review": {
+      "template": "Review the code for bugs, performance issues, and best practices",
+      "description": "Code review"
+    }
+  },
+  "watcher": {
+    "ignore": [
+      "node_modules/**",
+      "vendor/**",
+      ".git/**",
+      "*.log",
+      "dist/**",
+      "build/**"
+    ]
+  },
+  "agent": {
+    "deep": {
+      "mode": "primary",
+      "model": "google/antigravity-gemini-3-pro",
+      "permission": {
+        "task": {
+          "*": "allow"
+        }
+      }
+    },
+    "think": {
+      "mode": "primary",
+      "model": "google/antigravity-claude-sonnet-4-5-thinking",
+      "reasoningEffort": "high",
+      "textVerbosity": "low"
+    },
+    "work": {
+      "mode": "primary",
+      "model": "google/antigravity-gemini-3-pro-low"
+    },
+    "plan": {
+      "mode": "primary",
+      "model": "google/gemini-1.5-flash"
+    },
+    "explore": {
+      "disable": true
+    },
+    "general": {
+      "disable": true
+    }
+  },
+  "share": "manual",
+  "username": "khanr",
+  "plugin": [
+    "oh-my-openagent",
+    "oh-my-opencode-slim"
+  ],
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "qwen3.5": {
+          "name": "Qwen 3.5"
+        }
+      }
+    }
+  }
+}

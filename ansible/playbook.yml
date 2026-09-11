@@ -4,6 +4,6 @@
   roles:
     - { role: dotfiles, tags: [setup, dotfiles] }
     - { role: homebrew, tags: [setup, homebrew, brew] }
+    - { role: herdr, tags: [setup, herdr] }
     - { role: codellbd, tags: [setup, codellbd] } # Debugger required for xcodebuild.vim
-    - { role: iterm, tags: [setup, iterm] }
     - { role: fonts, tags: [setup, fonts] }

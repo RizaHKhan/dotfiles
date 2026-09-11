@@ -1,0 +1,21 @@
+[metadata]
+name = "aws-profiles"
+description = "List and switch AWS CLI profiles"
+requirements = ["aws", "grep"]
+
+[source]
+command = "grep '\\[profile' ~/.aws/config 2>/dev/null | sed 's/\\[profile //' | sed 's/\\]//' || grep '\\[' ~/.aws/credentials 2>/dev/null | sed 's/\\[//' | sed 's/\\]//'"
+
+[preview]
+command = "aws configure list --profile '{}' 2>/dev/null"
+
+[ui.preview_panel]
+size = 40
+
+[keybindings]
+enter = "actions:export"
+
+[actions.export]
+description = "Set selected profile as AWS default profile"
+command = "sh -c 'p=\"{}\"; for key in sso_session sso_account_id sso_role_name region output; do v=$(aws configure get \"$key\" --profile \"$p\" 2>/dev/null); [ -n \"$v\" ] && aws configure set \"$key\" \"$v\" --profile default; done; echo \"Default AWS profile now mirrors: $p\"; aws configure list'"
+mode = "execute"

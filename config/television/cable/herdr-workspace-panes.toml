@@ -1,0 +1,21 @@
+[metadata]
+name = "herdr-workspace-panes"
+description = "Browse herdr workspaces panes"
+requirements = ["herdr", "jq"]
+
+[source]
+command = "bash ~/.config/television/cable/scripts/herdr-workspace-panes.sh"
+display = "{}"
+no_sort = true
+
+[keybindings]
+enter = "actions:focus"
+
+[actions.focus]
+description = "Focus herdr workspace pane"
+command = "herdr pane focus --pane '{}' --current"
+mode = "execute"
+
+[actions.close]
+description = "Close herdr workspace pane"
+command = "herdr pane close '{}'"

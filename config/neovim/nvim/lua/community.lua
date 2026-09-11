@@ -1,0 +1,43 @@
+-- AstroCommunity: import any community modules here
+-- We import this file in `lazy_setup.lua` before the `plugins/` folder.
+-- This guarantees that the specs are processed before any user plugins.
+
+---@type LazySpec
+return {
+    "AstroNvim/astrocommunity",
+    { import = "astrocommunity.colorscheme.everblush-nvim" },
+    { import = "astrocommunity.completion.blink-cmp" },
+    { import = "astrocommunity.completion.blink-cmp-emoji" },
+    { import = "astrocommunity.completion.blink-cmp-git" },
+    { import = "astrocommunity.completion.blink-cmp-tmux" },
+    { import = "astrocommunity.debugging.nvim-dap-repl-highlights" },
+    { import = "astrocommunity.debugging.nvim-dap-view" },
+    { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
+    { import = "astrocommunity.diagnostics.trouble-nvim" },
+    { import = "astrocommunity.editing-support.neogen" },
+    { import = "astrocommunity.editing-support.treesj" },
+    { import = "astrocommunity.fuzzy-finder.namu-nvim" },
+    { import = "astrocommunity.git.gitlinker-nvim" },
+    { import = "astrocommunity.git.nvim-tinygit" },
+    { import = "astrocommunity.motion.mini-surround" },
+    { import = "astrocommunity.pack.angular" },
+    { import = "astrocommunity.pack.nginx" },
+    { import = "astrocommunity.pack.php" },
+    { import = "astrocommunity.pack.typescript-all-in-one" },
+    { import = "astrocommunity.pack.vue" },
+    { import = "astrocommunity.programming-language-support.kulala-nvim" },
+    { import = "astrocommunity.quickfix.nvim-bqf" },
+    { import = "astrocommunity.quickfix.quicker-nvim" },
+    { import = "astrocommunity.recipes.ai" },
+    { import = "astrocommunity.recipes.astrolsp-no-insert-inlay-hints" },
+    { import = "astrocommunity.recipes.auto-session-restore" },
+    { import = "astrocommunity.recipes.disable-borders" },
+    { import = "astrocommunity.recipes.disable-tabline" },
+    { import = "astrocommunity.recipes.neo-tree-dark" },
+    { import = "astrocommunity.recipes.picker-lsp-mappings" },
+    { import = "astrocommunity.search.grug-far-nvim" },
+    { import = "astrocommunity.startup.mini-starter" },
+    { import = "astrocommunity.test.neotest" },
+    { import = "astrocommunity.utility.lua-json5" },
+    { import = "astrocommunity.utility.noice-nvim" },
+}

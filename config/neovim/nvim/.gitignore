@@ -1,1 +1,4 @@
 lazy-lock.json
+.luarc.json
+aws
+.env

@@ -1,0 +1,104 @@
+[sources]
+  default = "all"
+  order = ["all", "sessions", "zoxide", "fd", "agents"]
+
+[directories]
+  fd_command = "fd -H -a -d 2 -t d -E .Trash . \"$HOME\""
+
+[theme]
+  [theme.colors]
+    popup_border = "13"
+    active_tab = "default"
+    border = "8"
+    inactive_tab = "8"
+    popup_title = "12"
+    title = "12"
+    accent = "13"
+    key = "11"
+    muted = "8"
+    success = "10"
+    info = "14"
+    warning = "11"
+    danger = "9"
+    list_border = "8"
+    metadata_border = "8"
+    preview_border = "8"
+    list_border_title = "8"
+    metadata_border_title = "8"
+    preview_border_title = "8"
+    input_border = "8"
+    workspace_tile_border = "8"
+    workspace_tile_title = "12"
+    agent_tile_border = "8"
+    agent_tile_title = "12"
+
+[icons]
+  mode = "icons"
+  tmux_state_mode = "inherit"
+  agent_state_mode = "inherit"
+  [icons.session]
+    icon = "󰙀 "
+    label = "S"
+    color = "10"
+  [icons.workspace]
+    icon = "󰙀 "
+    label = "W"
+    color = "10"
+  [icons.zoxide]
+    icon = "󰉖 "
+    label = "Z"
+    color = "14"
+  [icons.fd]
+    icon = "󰥩 "
+    label = "F"
+    color = "11"
+  [icons.tmux_state]
+    [icons.tmux_state.attached]
+      icon = "●"
+      label = "attached"
+      color = "10"
+    [icons.tmux_state.detached]
+      icon = "◌"
+      label = "detached"
+      color = "8"
+  [icons.agent_state]
+    [icons.agent_state.idle]
+      icon = "○"
+      label = "idle"
+      color = "8"
+    [icons.agent_state.working]
+      icon = "●"
+      label = "working"
+      color = "10"
+    [icons.agent_state.blocked]
+      icon = "◐"
+      label = "blocked"
+      color = "11"
+    [icons.agent_state.done]
+      icon = "◉"
+      label = "done"
+      color = "14"
+    [icons.agent_state.unknown]
+      icon = "?"
+      label = "unknown"
+      color = "8"
+
+[type_first]
+  enabled = true
+  prefix = "ctrl+x"
+
+[setup]
+  type_first_prompt_seen = true
+  install_menu_seen = true
+
+[agents]
+
+[tui]
+  layout = "zen"
+  input_style = "cmdline"
+  dim_background = true
+  preview = false
+
+[log]
+  level = "off"
+  file = ""

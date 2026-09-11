@@ -1,12 +1,12 @@
 [user]
-	email = emrearmagan.dev@gmail.com
-	name = Emre Armagan
+	email = khanriza@gmail.com
+	name = Riza Khan
 
 [init]
   defaultBranch = main
 
 [core]
-	excludesfile = /Users/emrearmagan/.gitignore_global
+	excludesfile = ~/.gitignore_global
   autocrlf = input
 
 [pager]
@@ -38,6 +38,16 @@
   renames = copies
   external = difft
   tool = difftastic
+
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /opt/homebrew/bin/op-ssh-sign
+[commit]
+	gpgsign = true
+
+[include]
+	path = ~/.gitconfig.local
 
 [alias]
     cdiff = !nvim \"+CodeDiff --exit-on-close\"

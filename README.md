@@ -22,6 +22,22 @@ To apply the dotfiles to your system:
 ansible-playbook ansible/playbook.yml --ask-become-pass
 ```
 
+Kitty is the primary terminal configuration. The playbook no longer deploys
+iTerm or WezTerm settings.
+
+### Local secrets
+
+Do not put credentials, tokens, private keys, or machine-specific values in
+this repository. The managed `~/.zshrc` optionally loads an unmanaged,
+Git-ignored `~/.zshrc.local`; copy `~/.zshrc.local.example` as a starting
+point and keep real values only in that local file.
+
+### Herdr
+
+Herdr and its plugins are managed by Ansible. The playbook installs Herdr Lazy,
+then restores the repository's `config/herdr/herdr-lazy/plugins.lock`; plugin
+checkouts themselves are deliberately not committed.
+
 #### Testing with `ansible/test.sh`
 
 The script `ansible/test.sh` allows you to test your Ansible playbook within a Docker container. This is useful for verifying your playbook works as expected before running it on your actual system.

@@ -3,9 +3,11 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # --- Homebrew OpenSSH agent (supports YubiKey / FIDO2)
 # macOS's built-in ssh-agent cannot sign with FIDO2 keys.
 # This starts the Homebrew version automatically on login so YubiKey SSH works.
-export SSH_AUTH_SOCK=/opt/homebrew/var/run/ssh-agent.socket
-if [ ! -S "$SSH_AUTH_SOCK" ]; then
-  eval $(/opt/homebrew/bin/ssh-agent -a $SSH_AUTH_SOCK) >/dev/null
+if [ -x /opt/homebrew/bin/ssh-agent ]; then
+  export SSH_AUTH_SOCK=/opt/homebrew/var/run/ssh-agent.socket
+  if [ ! -S "$SSH_AUTH_SOCK" ]; then
+    eval $(/opt/homebrew/bin/ssh-agent -a "$SSH_AUTH_SOCK") >/dev/null
+  fi
 fi
 
 # Currently used by lazygit to find the config file.

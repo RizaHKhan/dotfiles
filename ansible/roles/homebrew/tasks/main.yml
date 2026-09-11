@@ -14,14 +14,8 @@
   loop: "{{ homebrew_packages }}"
   when: homebrew_packages | length > 0
 
-- name: Ensure Brewfile exists
-  stat:
-    path: "{{ ansible_env.HOME }}/Brewfile"
-  register: brewfile
-
 - name: Run brew bundle install
-  shell: brew bundle --file={{ ansible_env.HOME }}/Brewfile
-  when: brewfile.stat.exists
+  command: brew bundle --file={{ playbook_dir }}/../homebrew/Brewfile
   ignore_errors: true
   register: brew_bundle_result
 

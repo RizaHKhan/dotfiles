@@ -1,77 +1,72 @@
-source ~/.env
+# XDG base directories keep application state out of the home-directory root.
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
 
-#Only run in interative shells
-[[ ! -t 1 ]] && return
+# Personal credentials and machine-specific overrides intentionally live outside
+# this repository. Copy .zshrc.local.example to ~/.zshrc.local if needed.
+if [[ -r "$HOME/.zshrc.local" ]]; then
+  source "$HOME/.zshrc.local"
+elif [[ -r "$HOME/.env" ]]; then
+  # Compatibility for the pre-Ansible setup; move values to .zshrc.local.
+  source "$HOME/.env"
+fi
 
-source ~/.config/alias/.alias
-source ~/.config/alias/.custom
-source ~/.config/alias/.macos
-source ~/.config/alias/.fzf
-source ~/.config/alias/.functions
+# Only run the interactive setup below in interactive shells.
+[[ ! -o interactive ]] && return
 
-# use vim motions
+[[ -r "$HOME/.config/alias/.alias" ]] && source "$HOME/.config/alias/.alias"
+[[ -r "$HOME/.config/alias/.custom" ]] && source "$HOME/.config/alias/.custom"
+[[ -r "$HOME/.config/alias/.macos" ]] && source "$HOME/.config/alias/.macos"
+[[ -r "$HOME/.config/alias/.fzf" ]] && source "$HOME/.config/alias/.fzf"
+[[ -r "$HOME/.config/alias/.functions" ]] && source "$HOME/.config/alias/.functions"
+
 set -o vi
 export EDITOR=nvim
 export VISUAL=nvim
 export MANPAGER='nvim +Man!'
 
-# ----------------------
-# Export
-# ----------------------
-export PATH=/opt/homebrew/bin:$PATH
-export PATH="/opt/homebrew/opt/openssh/bin:$PATH"
-export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
-export PATH="$HOME/.config/scripts:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
+export PATH="/opt/homebrew/bin:/opt/homebrew/opt/openssh/bin:$HOME/.config/scripts:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 export GOBIN="$HOME/go/bin"
-export PATH="$GOBIN:$PATH"
+export LUA_PATH="lua/?.lua;lua/?/init.lua;;"
 
-export LUA_PATH="lua/?.lua;lua/?/init.lua;;" # i dont know why but i need this for 'busted' to work
+alias zshrc='nvim ~/.zshrc'
+alias ld='lazydocker'
+alias lg='lazygit'
+alias t='tmux'
+alias ta='tmux attach'
+alias ls='eza --icons --color=always --group-directories-first'
+alias ll='eza -alF --icons --color=always --group-directories-first'
+alias la='eza -a --icons --color=always --group-directories-first'
+alias l='eza -F --icons --color=always --group-directories-first'
 
-# zsh-autosuggestions, zsh-vi-mode, syntax highlighting, and fzf-tab
-fpath+=("$(brew --prefix)/share/zsh-completions")
+# zsh-autosuggestions, zsh-vi-mode, syntax highlighting, and fzf-tab.
+fpath+=("/opt/homebrew/share/zsh-completions")
 autoload -Uz compinit
-_zcompdump_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
-[[ -d $_zcompdump_dir ]] || mkdir -p $_zcompdump_dir
-compinit -d "$_zcompdump_dir/zcompdump"
+_zcompdump_dir="${XDG_CACHE_HOME}/zsh"
+[[ -d $_zcompdump_dir ]] || mkdir -p "$_zcompdump_dir"
+compinit -i -d "$_zcompdump_dir/zcompdump"
 
-source $(brew --prefix)/share/fzf-tab/fzf-tab.zsh
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+[[ -r /opt/homebrew/share/fzf-tab/fzf-tab.zsh ]] && source /opt/homebrew/share/fzf-tab/fzf-tab.zsh
+[[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -r /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -r /opt/homebrew/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]] && source /opt/homebrew/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+[[ -r /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]] && source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+[[ -r /opt/homebrew/opt/fzf/shell/completion.zsh ]] && source /opt/homebrew/opt/fzf/shell/completion.zsh
 
-# Work around https://github.com/jeffreytse/zsh-vi-mode/issues/164: plugin uses `cat`, but alias cat=bat leaks ANSI UI into BUFFER.
-zvm_vi_edit_command_line() {
-  local tmp_file=$(mktemp "${ZVM_TMPDIR}/zshXXXXXX")
-  echo "$BUFFER" >! "$tmp_file"
-  "${(@Q)${(z)${ZVM_VI_EDITOR}}}" "$tmp_file" </dev/tty
-  BUFFER=$(command cat "$tmp_file")
-  command rm "$tmp_file"
+(( $+commands[fzf] && $+commands[bat] )) && [[ -r "$HOME/.config/fzf/fzf-git.sh" ]] && source "$HOME/.config/fzf/fzf-git.sh"
+(( $+commands[fzf] && $+commands[bat] )) && [[ -r "$HOME/.config/fzf/fzf-grep.sh" ]] && source "$HOME/.config/fzf/fzf-grep.sh"
 
-  case $ZVM_MODE in
-    $ZVM_MODE_VISUAL|$ZVM_MODE_VISUAL_LINE)
-      zvm_exit_visual_mode
-      ;;
-  esac
-}
-bindkey -M emacs '^G' zvm_vi_edit_command_line
-bindkey -M viins '^G' zvm_vi_edit_command_line
-bindkey -M vicmd '^G' zvm_vi_edit_command_line
-
-source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
-source /opt/homebrew/opt/fzf/shell/completion.zsh
-eval $(thefuck --alias)
-if [[ -z "${__STARSHIP_INIT_DONE:-}" ]]; then
+(( $+commands[atuin] )) && eval "$(atuin init zsh)"
+(( $+commands[thefuck] )) && eval "$(thefuck --alias)"
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
+if (( $+commands[starship] )) && [[ -z "${__STARSHIP_INIT_DONE:-}" ]]; then
   eval "$(starship init zsh)"
   __STARSHIP_INIT_DONE=1
 fi
-eval "$(zoxide init zsh)"
 
-# ----------------------
-# Configuration
-# ----------------------
-# fzf-tab defaults
 zstyle ':completion:*' menu no
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':fzf-tab:*' fzf-flags --height=30% --layout=reverse --style=minimal --preview-window=right
@@ -79,22 +74,14 @@ zstyle ':fzf-tab:*' fzf-bindings 'tab:accept'
 zstyle ':fzf-tab:*' switch-group ',' '.'
 zstyle ':fzf-tab:complete:*' fzf-preview 'if [[ -d $realpath ]]; then eza -1 --icons --color=always --group-directories-first -- $realpath; else bat --style=numbers --color=always --line-range=:200 -- $realpath; fi'
 
-setopt inc_append_history # Save each command immediately instead of waiting for shell exit
-unsetopt share_history    # Keep active shell histories separate
-setopt hist_ignore_space    # Ignore commands that start with a space in history
-setopt hist_ignore_all_dups # Ignore duplicate commands in history
-setopt hist_save_no_dups    # Save only unique commands in history
-setopt hist_ignore_dups     # Ignore duplicates in history when searching
-setopt hist_find_no_dups    # Prevent finding duplicate commands in history search
+setopt inc_append_history hist_ignore_space hist_ignore_all_dups hist_save_no_dups hist_ignore_dups hist_find_no_dups
+unsetopt share_history
 
-# -------------------------------------------------------
-# Catppuccin Mocha — minimal LS_COLORS
-# -------------------------------------------------------
-export LS_COLORS="\
-di=94:\        # directories: blue
-ex=92:\        # executables: green
-fi=97:\        # regular files: soft white
-"
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+y() {
+  local tmp cwd
+  tmp="$(mktemp -t yazi-cwd.XXXXXX)"
+  yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [[ -n $cwd && $cwd != "$PWD" ]] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
+}

@@ -1,0 +1,30 @@
+[metadata]
+name = "herdr-workspaces"
+description = "Browse herdr workspaces + zoxide dirs — select to focus or create"
+requirements = ["herdr", "jq", "zoxide", "fd"]
+
+[source]
+command = [
+  "bash ~/.config/television/cable/scripts/herdr-workspace-source.sh",
+  "bash ~/.config/television/cable/scripts/herdr-workspace-fd-source.sh",
+]
+display = "{split:|:2}"
+no_sort = true
+
+[preview]
+command = "bash ~/.config/television/cable/scripts/herdr-workspace-preview.sh '{split:|:0}' '{split:|:1}'"
+
+[keybindings]
+enter = "actions:focus-or-create"
+ctrl-d = [ "actions:stop-workspace", "reload_source" ]
+tab = "cycle_sources"
+
+[actions.focus-or-create]
+description = "Focus herdr workspace or create from zoxide dir"
+command = "bash ~/.config/television/cable/scripts/herdr-workspace-action.sh '{split:|:0}' '{split:|:1}'"
+mode = "execute"
+
+[actions.stop-workspace]
+description = "Close the selected herdr workspace"
+command = "bash ~/.config/television/cable/scripts/herdr-workspace-stop.sh '{split:|:0}' '{split:|:1}'"
+mode = "execute"

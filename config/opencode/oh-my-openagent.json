@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": {
+      "model": "opencode-go/deepseek-v4-pro"
+    },
+    "librarian": {
+      "model": "opencode-go/deepseek-v4-pro"
+    },
+    "explore": {
+      "model": "opencode-go/deepseek-v4-pro"
+    },
+    "oracle": {
+      "model": "opencode-go/deepseek-v4-pro"
+    },
+    "multimodal-looker": {
+      "model": "opencode-go/qwen3.6-plus"
+    }
+  },
+  "categories": {
+    "quick": {
+      "model": "opencode-go/deepseek-v4-flash"
+    },
+    "visual-engineering": {
+      "model": "opencode-go/deepseek-v4-pro"
+    },
+    "ultrabrain": {
+      "model": "opencode-go/deepseek-v4-pro"
+    }
+  }
+}
