@@ -126,6 +126,12 @@ command = "tv"
 description = "Find files and open into vim"
 
 [[keys.command]]
+key = "prefix+a"
+type = "pane"
+command = "tv agents"
+description = "Open agents"
+
+[[keys.command]]
 key = "prefix+E"
 type = "pane"
 command = "spf"

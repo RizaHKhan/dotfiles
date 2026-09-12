@@ -1,0 +1,15 @@
+[metadata]
+name = "agents"
+description = "AI Agents"
+requirements = ["herdr"]
+
+[source]
+command = "echo 'opencode --port,agy,claude,codex' | awk -F',' '{for(i=1;i<=NF;i++) print $i}'"
+
+[keybindings]
+enter = "actions:open"
+
+[actions.open]
+description = "Open selected agent"
+command = '''pane=$(herdr pane split --current --direction right --focus | jq -r '.result.pane.pane_id') && herdr pane run "$pane" '{}' '''
+mode = "execute"
