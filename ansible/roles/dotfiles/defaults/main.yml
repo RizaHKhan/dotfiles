@@ -50,10 +50,6 @@ dotfiles:
       dest: "{{ ansible_env.HOME }}/.config/aerospace",
     }
   - {
-      src: "{{ playbook_dir }}/../config/sketchybar",
-      dest: "{{ ansible_env.HOME }}/.config/sketchybar",
-    }
-  - {
       src: "{{ playbook_dir }}/../config/opencode",
       dest: "{{ ansible_env.HOME }}/.config/opencode",
     }

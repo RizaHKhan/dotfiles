@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # Shared AI-agent hook entrypoint.
-# Writes SketchyBar status cache and triggers the bar update.
 
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
@@ -110,22 +109,4 @@ status_for_event() {
 	esac
 }
 
-write_sketchybar_cache() {
-	resolve_window || return 0
-	status=$(status_for_event)
-	[ -n "$status" ] || return 0
-
-	file="$CACHE_DIR/$(safe_key "$session:$window_id").status"
-	if [ "$status" = close ]; then
-		rm -f "$file"
-		sketchybar --trigger agent_status_change 2>/dev/null || true
-		return 0
-	fi
-
-	printf '%s|%s|%s|%s|%s|%s\n' \
-		"$status" "$PROVIDER" "$(date +%s)" "$session" "$window_id" "$window_name" >"$file"
-	sketchybar --trigger agent_status_change 2>/dev/null || true
-}
-
 parse_args "$@"
-write_sketchybar_cache

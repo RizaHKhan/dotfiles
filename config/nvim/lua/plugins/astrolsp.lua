@@ -93,6 +93,7 @@ return {
 
             -- the key is the server that is being setup with `lspconfig`
             tsserver = false,
+            laravel_ls = false, -- v0.1.0 fails initialize with "unknown scheme" (rootPath treated as URI)
             -- rust_analyzer = false, -- setting a handler to false will disable the set up of that language server
             -- pyright = function(_, opts) require("lspconfig").pyright.setup(opts) end -- or a custom handler function can be passed
         },

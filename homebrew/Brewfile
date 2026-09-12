@@ -1,6 +1,5 @@
 tap "homebrew/bundle"
 tap "gitguardian/tap"
-tap "FelixKratz/formulae"   # for sketchybar
 tap "sst/tap"               # for opencode
 tap "nikitabobko/tap"       # for aerospace
 
@@ -103,11 +102,6 @@ brew "xcbeautify"           # xcode build formatter (duplicate)
 # ───────────────────────────────
 # Desktop UI & Automation
 # ───────────────────────────────
-# sketchybars and borders are started with aerospace.
-# Otherwise manually run:
-#   brew services start sketchybar
-#   brew services start borders
-brew "sketchybar"              # status bar
 brew "mole"                    # mac cleaner
 
 # ───────────────────────────────

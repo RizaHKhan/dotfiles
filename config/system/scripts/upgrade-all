@@ -96,6 +96,4 @@ for i in $(seq 0 $((n - 1))); do
 	fi
 done
 
-sketchybar --trigger brew_update >/dev/null 2>&1 || true
-
 exit $failed
