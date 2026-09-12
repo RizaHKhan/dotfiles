@@ -1,0 +1,35 @@
+{
+  "allowNonWorkspaceAccess": true,
+  "permissions": {
+    "allow": [
+      "command(./vendor/bin/sail)",
+      "command(nvim)",
+      "command(npm run)",
+      "command(git diff)",
+      "command(git remote)",
+      "command(git log)",
+      "command(git stash)",
+      "command(git stash show -p stash@{0})",
+      "command(git stash show -p stash@{1})",
+      "command(git branch)",
+      "command(git show)",
+      "command(git reflog)",
+      "command(git ls-remote)"
+    ]
+  },
+  "trustedWorkspaces": [
+    "/Users/rkhan/labspend",
+    "/Users/rkhan/.config/tmux",
+    "/Users/rkhan/camcloud/repos/camcloud-joomla",
+    "/Users/rkhan/camcloud",
+    "/Users/rkhan/.config/nvim",
+    "/Users/rkhan/.config/herdr",
+    "/Users/rkhan/.config",
+    "/Users/rkhan/configs/nvim/.config/nvim",
+    "/Users/rkhan/configs/television/.config/television",
+    "/Users/rkhan/portfolio",
+    "/Users/rkhan/configs/kitty/.config/kitty",
+    "/Users/rkhan/camcloud/repos/plg_system_ccpasswordpolicy",
+    "/Users/rkhan/Downloads"
+  ]
+}

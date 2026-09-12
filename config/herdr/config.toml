@@ -311,12 +311,6 @@ type = "plugin_action"
 command = "layouts.cycle"
 description = "cycle pane layouts"
 
-[[keys.command]]
-key = "prefix+a"
-type = "popup"
-command = "~/.config/scripts/ai-pane.sh"
-description = "New AI agent"
-
 # [[keys.command]]
 # key = "prefix+O"
 # type = "popup"

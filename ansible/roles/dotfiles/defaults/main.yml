@@ -54,17 +54,12 @@ dotfiles:
       dest: "{{ ansible_env.HOME }}/.config/opencode",
     }
   - {
-      src: "{{ playbook_dir }}/../config/pi",
-      dest: "{{ ansible_env.HOME }}/.pi/agent",
-    }
-
-  - {
       src: "{{ playbook_dir }}/../config/claude/settings.json",
       dest: "{{ ansible_env.HOME }}/.claude/settings.json",
     }
   - {
-      src: "{{ playbook_dir }}/../config/cursor/hooks.json",
-      dest: "{{ ansible_env.HOME }}/.cursor/hooks.json",
+      src: "{{ playbook_dir }}/../config/agy/settings.json",
+      dest: "{{ ansible_env.HOME }}/.gemini/antigravity-cli/settings.json",
     }
   - {
       src: "{{ playbook_dir }}/../config/codex/hooks.json",
@@ -97,10 +92,6 @@ dotfiles:
   - {
       src: "{{ playbook_dir }}/../config/atuin",
       dest: "{{ ansible_env.HOME }}/.config/atuin",
-    }
-  - {
-      src: "{{ playbook_dir }}/../config/fzf",
-      dest: "{{ ansible_env.HOME }}/.config/fzf",
     }
   - {
       src: "{{ playbook_dir }}/../config/mise",

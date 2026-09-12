@@ -12,4 +12,5 @@ trapple/herdr-focus
 paulbkim-dev/vim-herdr-navigation
 willfish/herdr-navigator
 third774/herdr-last-workspace
-ythx-101/herdr-social-glass
+andrewchng/herdr-sessionizer
+lmilojevicc/herdr-splits.nvim

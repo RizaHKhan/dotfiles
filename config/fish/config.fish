@@ -65,7 +65,6 @@ alias pcopy pbcopy
 alias ppaste pbpaste
 alias v 'nvim .'
 alias vim nvim
-alias cursor cursor-agent
 alias g git
 alias gs 'git status'
 alias gd 'git diff'

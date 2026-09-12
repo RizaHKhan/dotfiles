@@ -14,6 +14,7 @@ env = { BAT_THEME = "ansi" }
 enter = "actions:open"
 ctrl-d = "actions:delete"
 ctrl-m = "actions:move"
+ctrl-y = "actions:copy"
 
 [actions.open]
 description = "Open the selected file with default application"
@@ -28,4 +29,9 @@ mode = "execute"
 [actions.move]
 description = "Move the selected file to current directory"
 command = "mv '{}' ."
+mode = "fork"
+
+[actions.copy]
+description = "Copy the path to clipboard"
+command = "printf '%s' '{}' | pbcopy"
 mode = "fork"
