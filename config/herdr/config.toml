@@ -377,11 +377,6 @@ type = "plugin_action"
 command = "ray.file-explorer.open-tab"
 
 [[keys.command]]
-key = "prefix+T"
-type = "plugin_action"
-command = "herdr-theme-picker.open"
-
-[[keys.command]]
 key = "prefix+z"
 type = "plugin_action"
 command = "ray.plugin-manager.open"

@@ -99,8 +99,8 @@ dotfiles:
       dest: "{{ ansible_env.HOME }}/.config/worktrunk",
     }
   - {
-      src: "{{ playbook_dir }}/../config/herdr/config.toml",
-      dest: "{{ ansible_env.HOME }}/.config/herdr/config.toml",
+      src: "{{ playbook_dir }}/../config/herdr",
+      dest: "{{ ansible_env.HOME }}/.config/herdr",
     }
   - {
       src: "{{ playbook_dir }}/../config/atuin",

@@ -1,0 +1,7 @@
+# herdr writes runtime state into its config directory (plugins, session,
+# logs, sockets, keys, backups). Only config.toml and herdr-lazy/ are managed.
+/*
+!/.gitignore
+!/config.toml
+!/herdr-lazy
+!/herdr-lazy/*

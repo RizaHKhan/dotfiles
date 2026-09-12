@@ -67,6 +67,7 @@ brew "ansible"              # automation
 brew "ansible-lint"         # ansible linter
 brew "delve"                # go debugger (nvim DAP)
 brew "git"                  # version control
+brew "git-lfs"              # large file storage (needed by some herdr plugins)
 brew "worktrunk"            # git worktree tool
 brew "go"                   # go lang
 brew "python"               # scripting

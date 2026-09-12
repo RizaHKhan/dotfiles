@@ -1,21 +1,39 @@
 ---
+- name: Build a full PATH for herdr and plugin builds
+  set_fact:
+    herdr_path: >-
+      {{ [lookup('env', 'HOME') ~ '/.local/share/mise/shims',
+          lookup('env', 'HOME') ~ '/.cargo/bin',
+          lookup('env', 'HOME') ~ '/go/bin',
+          '/opt/homebrew/bin',
+          '/opt/homebrew/opt/ruby/bin',
+          lookup('env', 'PATH')] | join(':') }}
+
 - name: Query the installed Herdr Lazy plugin
   command: herdr plugin list --plugin herdr-lazy --json
+  environment:
+    PATH: "{{ herdr_path }}"
   register: herdr_lazy_plugin
   changed_when: false
   failed_when: false
 
 - name: Install Herdr Lazy when missing
   command: herdr plugin install natori-hrj/herdr-lazy --yes
+  environment:
+    PATH: "{{ herdr_path }}"
   when: herdr_lazy_plugin.rc != 0 or '"plugin_id":"herdr-lazy"' not in herdr_lazy_plugin.stdout
 
 - name: Query Herdr Lazy after installation
   command: herdr plugin list --plugin herdr-lazy --json
+  environment:
+    PATH: "{{ herdr_path }}"
   register: herdr_lazy_plugin
   changed_when: false
 
 - name: Resolve the Herdr Lazy managed configuration directory
   command: herdr plugin config-dir herdr-lazy
+  environment:
+    PATH: "{{ herdr_path }}"
   register: herdr_lazy_config_dir
   changed_when: false
 
@@ -29,7 +47,6 @@
     dest: "{{ herdr_lazy_config_dir.stdout }}/plugins.list"
     state: link
     force: true
-  register: herdr_lazy_list
 
 - name: Link the reproducible Herdr plugin lockfile
   file:
@@ -37,8 +54,11 @@
     dest: "{{ herdr_lazy_config_dir.stdout }}/plugins.lock"
     state: link
     force: true
-  register: herdr_lazy_lock
 
 - name: Restore Herdr plugins from the lockfile
   command: "{{ herdr_lazy_plugin_root }}/target/release/herdr-lazy restore"
-  when: herdr_lazy_list.changed or herdr_lazy_lock.changed
+  environment:
+    PATH: "{{ herdr_path }}"
+  register: herdr_lazy_restore
+  changed_when: "'  ok' in herdr_lazy_restore.stdout or 'restoring the pin' in herdr_lazy_restore.stdout"
+  failed_when: herdr_lazy_restore.rc != 0 or 'FAILED' in herdr_lazy_restore.stdout
