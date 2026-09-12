@@ -2,7 +2,6 @@ ChmaraX/herdr-nvim
 fullerzz/herdr-plugin-sesh
 jeffarese/herdr-bar
 crokily/herdr-lazygit
-den-tanui/herdr-zoxide
 iurysza/herdr-pane-layouts
 alvinunreal/oh-my-opencode-slim
 speardragon/herdr-yazi
@@ -14,3 +13,4 @@ willfish/herdr-navigator
 third774/herdr-last-workspace
 andrewchng/herdr-sessionizer
 lmilojevicc/herdr-splits.nvim
+den-tanui/herdr-zoxide

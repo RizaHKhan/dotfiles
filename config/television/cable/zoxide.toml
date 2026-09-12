@@ -14,6 +14,7 @@ command = "ls -la --color=always '{}'"
 [keybindings]
 enter = "actions:cd"
 ctrl-d = "actions:remove"
+ctrl-p = "actions:pane"
 
 [actions.cd]
 description = "Change to the selected directory"
@@ -24,3 +25,8 @@ mode = "execute"
 description = "Remove the selected directory from zoxide"
 command = "zoxide remove '{}'"
 mode = "fork"
+
+[actions.pane]
+description = "Open the repo in a new herdr pane"
+command = "herdr pane split --direction right --cwd '{}' --focus"
+mode = "execute"

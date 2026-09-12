@@ -356,8 +356,8 @@ description = "command bar"
 
 [[keys.command]]
 key = "prefix+S"
-type = "plugin_action"
-command = "herdr-zoxide.browse"
+type = "pane"
+command = "tv zoxide"
 description = "Browse zoxide directories"
 
 [[keys.command]]              # open in a split pane
