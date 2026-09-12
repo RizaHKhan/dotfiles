@@ -324,11 +324,6 @@ description = "New AI agent"
 # description = "Running Agents"
 
 [[keys.command]]
-key = "prefix+o"
-type = "shell"
-command = "herdr plugin action invoke herdr-pickers.agents"
-
-[[keys.command]]
 key = "prefix+h"
 type = "popup"
 command = "sudo nvim /etc/hosts"
