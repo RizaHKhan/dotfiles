@@ -34,7 +34,6 @@ brew "fx"                   # json viewer
 
 # Shell Enhancement
 brew "fish"                 # interactive shell
-brew "starship"             # shell prompt
 brew "thefuck"              # fix typos
 brew "tldr"                 # short man pages
 # used for opencode. Run "rtk init -g --opencode"

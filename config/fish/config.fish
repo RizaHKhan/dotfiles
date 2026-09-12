@@ -38,9 +38,6 @@ end
 if type -q mise
     mise activate fish | source
 end
-if type -q starship
-    starship init fish | source
-end
 
 alias reload 'exec fish -l'
 alias ld lazydocker
@@ -63,7 +60,7 @@ alias cat bat
 alias how tldr
 alias pcopy pbcopy
 alias ppaste pbpaste
-alias v nvim
+alias v nvim .
 alias vim nvim
 alias cursor cursor-agent
 alias g git

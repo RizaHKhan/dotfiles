@@ -46,10 +46,6 @@ dotfiles:
       dest: "{{ ansible_env.HOME }}/.config/lazygit",
     }
   - {
-      src: "{{ playbook_dir }}/../config/starship/starship.toml",
-      dest: "{{ ansible_env.HOME }}/.config/starship.toml",
-    }
-  - {
       src: "{{ playbook_dir }}/../config/aerospace",
       dest: "{{ ansible_env.HOME }}/.config/aerospace",
     }
