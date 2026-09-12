@@ -23,6 +23,9 @@ set -gx LUA_PATH 'lua/?.lua;lua/?/init.lua;;'
 # Use Fish's native vi-style command-line editing.
 fish_vi_key_bindings
 
+# In vi normal mode, `yy` copies the command line to the system clipboard.
+bind --mode default yy fish_clipboard_copy
+
 # Shared tool integrations. Each command is optional so a partial install remains usable.
 if type -q fzf
     fzf --fish | source
@@ -60,7 +63,7 @@ alias cat bat
 alias how tldr
 alias pcopy pbcopy
 alias ppaste pbpaste
-alias v nvim .
+alias v 'nvim .'
 alias vim nvim
 alias cursor cursor-agent
 alias g git
