@@ -30,7 +30,7 @@ dotfiles:
       dest: "{{ ansible_env.HOME }}/.config/kitty",
     }
   - {
-      src: "{{ playbook_dir }}/../config/neovim/nvim",
+      src: "{{ playbook_dir }}/../config/nvim",
       dest: "{{ ansible_env.HOME }}/.config/nvim",
     }
   - {

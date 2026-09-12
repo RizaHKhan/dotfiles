@@ -20,4 +20,4 @@ Icon
 .pi/subagents.json
 config/zsh/.zshrc.local
 config/fish/local.fish
-config/neovim/nvim/nvim.log
+config/nvim/nvim.log

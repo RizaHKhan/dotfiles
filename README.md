@@ -74,7 +74,7 @@ dotfiles/
 │── git/          # Git config and global ignore
 │── homebrew/     # Homebrew setup and Brewfile
 │── iterm/        # iTerm2 preferences
-│── neovim/       # Neovim configuration
+│── nvim/         # Neovim configuration
 │── system/       # System-wide aliases and functions
 │── fish/         # Fish config and functions
 │── zsh/          # Zsh config files (.zshrc, .zprofile; rollback)

@@ -32,7 +32,7 @@ files_to_symlink=(
     ["config/git/.gitignore_global"]="$HOME/.gitignore_global"
 
     ["config/tmux/.tmux.conf"]="$HOME/.tmux.conf"
-    ["config/neovim/nvim"]="$HOME/.config/nvim"
+    ["config/nvim"]="$HOME/.config/nvim"
     ["config/bat"]="$HOME/.config/bat"
 )
 
