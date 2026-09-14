@@ -1,7 +1,7 @@
 [metadata]
 name = "text"
 description = "Search file contents (excluding vendor and node_modules)"
-requirements = ["rg", "bat", "tmux", "nvim", "git"]
+requirements = ["rg", "bat", "nvim", "git"]
 
 [source]
 command = "rg . --line-number --no-heading --color=always --smart-case --no-ignore --glob '!**/vendor/**' --glob '!**/node_modules/**' \"$PWD\""

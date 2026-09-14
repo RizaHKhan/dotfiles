@@ -1,7 +1,7 @@
 [metadata]
 name = "aws-instances"
 description = "List and preview AWS EC2 Instances"
-requirements = ["aws", "tmux", "herdr"]
+requirements = ["aws", "herdr"]
 
 [source]
 command = "aws ec2 describe-instances --output json | jq -r '.Reservations[].Instances[] | [.InstanceId, (.Tags // [] | map(select(.Key == \"Name\").Value) | first // \"\"), (.PublicIpAddress // \"\")] | @tsv'"
