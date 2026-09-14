@@ -12,9 +12,8 @@ frecency = false
 command = "ls -la --color=always '{}'"
 
 [keybindings]
-enter = "actions:cd"
+enter = "actions:pane"
 ctrl-d = "actions:remove"
-ctrl-p = "actions:pane"
 
 [actions.cd]
 description = "Change to the selected directory"

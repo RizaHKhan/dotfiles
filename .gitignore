@@ -22,3 +22,4 @@ config/zsh/.zshrc.local
 config/fish/local.fish
 config/nvim/nvim.log
 /config/opencode/.oh-my-opencode-slim/skills-manifest.json
+/config/vi-sql/history.txt
