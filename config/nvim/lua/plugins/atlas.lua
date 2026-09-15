@@ -20,7 +20,7 @@ local function repository_search(workspace, directory)
 end
 
 local function dotenv()
-    local path = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":h:h:h") .. "/.env"
+    local path = vim.fn.stdpath "config" .. "/.env"
     if vim.fn.filereadable(path) == 0 then return {} end
 
     local values = {}

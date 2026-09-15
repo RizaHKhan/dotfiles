@@ -26,6 +26,7 @@ command = "zoxide remove '{}'"
 mode = "fork"
 
 [actions.pane]
-description = "Open the repo in a new herdr pane"
-command = "herdr pane split --direction right --cwd '{}' --focus"
-mode = "execute"
+description = "Rename the current pane to the selected directory"
+command = "herdr pane rename \"$HERDR_PANE_ID\" (basename '{}')"
+mode = "fork"
+shell = "fish"

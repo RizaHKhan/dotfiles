@@ -4,6 +4,10 @@ dotfiles:
       src: "{{ playbook_dir }}/../config/fish",
       dest: "{{ ansible_env.HOME }}/.config/fish",
     }
+  - {
+      src: "{{ playbook_dir }}/../config/1Password/.config/1Password/ssh/agent.toml",
+      dest: "{{ ansible_env.HOME }}/.config/1Password/ssh/agent.toml",
+    }
     # Alias
   - {
       src: "{{ playbook_dir }}/../config/system/alias",

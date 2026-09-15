@@ -1,2 +1,16 @@
 ---
 ansible_python_interpreter: /usr/bin/python3
+
+# Atlas (Neovim) provider config. Credentials stay in 1Password; the op refs
+# below are resolved via `op read` when the playbook runs (requires 1Password
+# CLI + desktop app integration). Empty values are omitted from the rendered
+# .env so shell-provided vars still take effect via the vim.env fallback.
+# Run "op item list" to find items, then edit the refs here.
+atlas:
+  bitbucket:
+    user: "rkhan@camcloud.com"
+    credential_op_ref: "op://Camcloud/Bitbucket Nvim Camcloud/credential"
+  jira:
+    base_url: ""
+    email: ""
+    credential_op_ref: "op://Camcloud/Jira Nvim Camcloud/credential"

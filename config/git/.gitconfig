@@ -102,3 +102,5 @@
 
 [advice]
 	statusHints = false
+[includeIf "gitdir:/Users/rkhan/camcloud/"]
+	path = /Users/rkhan/.gitconfig-bitbucket

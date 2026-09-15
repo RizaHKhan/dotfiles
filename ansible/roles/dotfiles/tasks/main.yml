@@ -79,3 +79,31 @@
     state: link
     force: true
   loop: "{{ dotfiles }}"
+
+- name: Read Bitbucket token from 1Password
+  command: op read "{{ atlas.bitbucket.credential_op_ref }}" --no-newline
+  register: op_bitbucket
+  changed_when: false
+  no_log: true
+  failed_when: false
+  when: ansible_system == "Darwin"
+
+- name: Read Jira token from 1Password
+  command: op read "{{ atlas.jira.credential_op_ref }}" --no-newline
+  register: op_jira
+  changed_when: false
+  no_log: true
+  failed_when: false
+  when: ansible_system == "Darwin"
+
+- name: Generate Neovim atlas .env file
+  template:
+    src: nvim-env.j2
+    dest: "{{ ansible_env.HOME }}/.config/nvim/.env"
+    mode: "0600"
+  vars:
+    bitbucket_user: "{{ atlas.bitbucket.user | default('') }}"
+    bitbucket_token: "{{ op_bitbucket.stdout | default('') }}"
+    jira_base_url: "{{ atlas.jira.base_url | default('') }}"
+    jira_email: "{{ atlas.jira.email | default('') }}"
+    jira_token: "{{ op_jira.stdout | default('') }}"

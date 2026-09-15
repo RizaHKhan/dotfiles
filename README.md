@@ -27,12 +27,33 @@ iTerm or WezTerm settings.
 
 ### Local secrets
 
-Do not put credentials, tokens, or private keys in this repository. During the
-Fish migration, machine-specific values belong in the unmanaged,
-Git-ignored `~/.config/fish/local.fish` (see
-`config/fish/local.fish.example`). Fish is the managed interactive and login
-shell; applying Ansible with `--ask-become-pass` registers it in `/etc/shells`
-and sets it as the macOS account login shell.
+Credentials are kept in **1Password**, never in this repository. Two layers
+handle machine-specific values:
+
+1. **Neovim Atlas provider credentials** (Bitbucket/Jira) live in 1Password.
+   The `dotfiles` role resolves them via the 1Password CLI (`op read` on the
+   `op://` refs in `ansible/group_vars/all/defaults.yml`) and renders them into
+   the Git-ignored `~/.config/nvim/.env`, which `lua/plugins/atlas.lua` reads.
+   Requires 1Password app integration (Settings → Developer → Integrate with
+   1Password CLI). Empty values are skipped so shell-provided values still
+   take effect.
+
+   To refresh the `.env` after rotating a token:
+
+   ```bash
+   make nvim-env          # lightweight — just op read → ~/.config/nvim/.env
+   # or
+   ansible-playbook ansible/playbook.yml --ask-become-pass   # full system setup
+   ```
+
+   The Makefile target (`scripts/nvim-env.sh`) reads the same `op://` refs as
+   the Ansible role and produces an identical file.
+
+2. All other machine-specific values belong in the unmanaged, Git-ignored
+   `~/.config/fish/local.fish` (see `config/fish/local.fish.example`). Fish is
+   the managed interactive and login shell; applying Ansible with
+   `--ask-become-pass` registers it in `/etc/shells` and sets it as the macOS
+   account login shell.
 
 ### Herdr
 
