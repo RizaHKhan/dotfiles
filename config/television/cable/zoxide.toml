@@ -27,6 +27,6 @@ mode = "fork"
 
 [actions.pane]
 description = "Rename the current pane to the selected directory"
-command = "herdr pane rename \"$HERDR_PANE_ID\" (basename '{}')"
+command = "cd '{}' && fish"
 mode = "fork"
 shell = "fish"
