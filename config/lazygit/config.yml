@@ -30,8 +30,8 @@ gui:
 git:
   autoFetch: true
   autoRefresh: true
-  diffRenderers:
-    - type: extDiff
+  # diffRenderers:
+  #   - type: extDiff
 # Allow 'Esc' to quit from top level
 quitOnTopLevelReturn: true
 # Uncomment if you want per-repo overrides later
