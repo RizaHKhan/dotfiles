@@ -28,5 +28,5 @@ mode = "fork"
 [actions.pane]
 description = "Rename the current pane to the selected directory"
 command = "cd '{}' && fish"
-mode = "fork"
+mode = "execute"
 shell = "fish"
