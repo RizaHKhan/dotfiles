@@ -42,6 +42,7 @@ if type -q mise
     mise activate fish | source
 end
 
+alias pname 'herdr pane rename "$HERDR_PANE_ID" "$PWD"'
 alias reload 'exec fish -l'
 alias ld lazydocker
 alias lg lazygit

@@ -26,7 +26,7 @@ shell_mode = "login"
 # CWD policy for new panes, tabs, and workspaces when no explicit --cwd is provided.
 # Use "follow" to inherit the source pane/workspace, "home" for $HOME,
 # "current" for Herdr's process directory, or a fixed path such as "~/Projects".
-# new_cwd = "follow"
+new_cwd = "follow"
 
 [update]
 # Update channel used by background checks and `herdr update`.
@@ -130,12 +130,6 @@ key = "prefix+a"
 type = "pane"
 command = "tv agents"
 description = "Open agents"
-
-[[keys.command]]
-key = "prefix+E"
-type = "pane"
-command = "spf"
-description = "Opens Superfile"
 
 [[keys.command]]
 key = "ctrl+h"
@@ -382,6 +376,17 @@ key = "prefix+shift+l"
 type = "plugin_action"
 command = "herdr-lazy.manage"
 description = "manage plugins"
+
+[[keys.command]]
+key = "prefix+/"
+type = "pane"
+command = "tv text"
+description = "Find words"
+
+[[keys.command]]
+key = "prefix+shift+e"
+type = "shell"
+command = "herdr plugin pane open --plugin herdr-arrange --entrypoint ui"
 
 [theme.custom]
 panel_bg = "#282c34"

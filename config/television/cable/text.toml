@@ -12,9 +12,10 @@ command = "bat -n --color=always '{strip_ansi|split:\\::0}'"
 offset = "{strip_ansi|split:\\::1}"
 
 [keybindings]
-enter = "actions:open_in_tmux_nvim"
+enter = "actions:open_in_herdr_pane"
 
-[actions.open_in_tmux_nvim]
-description = "Open selected match in neovim from its repo root in a new tmux window"
-command = "sh -c 'file=\"$1\"; line=\"$2\"; dir=$(dirname \"$file\"); repo=$(git -C \"$dir\" rev-parse --show-toplevel 2>/dev/null || printf \"%s\" \"$dir\"); rel=${file#\"$repo\"/}; tmux new-window \"cd \\\"$repo\\\" && nvim \\\"+$line\\\" \\\"$rel\\\"\"' _ '{strip_ansi|split:\\::0}' '{strip_ansi|split:\\::1}'"
-mode = "execute"
+[actions.open_in_herdr_pane]
+description = "Open selected match in neovim from its repo root in a new herdr pane"
+command = "sh -c 'file=\"$1\"; line=\"$2\"; dir=$(dirname \"$file\"); repo=$(git -C \"$dir\" rev-parse --show-toplevel 2>/dev/null || printf \"%s\" \"$dir\"); rel=${file#\"$repo\"/}; cd \"$repo\" && nvim \"+$line\" \"$rel\"' _ '{strip_ansi|split:\\::0}' '{strip_ansi|split:\\::1}'"
+mode = "fork"
+shell = "fish"
