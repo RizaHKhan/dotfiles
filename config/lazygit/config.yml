@@ -37,12 +37,11 @@ quitOnTopLevelReturn: true
 # Uncomment if you want per-repo overrides later
 # localConfig:
 #   enabled: true
-# Uses opencode for AI commit messages
+# Opens a free opencode model (opencode/mimo-v2.5-free) to generate
+# conventional-commit candidates, pick one with fzf, then commit.
 customCommands:
   - key: "<c-o>"
     description: "Pick AI commit"
-    command: |
-      ai-commit || exit 0
-      reset 2>/dev/null || tput reset 2>/dev/null || true
+    command: "fish -c ai-commit"
     context: "files"
     output: terminal

@@ -17,5 +17,5 @@ enter = "actions:open_in_herdr_pane"
 [actions.open_in_herdr_pane]
 description = "Open selected match in neovim from its repo root in a new herdr pane"
 command = "sh -c 'file=\"$1\"; line=\"$2\"; dir=$(dirname \"$file\"); repo=$(git -C \"$dir\" rev-parse --show-toplevel 2>/dev/null || printf \"%s\" \"$dir\"); rel=${file#\"$repo\"/}; cd \"$repo\" && nvim \"+$line\" \"$rel\"' _ '{strip_ansi|split:\\::0}' '{strip_ansi|split:\\::1}'"
-mode = "fork"
+mode = "execute"
 shell = "fish"

@@ -14,13 +14,16 @@ need() {
 }
 
 need git
-need pi
+need opencode
 need fzf
 need sed
 need tr
 need grep
 
-MODEL="openai-codex/gpt-5.6-luna"
+# Free opencode model: no API key required. List alternatives with
+# `opencode models` (look for the opencode/*-free entries), e.g.
+# opencode/ling-3.0-flash-fin-free.
+MODEL="opencode/mimo-v2.5-free"
 
 if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 	printf 'Not inside a git repository.\n' >&2
@@ -72,24 +75,29 @@ Do not include any intro, explanation, header, or footer text.
 - Make them helpful for project history"
 
 RAW_OUT="$(mktemp)"
+RAW_ERR="$(mktemp)"
+# Isolate opencode from the user's config (plugins, docker MCP servers)
+# so generation stays fast (~3 s) and side-effect-free. Free models need
+# no credentials, so this is safe.
+EMPTY_CFG="$(mktemp -d)"
 
 cleanup() {
-	[ -n "$RAW_OUT" ] && rm -f "$RAW_OUT"
+	rm -f "$RAW_OUT" "$RAW_ERR"
+	rm -rf "$EMPTY_CFG"
 }
 trap cleanup EXIT
 
 cmd_generate() {
-	pi -p \
-		--no-session \
-		--offline \
-		--no-extensions \
-		--no-skills \
-		--no-prompt-templates \
-		--no-context-files \
-		--no-tools \
-		--thinking off \
+	XDG_CONFIG_HOME="$EMPTY_CFG" CI=true opencode run \
+		--pure \
 		--model "$MODEL" \
-		"$PROMPT" >"$RAW_OUT"
+		"$PROMPT" >"$RAW_OUT" 2>"$RAW_ERR"
+}
+
+print_err() {
+	if [ -s "$RAW_ERR" ]; then
+		sed 's/\x1b\[[0-9;]*m//g' "$RAW_ERR" >&2
+	fi
 }
 
 USE_SPINNER=0
@@ -100,9 +108,9 @@ fi
 if [ "$USE_SPINNER" -eq 1 ]; then
 	STEPS=("Thinking")
 	CMDS=("cmd_generate")
-	start
+	start || { print_err; exit 1; }
 else
-	cmd_generate
+	cmd_generate || { print_err; exit 1; }
 fi
 
 SELECTED="$(
