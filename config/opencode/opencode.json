@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "opencode-go/deepseek-v4-pro",
+  "model": "opencode/big-pickle",
   "autoupdate": true,
   "lsp": true,
   "mcp": {
@@ -142,37 +142,7 @@
       "build/**"
     ]
   },
-  "agent": {
-    "deep": {
-      "mode": "primary",
-      "model": "google/antigravity-gemini-3-pro",
-      "permission": {
-        "task": {
-          "*": "allow"
-        }
-      }
-    },
-    "think": {
-      "mode": "primary",
-      "model": "google/antigravity-claude-sonnet-4-5-thinking",
-      "reasoningEffort": "high",
-      "textVerbosity": "low"
-    },
-    "work": {
-      "mode": "primary",
-      "model": "google/antigravity-gemini-3-pro-low"
-    },
-    "plan": {
-      "mode": "primary",
-      "model": "google/gemini-1.5-flash"
-    },
-    "explore": {
-      "disable": true
-    },
-    "general": {
-      "disable": true
-    }
-  },
+  "agent": { },
   "share": "manual",
   "username": "khanr",
   "plugin": [

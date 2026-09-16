@@ -11,9 +11,9 @@ ui:
     schemaPanelWidth: 30
     vimMode: true
 mcp:
-    enabled: false
-    port: 0
-    allowRead: false
+    enabled: true
+    port: 9741
+    allowRead: true
     allowWrite: false
 security:
     method: keyring
