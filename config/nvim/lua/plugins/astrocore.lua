@@ -78,9 +78,6 @@ return {
                     desc = "Wrap word in HTML tag, place cursor inside, and enter insert mode",
                 },
             },
-            v = {
-                ["<leader>gl"] = { cmd = ":'<,'>GitLink<cr>", desc = "Gitlink" },
-            },
         },
     },
 }

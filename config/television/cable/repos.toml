@@ -1,0 +1,47 @@
+[metadata]
+name = "repos"
+description = "List of repos"
+requirements = ["gh", "jq"]
+
+[source]
+command = "gh repo list --limit 500"
+output = "{split:\t:0}"
+
+[preview]
+command = '''gh repo view '{split:	:0}' --json nameWithOwner,description,url,homepageUrl,isPrivate,isFork,isArchived,isTemplate,parent,primaryLanguage,licenseInfo,stargazerCount,forkCount,issues,pullRequests,diskUsage,defaultBranchRef,repositoryTopics,createdAt,pushedAt | jq -r '
+def ago: fromdateiso8601 | (now - .) | if . < 3600 then (./60|floor|tostring) + " minutes ago" elif . < 86400 then (./3600|floor|tostring) + " hours ago" else (./86400|floor|tostring) + " days ago" end;
+"  \u001b[34m" + .nameWithOwner + "\u001b[39m",
+(if (.description // "") != "" then "  " + .description else empty end),
+"",
+"  \u001b[36mVisibility:\u001b[39m " + (if .isPrivate then "\u001b[33mprivate\u001b[39m" else "\u001b[32mpublic\u001b[39m" end)
+  + (if .isFork then "  \u001b[35mfork\u001b[39m" else "" end)
+  + (if .isArchived then "  \u001b[31marchived\u001b[39m" else "" end)
+  + (if .isTemplate then "  \u001b[35mtemplate\u001b[39m" else "" end),
+(if .parent then "  \u001b[36mForked from:\u001b[39m " + .parent.owner.login + "/" + .parent.name else empty end),
+"  \u001b[36mLanguage:\u001b[39m " + (.primaryLanguage.name // "-") + "   \u001b[36mLicense:\u001b[39m " + (if ((.licenseInfo.nickname // "") | length) > 0 then .licenseInfo.nickname else (.licenseInfo.name // "-") end),
+"  \u001b[36mBranch:\u001b[39m " + (.defaultBranchRef.name // "-") + "   \u001b[36mSize:\u001b[39m " + (.diskUsage / 1024 | floor | tostring) + " MB",
+"  \u001b[36mStars:\u001b[39m " + (.stargazerCount | tostring) + "   \u001b[36mForks:\u001b[39m " + (.forkCount | tostring) + "   \u001b[36mIssues:\u001b[39m " + (.issues.totalCount | tostring) + "   \u001b[36mPRs:\u001b[39m " + (.pullRequests.totalCount | tostring),
+"  \u001b[36mCreated:\u001b[39m " + (.createdAt | ago) + "   \u001b[36mPushed:\u001b[39m " + (.pushedAt | ago),
+(if (.homepageUrl // "") != "" then "  \u001b[36mHomepage:\u001b[39m " + .homepageUrl else empty end),
+(if (.repositoryTopics | length) > 0 then "  \u001b[36mTopics:\u001b[39m " + ([.repositoryTopics[].name] | join(" ")) else empty end),
+"",
+"  \u001b[90m" + .url + "\u001b[39m"'
+'''
+
+[ui]
+layout = "portrait"
+preview_panel = { header = '{split:	:0}' }
+
+[keybindings]
+enter = "actions:edit"
+ctrl-d = "actions:delete"
+
+[actions.edit]
+description = "Open the selected file in editor"
+command = "${EDITOR:-vim} '{}'"
+mode = "execute"
+
+[actions.delete]
+description = "Delete the selected repo on GitHub"
+command = "gh repo delete '{split:\t:0}' --yes"
+mode = "fork"

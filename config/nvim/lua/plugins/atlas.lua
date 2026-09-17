@@ -66,6 +66,7 @@ return {
                 } or nil,
             },
             pulls = {
+                default_merge_method = "squash",
                 diff = {
                     open_cmd = "CodeDiff",
                 },
@@ -81,26 +82,23 @@ return {
                         },
                     },
                 },
+                -- Pipelines: no CI column in the Bitbucket PR list (GitHub/GitLab only). Statuses show in the
+                -- PR detail -- overview lists pipelines (`za` folds stages/steps), commits shows per-commit
+                -- state. `K`/`<CR>` on one opens the pipelines panel for job logs, `A` for run/stop (numeric
+                -- Bitbucket Pipelines only; external CI statuses are read-only), `gx` opens it in the browser.
                 bitbucket = {
                     views = {
                         {
                             name = "Me",
                             key = "M",
                             layout = "compact", -- "compact" or "plain"
-                            search = repository_search("camcloud", "~/camcloud/repos"),
-
-                            ---@param pr BitbucketPR
-                            ---@param ctx table
-                            filter = function(pr, ctx)
-                                local user = ctx.user or {}
-                                return pr.author and pr.author.account_id == user.account_id
-                            end,
+                            search = repository_search("camcloud", "~/camcloud/repos") .. ' author.nickname = "rkhan"',
                         },
                         {
                             name = "Others",
                             key = "O",
                             layout = "plain", -- "compact" or "plain"
-                            search = repository_search("camcloud", "~/camcloud/repos"),
+                            search = repository_search("camcloud", "~/camcloud/repos") .. ' author.nickname != "rkhan"',
                         },
                     },
                 },
@@ -114,7 +112,7 @@ return {
                         },
                         {
                             name = "Repo",
-                            key = "3",
+                            key = "2",
                             search = "repo:seanseaver/LabSpend-Laravel author:seanseaver",
                         },
                     },
