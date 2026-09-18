@@ -36,8 +36,10 @@ default-root-container-orientation = 'auto'
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
-# Focused app always fills the screen (idempotent; --no-outer-gaps = no padding)
-on-focus-changed = ['fullscreen on --no-outer-gaps']
+# Fallback value (if you omit the key): on-focus-changed = []
+# NOTE: do not put 'fullscreen on' here - it forces every focused window
+# fullscreen, which makes tiled side-by-side layouts invisible.
+on-focus-changed = []
 
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
@@ -111,6 +113,7 @@ on-mode-changed = []
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
     alt-slash = 'layout tiles horizontal vertical'
+    alt-period = 'layout tiles horizontal vertical'
     alt-comma = 'layout accordion horizontal vertical'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
