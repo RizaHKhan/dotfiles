@@ -105,16 +105,6 @@ return {
         opts = {},
     },
     {
-        "ibhagwan/fzf-lua",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        ---@module "fzf-lua"
-        ---@type fzf-lua.Config|{}
-        ---@diagnostic disable: missing-fields
-        opts = {},
-        ---@diagnostic enable: missing-fields
-        config = function(_, opts) require("fzf-lua").setup(opts) end,
-    },
-    {
         "esmuellert/codediff.nvim",
         version = "2.67.2", -- atlas.nvim 0.7.x targets codediff 2.67.x (v4.x removed ui/scroll)
         cmd = "CodeDiff",
@@ -230,7 +220,7 @@ return {
         opts = {
             features = {
                 pickers = {
-                    provider = "snacks", -- telescope | fzf-lua | snacks | ui.select
+                    provider = "fzf-lua", -- telescope | fzf-lua | snacks | ui.select
                 },
             },
         },

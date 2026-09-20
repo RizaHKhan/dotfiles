@@ -26,15 +26,14 @@ local function dotenv()
     local values = {}
     for _, line in ipairs(vim.fn.readfile(path)) do
         local key, value = line:match "^%s*([%w_]+)%s*=%s*(.-)%s*$"
-        if key and value then
-            values[key] = value:gsub('^"(.*)"$', "%1"):gsub("^'(.*)'$", "%1")
-        end
+        if key and value then values[key] = value:gsub('^"(.*)"$', "%1"):gsub("^'(.*)'$", "%1") end
     end
     return values
 end
 
 return {
     "emrearmagan/atlas.nvim",
+    branch = "feat/custom-ci",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
         "MeanderingProgrammer/render-markdown.nvim",
@@ -54,6 +53,28 @@ return {
                     user = env.BITBUCKET_USER or vim.env.BITBUCKET_USER or "rkhan@camcloud.com",
                     token = env.BITBUCKET_TOKEN or vim.env.BITBUCKET_TOKEN or "",
                     cache_ttl = 300,
+                    ci = {
+                        backend = {
+                            fetch = function(context, opts, done)
+                                -- Fetch pipelines with their stages and jobs.
+                                done({}, nil)
+                            end,
+
+                            fetch_job = function(context, pipeline, job, done)
+                                -- Fetch the updated job.
+                                done(job, nil)
+                            end,
+
+                            fetch_job_log = function(context, pipeline, job, done)
+                                done({ raw = "Your log output here" }, nil)
+                            end,
+
+                            parse = function(log)
+                                -- Return cleaned lines or your own nested groups.
+                                return log.lines
+                            end,
+                        },
+                    },
                 },
                 github = {
                     cache_ttl = 300,
