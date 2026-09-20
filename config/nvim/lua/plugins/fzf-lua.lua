@@ -89,6 +89,10 @@ return {
                                 end,
                                 desc = "Notification History",
                             },
+                            ["<Leader>ls"] = {
+                                function() require("fzf-lua").lsp_document_symbols() end,
+                                desc = "LSP Document Symbols",
+                            },
                             ["<Leader>un"] = {
                                 function()
                                     local ok, noice = pcall(require, "noice")
@@ -206,6 +210,11 @@ return {
                 "H",
                 function() require("fzf-lua").buffers { sort_lastused = true } end,
                 desc = "Buffers",
+            },
+            {
+                "<leader>ls",
+                function() require("fzf-lua").lsp_document_symbols() end,
+                desc = "LSP Document Symbols",
             },
             {
                 "<leader>lsw",

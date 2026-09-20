@@ -16,7 +16,6 @@ return {
     { import = "astrocommunity.diagnostics.trouble-nvim" },
     { import = "astrocommunity.editing-support.neogen" },
     { import = "astrocommunity.editing-support.treesj" },
-    { import = "astrocommunity.fuzzy-finder.namu-nvim" },
     { import = "astrocommunity.git.gitlinker-nvim" },
     { import = "astrocommunity.git.nvim-tinygit" },
     { import = "astrocommunity.motion.mini-surround" },
