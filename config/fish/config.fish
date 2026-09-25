@@ -10,6 +10,7 @@ fish_add_path --prepend /opt/homebrew/bin /opt/homebrew/opt/openssh/bin /opt/hom
     "$HOME/.config/scripts" "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.cargo/bin" \
     /usr/local/bin
 
+set -U fish_prompt_pwd_dir_length 0
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_STATE_HOME "$HOME/.local/state"

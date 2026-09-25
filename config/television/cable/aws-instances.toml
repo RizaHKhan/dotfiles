@@ -27,17 +27,22 @@ mode = "execute"
 
 [actions.start]
 description = "Start the selected EC2 instance"
-command = "AWS_REGION=${AWS_REGION:-${AWS_DEFAULT_REGION:-us-east-1}} aws ec2 start-instances --instance-ids {split:\t:0}"
+command = "AWS_REGION=(test -n \"$AWS_REGION\"; and echo $AWS_REGION; or test -n \"$AWS_DEFAULT_REGION\"; and echo $AWS_DEFAULT_REGION; or echo us-east-1) aws ec2 start-instances --instance-ids {split:\t:0}"
 mode = "fork"
 
 [actions.stop]
 description = "Stop the selected EC2 instance"
-command = "AWS_REGION=${AWS_REGION:-${AWS_DEFAULT_REGION:-us-east-1}} aws ec2 stop-instances --instance-ids {split:\t:0}"
+command = "AWS_REGION=(test -n \"$AWS_REGION\"; and echo $AWS_REGION; or test -n \"$AWS_DEFAULT_REGION\"; and echo $AWS_DEFAULT_REGION; or echo us-east-1) aws ec2 stop-instances --instance-ids {split:\t:0}"
+mode = "fork"
+
+[actions.terminate]
+description = "Terminate (permanently delete) the selected EC2 instance"
+command = "AWS_REGION=(test -n \"$AWS_REGION\"; and echo $AWS_REGION; or test -n \"$AWS_DEFAULT_REGION\"; and echo $AWS_DEFAULT_REGION; or echo us-east-1) aws ec2 terminate-instances --instance-ids {split:\t:0}"
 mode = "fork"
 
 [actions.ssm]
 description = "Start an SSM session on the selected instance"
-command = "AWS_REGION=${AWS_REGION:-${AWS_DEFAULT_REGION:-us-east-1}} aws ssm start-session --target {split:\t:0}"
+command = "AWS_REGION=(test -n \"$AWS_REGION\"; and echo $AWS_REGION; or test -n \"$AWS_DEFAULT_REGION\"; and echo $AWS_DEFAULT_REGION; or echo us-east-1) aws ssm start-session --target {split:\t:0}"
 mode = "execute"
 
 [actions.connection-string]

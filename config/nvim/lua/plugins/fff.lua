@@ -63,20 +63,5 @@ return {
             desc = "Current word search (fff)",
             mode = { "n", "x" },
         },
-        {
-            "<leader>ff",
-            function() require("fff").find_files() end,
-            desc = "Find files (fff)",
-        },
-        {
-            "<leader>fg",
-            function() require("fff").live_grep() end,
-            desc = "Live grep (fff)",
-        },
-        {
-            "<leader>fr",
-            function() require("fff").scan_files() end,
-            desc = "Rescan files (fff)",
-        },
     },
 }

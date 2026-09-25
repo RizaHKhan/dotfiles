@@ -55,6 +55,7 @@ return {
                 [";d"] = { cmd = ":CodeDiff<cr>", desc = "Open Diffview" },
                 [";h"] = { cmd = ":CodeDiff history %<cr>", desc = "Close Diffview" },
                 ["M"] = { cmd = ":MarkdownPreview<cr>", desc = "Markdown Preview" },
+                ["<leader>A"] = { cmd = ":Atlas<cr>", desc = "Atlas" },
                 ["<leader>M"] = { cmd = ":MarkdownPreviewStop<cr>", desc = "Close Markdown Preview" },
                 ["<leader>y"] = { cmd = ":YankPath<cr>", desc = "Yank path" },
                 [".."] = {

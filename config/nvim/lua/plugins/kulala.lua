@@ -28,6 +28,7 @@ return {
         ui = {
             formatter = true,
             max_response_size = 10000000,
+            split_direction = "horizontal",
         },
         debug = true,
     },

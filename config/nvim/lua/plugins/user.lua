@@ -112,6 +112,7 @@ return {
     { "yochem/jq-playground.nvim" },
     {
         "ywpkwon/yank-path.nvim",
+        dependencies = { "ibhagwan/fzf-lua" },
         config = function()
             require("yank-path").setup {
                 default_mapping = false,

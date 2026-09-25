@@ -1,4 +1,4 @@
-version: 0.4.0
+version: 0.5.0
 log:
     path: /var/folders/h8/b1py2n8s1bv93vx6kx4p7ztw0000gn/T/vi-sql.log
     level: info
@@ -8,7 +8,7 @@ editor:
     env: EDITOR
     enabled: false
 ui:
-    schemaPanelWidth: 30
+    schemaPanelWidth: 40
     vimMode: true
 mcp:
     enabled: true

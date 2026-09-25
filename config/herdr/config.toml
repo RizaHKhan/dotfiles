@@ -101,11 +101,11 @@ navigate_workspace_down = "j"
 # type = "shell" runs detached in the background.
 # type = "pane" opens a temporary pane and closes it when the command exits.
 
-[[keys.command]]
-key = "prefix+n"
-type = "pane"
-command = "nvim ."
-description = "Opens neovim"
+# [[keys.command]]
+# key = "prefix+n"
+# type = "pane"
+# command = "nvim ."
+# description = "Opens neovim"
 
 [[keys.command]]
 key = "prefix+B"
@@ -387,6 +387,18 @@ description = "Find words"
 key = "prefix+shift+e"
 type = "shell"
 command = "herdr plugin pane open --plugin herdr-arrange --entrypoint ui"
+
+[[keys.command]]
+key = "prefix+n"
+type = "plugin_action"
+command = "chmarax.herdr-nvim.toggle"
+description = "nvim sidebar"
+
+[[keys.command]]
+key = "prefix+o"
+type = "plugin_action"
+command = "chmarax.herdr-nvim.pick-file"
+description = "open file from agent output"
 
 [theme.custom]
 panel_bg = "#282c34"

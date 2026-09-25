@@ -187,6 +187,12 @@ data:
     multipleSelect:
         runes: [V]
         description: Start select
+    selectCells:
+        runes: [v]
+        description: Select cells
+    changeSelection:
+        runes: [e]
+        description: Change selected cells
     clearSelection:
         keys: [Esc]
         description: Clear selection

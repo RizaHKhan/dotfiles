@@ -17,7 +17,6 @@ return {
     { import = "astrocommunity.editing-support.neogen" },
     { import = "astrocommunity.editing-support.treesj" },
     { import = "astrocommunity.git.gitlinker-nvim" },
-    { import = "astrocommunity.git.nvim-tinygit" },
     { import = "astrocommunity.motion.mini-surround" },
     { import = "astrocommunity.pack.angular" },
     { import = "astrocommunity.pack.nginx" },

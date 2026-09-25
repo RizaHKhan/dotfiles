@@ -203,9 +203,36 @@ return {
                 end
             end
             fzf.setup(opts)
-            fzf.register_ui_select()
+            fzf.register_ui_select {
+                keymap = {
+                    fzf = {
+                        ["ctrl-d"] = "half-page-down",
+                        ["ctrl-u"] = "half-page-up",
+                    },
+                },
+            }
         end,
         keys = {
+            {
+                "<leader>F",
+                function()
+                    require("fzf-lua").files {
+                        cmd = "fd --type f --hidden --no-ignore --exclude .git --exclude .jj --exclude node_modules --exclude vendor",
+                        prompt = "Files> ",
+                    }
+                end,
+                desc = "Find Files (including hidden)",
+            },
+            {
+                "<leader>H",
+                function()
+                    require("fzf-lua").files {
+                        cmd = [[fd --type f --full-path --hidden --no-ignore --exclude .git --exclude .jj --exclude node_modules --exclude vendor '(^|/)\.[^/]+$']],
+                        prompt = "Hidden Files> ",
+                    }
+                end,
+                desc = "Find Hidden Files",
+            },
             {
                 "H",
                 function() require("fzf-lua").buffers { sort_lastused = true } end,
