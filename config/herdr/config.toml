@@ -323,11 +323,11 @@ type = "popup"
 command = "sudo nvim /etc/hosts"
 description = "Hosts"
 
-# [[keys.command]]
-# key = "prefix+L"
-# type = "pane"
-# command = "lazydocker"
-# description = "Opens Lazydocker"
+[[keys.command]]
+key = "prefix+L"
+type = "pane"
+command = "lazydocker"
+description = "Opens Lazydocker"
 
 [[keys.command]]
 key = "prefix+s"
