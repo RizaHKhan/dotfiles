@@ -4,10 +4,13 @@ description = "List and preview AWS EC2 Instances"
 requirements = ["aws", "herdr"]
 
 [source]
-command = "aws ec2 describe-instances --output json | jq -r '.Reservations[].Instances[] | [.InstanceId, (.Tags // [] | map(select(.Key == \"Name\").Value) | first // \"\"), (.PublicIpAddress // \"\")] | @tsv'"
+command = "aws ec2 describe-instances --output json | jq -r '.Reservations[].Instances[] | (.State.Name // \"unknown\") as $st | [.InstanceId, (.Tags // [] | map(select(.Key == \"Name\").Value) | first // \"-\"), (.PublicIpAddress // \"-\"), (if $st == \"running\" then \"● running\" elif $st == \"stopped\" then \"○ stopped\" else (\"◌ \" + $st) end)] | @tsv'"
+# Tab-separated fields: id, name, ip, state — consumed by the `{split:\t:N}`
+# placeholders in the actions/preview below; `--output json` is only for jq parsing.
+display = "{split:\\t:3}  {split:\\t:1}  ({split:\\t:0})  {split:\\t:2}"
 
 [preview]
-command = "aws ec2 describe-tags --output json --filters Name=resource-id,Values={split:\t:0} | jq -r '.Tags[] | [.Key, .Value] | @tsv'"
+command = "aws ec2 describe-instances --instance-ids {split:\t:0} --output json | jq -C '.Reservations[0].Instances[0]'"
 
 [ui]
 layout = "landscape"
