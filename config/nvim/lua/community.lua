@@ -23,7 +23,6 @@ return {
     { import = "astrocommunity.pack.php" },
     { import = "astrocommunity.pack.typescript-all-in-one" },
     { import = "astrocommunity.pack.vue" },
-    { import = "astrocommunity.programming-language-support.kulala-nvim" },
     { import = "astrocommunity.quickfix.nvim-bqf" },
     { import = "astrocommunity.quickfix.quicker-nvim" },
     { import = "astrocommunity.recipes.ai" },
