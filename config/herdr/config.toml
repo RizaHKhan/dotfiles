@@ -372,7 +372,7 @@ command = "ray.plugin-manager.open"
 description = "open plugin manager"
 
 [[keys.command]]
-key = "prefix+shift+l"
+key = "prefix+P"
 type = "plugin_action"
 command = "herdr-lazy.manage"
 description = "manage plugins"
@@ -399,6 +399,12 @@ key = "prefix+o"
 type = "plugin_action"
 command = "chmarax.herdr-nvim.pick-file"
 description = "open file from agent output"
+
+[[keys.command]]
+key = "prefix+M"
+type = "pane"
+command = "tv make-targets"
+description = "Make file"
 
 [theme.custom]
 panel_bg = "#282c34"
