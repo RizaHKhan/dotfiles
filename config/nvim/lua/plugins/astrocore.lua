@@ -54,9 +54,9 @@ return {
                 ["<leader>jq"] = { cmd = ":JqPlayground<cr>", desc = "JQ" },
                 [";d"] = { cmd = ":CodeDiff<cr>", desc = "Open Diffview" },
                 [";h"] = { cmd = ":CodeDiff history %<cr>", desc = "Close Diffview" },
-                ["M"] = { cmd = ":MarkdownPreview<cr>", desc = "Markdown Preview" },
+                ["M"] = { function() require("mdkite").start() end, desc = "Markdown Preview" },
                 ["<leader>A"] = { cmd = ":Atlas<cr>", desc = "Atlas" },
-                ["<leader>M"] = { cmd = ":MarkdownPreviewStop<cr>", desc = "Close Markdown Preview" },
+                ["<leader>M"] = { function() require("mdkite").stop() end, desc = "Close Markdown Preview" },
                 ["<leader>y"] = { cmd = ":YankPath<cr>", desc = "Yank path" },
                 [".."] = {
                     cmd = function()

@@ -169,16 +169,61 @@ return {
         },
     },
     {
-        "selimacerbas/markdown-preview.nvim",
-        dependencies = { "selimacerbas/live-server.nvim" },
+        "selimacerbas/mdkite.nvim",
+        -- a kitehost.nvim checkout under another dir name needs its spec to
+        -- say name = "kitehost.nvim", or lazy.nvim clones upstream beside it
+        dependencies = { "selimacerbas/kitehost.nvim" },
+        -- kitehost.nvim v2.0.0 or newer, the first release with its Host check
         config = function()
-            require("markdown_preview").setup {
-                -- all optional; sane defaults shown
-                instance_mode = "takeover", -- "takeover" (one tab) or "multi" (tab per instance)
+            require("mdkite").setup {
+                instance_mode = "takeover", -- "takeover" or "multi" (see below)
                 port = 0, -- 0 = auto (8421 for takeover, OS-assigned for multi)
-                open_browser = true,
-                default_theme = "dark", -- "dark" or "light"; initial preview theme
-                debounce_ms = 300,
+                host = "127.0.0.1", -- bind address; "0.0.0.0" for network access (see Remote access)
+                open_browser = false, -- browser is opened from on_start so takeover joins open it too
+
+                -- nil = system default browser
+                -- string = browser name ("Firefox") or binary ("google-chrome")
+                -- table = full command, URL appended ({ "google-chrome", "--incognito" })
+                -- On macOS, string values are passed via `open -a <name>`.
+                browser = nil,
+
+                content_name = "content.md", -- workspace content file
+                index_name = "index.html", -- workspace HTML file
+                custom_css = "", -- CSS file layered over bundled styles (~ and $VARS ok; "" = off)
+                workspace_dir = nil, -- nil = auto (shared for takeover, per-buffer for multi); multi mode serves a set directory whole, so keep nothing else in it: on a network bind its other files need no token
+
+                overwrite_index_on_start = true, -- copy plugin's index.html on every start
+
+                auto_refresh = true, -- auto-update on buffer changes
+                auto_refresh_events = { -- which events trigger refresh
+                    "InsertLeave",
+                    "TextChanged",
+                    "TextChangedI",
+                    "BufWritePost",
+                },
+                debounce_ms = 300, -- debounce interval
+                notify_on_refresh = false, -- show notification on refresh
+
+                mermaid_renderer = "js", -- "js" (browser mermaid.js) or "rust" (mmdr CLI, ~400x faster)
+
+                default_theme = "dark", -- "dark" or "light"; initial preview theme (toggleable in browser)
+
+                yaml_mode = "panel", -- front matter: "panel" (collapsible above preview), "hide", or "raw"
+
+                filetypes = { "md" }, -- more filetypes previewed whole as markdown, e.g. { "quarto", "rmd" } (see Other filetypes)
+
+                allow_raw_html = true, -- render raw HTML in markdown; false is meant to render it as text and is being hardened (see Security)
+
+                scroll_sync = true, -- browser follows cursor position
+
+                -- Fraction (0–1): vertical position of the final line when scrolled to end.
+                -- 0.5 = middle of viewport (default), 1.0 = bottom edge (no extra space)
+                bottom_padding = 0.5,
+
+                hooks = {
+                    on_start = function(url) vim.ui.open(url) end, -- open both fresh previews and takeover joins
+                    on_stop = nil, -- fun()|nil, called after preview stops
+                },
             }
         end,
     },

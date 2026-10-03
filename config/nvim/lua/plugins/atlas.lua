@@ -33,7 +33,6 @@ end
 
 return {
     "emrearmagan/atlas.nvim",
-    branch = "feat/custom-ci",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
         "MeanderingProgrammer/render-markdown.nvim",
@@ -48,33 +47,14 @@ return {
         local jira_enabled = jira_base_url ~= "" and jira_email ~= "" and jira_token ~= ""
 
         require("atlas").setup {
+            ui = {
+                picker = "fzf-lua",
+            },
             providers = {
                 bitbucket = {
                     user = env.BITBUCKET_USER or vim.env.BITBUCKET_USER or "rkhan@camcloud.com",
                     token = env.BITBUCKET_TOKEN or vim.env.BITBUCKET_TOKEN or "",
                     cache_ttl = 300,
-                    ci = {
-                        backend = {
-                            fetch = function(context, opts, done)
-                                -- Fetch pipelines with their stages and jobs.
-                                done({}, nil)
-                            end,
-
-                            fetch_job = function(context, pipeline, job, done)
-                                -- Fetch the updated job.
-                                done(job, nil)
-                            end,
-
-                            fetch_job_log = function(context, pipeline, job, done)
-                                done({ raw = "Your log output here" }, nil)
-                            end,
-
-                            parse = function(log)
-                                -- Return cleaned lines or your own nested groups.
-                                return log.lines
-                            end,
-                        },
-                    },
                 },
                 github = {
                     cache_ttl = 300,
@@ -111,13 +91,19 @@ return {
                     views = {
                         {
                             name = "Me",
-                            key = "M",
+                            key = "1",
                             layout = "compact", -- "compact" or "plain"
                             search = repository_search("camcloud", "~/camcloud/repos") .. ' author.nickname = "rkhan"',
                         },
                         {
+                            name = "ALE-9621",
+                            key = "2",
+                            layout = "compact", -- "compact" or "plain"
+                            search = repository_search("camcloud", "~/camcloud/repos") .. ' (title ~ "ALE-9621" OR description ~ "ALE-9621")',
+                        },
+                        {
                             name = "Others",
-                            key = "O",
+                            key = "3",
                             layout = "plain", -- "compact" or "plain"
                             search = repository_search("camcloud", "~/camcloud/repos") .. ' author.nickname != "rkhan"',
                         },
@@ -134,7 +120,12 @@ return {
                         {
                             name = "Repo",
                             key = "2",
-                            search = "repo:seanseaver/LabSpend-Laravel author:seanseaver",
+                            search = "repo:seanseaver/LabSpend-Laravel sort:updated-desc author:seanseaver",
+                        },
+                        {
+                            name = "Other",
+                            key = "3",
+                            search = "repo:seanseaver/LabSpend-Laravel sort:updated-desc -author:@me -author:seanseaver",
                         },
                     },
                 },

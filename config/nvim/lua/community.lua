@@ -9,7 +9,6 @@ return {
     { import = "astrocommunity.completion.blink-cmp" },
     { import = "astrocommunity.completion.blink-cmp-emoji" },
     { import = "astrocommunity.completion.blink-cmp-git" },
-    { import = "astrocommunity.completion.blink-cmp-tmux" },
     { import = "astrocommunity.debugging.nvim-dap-repl-highlights" },
     { import = "astrocommunity.debugging.nvim-dap-view" },
     { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
