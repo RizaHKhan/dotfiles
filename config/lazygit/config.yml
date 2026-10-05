@@ -30,8 +30,12 @@ gui:
 git:
   autoFetch: true
   autoRefresh: true
+  log:
+    order: date-order
+  localBranchSortOrder: date
+  remoteBranchSortOrder: date
   # diffRenderers:
-  #   - type: extDiff
+  #   - type: extDiff foobar
 # Allow 'Esc' to quit from top level
 quitOnTopLevelReturn: true
 # Uncomment if you want per-repo overrides later
