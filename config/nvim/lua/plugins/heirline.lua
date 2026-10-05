@@ -3,53 +3,52 @@ return {
     opts = function(_, opts)
         opts.winbar = nil
         local status = require "astroui.status"
+        local function git_branch_name()
+            local file = vim.api.nvim_buf_get_name(0)
+            local dir = file ~= "" and vim.fn.fnamemodify(file, ":p:h") or vim.fn.getcwd()
+            local branch = vim.fn.systemlist { "git", "-C", dir, "branch", "--show-current" }
+            if vim.v.shell_error == 0 and branch[1] and branch[1] ~= "" then return branch[1] end
+
+            local commit = vim.fn.systemlist { "git", "-C", dir, "rev-parse", "--short", "HEAD" }
+            return vim.v.shell_error == 0 and commit[1] or ""
+        end
+
         opts.statusline = {
-            hl = { fg = "fg", bg = "bg" },
-            status.component.mode {
-                mode_text = {
-                    icon = { kind = "VimIcon", padding = { right = 1, left = 1 } },
-                },
-                surround = {
-                    separator = "left",
-                    color = function() return { main = status.hl.mode_bg(), right = "blank_bg" } end,
-                },
+            status.component.file_info {
+                filename = { fallback = "Empty", modify = ":." },
+                file_icon = { hl = false },
+                filetype = false,
+                file_read_only = false,
+                hl = { fg = "#9ECE6A" },
+                padding = { right = 1 },
+                surround = { separator = "NONE", condition = false, color = "NONE" },
             },
             status.component.builder {
-                { provider = "" },
-                surround = {
-                    separator = "left",
-                    color = { main = "blank_bg", right = "file_info_bg" },
-                },
+                { provider = "|" },
+                hl = { fg = "#7A7A7A", bg = "NONE" },
+                padding = { right = 1 },
             },
-             status.component.file_info {
-                 filename = { fallback = "Empty", modify = ":." },
-                 filetype = false,
-                 file_read_only = false,
-                 padding = { right = 2 },
-                 surround = { separator = "left", condition = false, color = "file_info_bg" },
-             },
-             status.component.git_branch {
-                 git_branch = { padding = { left = 2, right = 2 } },
-                 hl = { fg = "#7DCFFF", bold = true },
-                 surround = { separator = "none", color = { bg = "NONE" } },
-             },
-             status.component.git_diff {
-                 padding = { left = 1 },
-                 surround = { separator = "none", color = { bg = "NONE" } },
-                 added = { hl = { fg = "#6B9B6B" } },
-                 changed = { hl = { fg = "#D4A574" } },
-                 removed = { hl = { fg = "#C94F4F" } },
-             },
-             status.component.fill(),
-             status.component.lsp {
-                 surround = { separator = "none", color = { bg = "NONE" } },
-                 padding = { left = 1, right = 1 },
-             },
-             status.component.builder {
-                 { provider = function() return string.format("%d:%d", vim.fn.line ".", vim.fn.col ".") end },
-                 surround = { separator = "right", condition = false, color = "file_info_bg" },
-                 padding = { left = 0, right = 1 },
-             },
+            status.component.builder {
+                {
+                    provider = function()
+                        local branch = vim.b.gitsigns_head or git_branch_name()
+                        return branch ~= "" and (branch .. "  ") or ""
+                    end,
+                },
+                hl = { fg = "#7DCFFF", bg = "NONE", bold = true },
+            },
+            status.component.fill(),
+            status.component.lsp {
+                hl = { fg = "#7A7A7A", bg = "NONE" },
+                surround = { separator = "none", color = { bg = "NONE" } },
+                padding = { left = 1, right = 1 },
+            },
+            status.component.builder {
+                { provider = function() return string.format("%d:%d", vim.fn.line ".", vim.fn.col ".") end },
+                hl = { fg = "#E0AF68", bg = "NONE" },
+                surround = { separator = "NONE", condition = false, color = "NONE" },
+                padding = { left = 0, right = 1 },
+            },
         }
     end,
 }

@@ -22,5 +22,6 @@ config/zsh/.zshrc.local
 config/fish/local.fish
 config/nvim/nvim.log
 config/nvim/.env
+config/nvim/nvim-pack-lock.json
 /config/opencode/.oh-my-opencode-slim/skills-manifest.json
 /config/vi-sql/history.txt

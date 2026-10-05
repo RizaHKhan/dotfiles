@@ -99,12 +99,6 @@ return {
         },
     },
     {
-        "serhez/teide.nvim",
-        lazy = false,
-        priority = 1000,
-        opts = {},
-    },
-    {
         "esmuellert/codediff.nvim",
         version = "2.67.2", -- atlas.nvim 0.7.x targets codediff 2.67.x (v4.x removed ui/scroll)
         cmd = "CodeDiff",

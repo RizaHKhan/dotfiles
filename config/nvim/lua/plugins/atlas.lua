@@ -50,6 +50,31 @@ return {
             ui = {
                 picker = "fzf-lua",
             },
+            keymaps = {
+                pulls = {
+                    custom = {
+                        {
+                            key = "ga",
+                            desc = "Approve PR",
+                            callback = function(context, done) require("atlas.pulls.actions").run("approve", context, done) end,
+                        },
+                        {
+                            key = "rc",
+                            desc = "Request changes",
+                            callback = function(context, done)
+                                require("atlas.pulls.actions").run("request_changes", context, done)
+                            end,
+                        },
+                        {
+                            key = "sr",
+                            desc = "Submit review",
+                            callback = function(context, done)
+                                require("atlas.pulls.actions").run("submit_review", context, done)
+                            end,
+                        },
+                    },
+                },
+            },
             providers = {
                 bitbucket = {
                     user = env.BITBUCKET_USER or vim.env.BITBUCKET_USER or "rkhan@camcloud.com",
@@ -96,16 +121,28 @@ return {
                             search = repository_search("camcloud", "~/camcloud/repos") .. ' author.nickname = "rkhan"',
                         },
                         {
-                            name = "ALE-9621",
+                            name = "ALE-9803",
                             key = "2",
                             layout = "compact", -- "compact" or "plain"
-                            search = repository_search("camcloud", "~/camcloud/repos") .. ' (title ~ "ALE-9621" OR description ~ "ALE-9621")',
+                            search = repository_search("camcloud", "~/camcloud/repos") .. ' (title ~ "ALE-9803" OR description ~ "ALE-9803")',
+                        },
+                        {
+                            name = "ALE-9817",
+                            key = "3",
+                            layout = "compact", -- "compact" or "plain"
+                            search = repository_search("camcloud", "~/camcloud/repos") .. ' (title ~ "ALE-9817" OR description ~ "ALE-9817")',
                         },
                         {
                             name = "Others",
-                            key = "3",
-                            layout = "plain", -- "compact" or "plain"
+                            key = "4",
+                            layout = "grouped", -- "compact", "grouped", or "plain"
                             search = repository_search("camcloud", "~/camcloud/repos") .. ' author.nickname != "rkhan"',
+                        },
+                        {
+                            name = "Mobile",
+                            key = "m",
+                            layout = "plain", -- "compact" or "plain"
+                            search = "repo:camcloud/camcloud-ios-v2 repo:camcloud/camcloud-android-v2" .. ' author.nickname != ""',
                         },
                     },
                 },
@@ -115,16 +152,19 @@ return {
                         {
                             name = "My PRs",
                             key = "1",
+                            layout = "grouped", -- "compact", "grouped", or "plain"
                             search = "author:@me sort:updated-desc",
                         },
                         {
                             name = "Repo",
                             key = "2",
+                            layout = "grouped", -- "compact", "grouped", or "plain"
                             search = "repo:seanseaver/LabSpend-Laravel sort:updated-desc author:seanseaver",
                         },
                         {
                             name = "Other",
                             key = "3",
+                            layout = "grouped", -- "compact", "grouped", or "plain"
                             search = "repo:seanseaver/LabSpend-Laravel sort:updated-desc -author:@me -author:seanseaver",
                         },
                     },

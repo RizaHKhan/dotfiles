@@ -13,7 +13,7 @@ return {
             inactive = false,
         },
         -- change colorscheme
-        colorscheme = "teide-darker", -- set the colorscheme to use
+        colorscheme = "catppuccin", -- set the colorscheme to use
         -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
         highlights = {
             init = {

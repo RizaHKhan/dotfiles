@@ -36,11 +36,14 @@ return {
                 foldcolumn = "0",
                 showtabline = 1,
                 tabline = "%!v:lua.NumberedTabline()",
+                cmdheight = 0,
             },
             g = { -- vim.g.<key>
                 -- configure global vim variables (vim.g)
                 -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
                 -- This can be found in the `lua/lazy_setup.lua` file
+                snacks_indent = false,
+                snacks_scope = false,
             },
         },
         -- Mappings can be configured through AstroCore as well.
@@ -54,6 +57,31 @@ return {
                 ["<leader>jq"] = { cmd = ":JqPlayground<cr>", desc = "JQ" },
                 [";d"] = { cmd = ":CodeDiff<cr>", desc = "Open Diffview" },
                 [";h"] = { cmd = ":CodeDiff history %<cr>", desc = "Close Diffview" },
+                ["<leader>gp"] = {
+                    function() require("mini.diff").toggle_overlay(0) end,
+                    desc = "Preview Git hunk overlay",
+                },
+                ["<leader>gb"] = { cmd = ":GitBlameToggle<cr>", desc = "Toggle Git blame for current line" },
+                ["<leader>gr"] = {
+                    function()
+                        local diff = require "mini.diff"
+                        local line = vim.api.nvim_win_get_cursor(0)[1]
+                        local data = diff.get_buf_data(0)
+
+                        for _, hunk in ipairs(data and data.hunks or {}) do
+                            local hunk_start = hunk.buf_count > 0 and hunk.buf_start or math.max(hunk.buf_start, 1)
+                            local hunk_end = hunk.buf_count > 0 and (hunk.buf_start + hunk.buf_count - 1) or hunk_start
+
+                            if hunk_start <= line and line <= hunk_end then
+                                diff.do_hunks(0, "reset", { line_start = hunk_start, line_end = hunk_end })
+                                return
+                            end
+                        end
+
+                        vim.notify("No Git hunk under cursor", vim.log.levels.INFO)
+                    end,
+                    desc = "Reset Git hunk",
+                },
                 ["M"] = { function() require("mdkite").start() end, desc = "Markdown Preview" },
                 ["<leader>A"] = { cmd = ":Atlas<cr>", desc = "Atlas" },
                 ["<leader>M"] = { function() require("mdkite").stop() end, desc = "Close Markdown Preview" },
@@ -79,6 +107,10 @@ return {
                     end,
                     desc = "Wrap word in HTML tag, place cursor inside, and enter insert mode",
                 },
+            },
+            x = {
+                ["/"] = { "<Esc>/\\%V", desc = "Search within visual selection" },
+                ["?"] = { "<Esc>?\\%V", desc = "Search backward within visual selection" },
             },
         },
     },
