@@ -52,9 +52,7 @@ local function jump_reference(count)
         end
         target = target or extmarks[#extmarks]
     end
-    if target then
-        vim.api.nvim_win_set_cursor(0, { target[2] + 1, target[3] })
-    end
+    if target then vim.api.nvim_win_set_cursor(0, { target[2] + 1, target[3] }) end
 end
 
 ---@type LazySpec
@@ -96,9 +94,7 @@ return {
                             ["<Leader>un"] = {
                                 function()
                                     local ok, noice = pcall(require, "noice")
-                                    if ok then
-                                        noice.cmd "dismiss"
-                                    end
+                                    if ok then noice.cmd "dismiss" end
                                 end,
                                 desc = "Dismiss All Notifications",
                             },
@@ -141,7 +137,7 @@ return {
                 },
                 git = {
                     status = {
-                        prompt = "Git Status> ",
+                        prompt = "> ",
                         headers = false,
                         winopts = {
                             preview = {
@@ -186,9 +182,7 @@ return {
                         if not items or not items[1] then return orig_act(items, fzf_lines, fzf_columns) end
                         local s = items[1]
                         local utils = require "fzf-lua.utils"
-                        local has_icon = function(icon)
-                            return icon and s:find(icon .. utils.nbsp, 1, true) ~= nil
-                        end
+                        local has_icon = function(icon) return icon and s:find(icon .. utils.nbsp, 1, true) ~= nil end
                         local path = require("fzf-lua.path").entry_to_file(s, self.opts)
                         if not path.path then return "" end
                         local escaped = require("fzf-lua.libuv").shellescape(path.path)
@@ -218,7 +212,7 @@ return {
                 function()
                     require("fzf-lua").files {
                         cmd = "fd --type f --hidden --no-ignore --exclude .git --exclude .jj --exclude node_modules --exclude vendor",
-                        prompt = "Files> ",
+                        prompt = "> ",
                     }
                 end,
                 desc = "Find Files (including hidden)",
@@ -228,7 +222,7 @@ return {
                 function()
                     require("fzf-lua").files {
                         cmd = [[fd --type f --full-path --hidden --no-ignore --exclude .git --exclude .jj --exclude node_modules --exclude vendor '(^|/)\.[^/]+$']],
-                        prompt = "Hidden Files> ",
+                        prompt = "> ",
                     }
                 end,
                 desc = "Find Hidden Files",
@@ -298,7 +292,7 @@ return {
                 "gi",
                 function()
                     require("fzf-lua").fzf_exec("gh issue list --limit 100", {
-                        prompt = "Git Issues> ",
+                        prompt = "> ",
                         actions = {
                             ["default"] = function(selected)
                                 local issue = selected[1] and selected[1]:match "^%s*(%d+)"
@@ -335,9 +329,7 @@ return {
                 "<leader>un",
                 function()
                     local ok, noice = pcall(require, "noice")
-                    if ok then
-                        noice.cmd "dismiss"
-                    end
+                    if ok then noice.cmd "dismiss" end
                 end,
                 desc = "Dismiss All Notifications",
             },

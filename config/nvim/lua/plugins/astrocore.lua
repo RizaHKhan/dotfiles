@@ -54,6 +54,14 @@ return {
                 ["<leader>jq"] = { cmd = ":JqPlayground<cr>", desc = "JQ" },
                 [";d"] = { cmd = ":CodeDiff<cr>", desc = "Open Diffview" },
                 [";h"] = { cmd = ":CodeDiff history %<cr>", desc = "Close Diffview" },
+                ["<leader>gp"] = { function() require("mini.diff").toggle_overlay(0) end, desc = "Preview Git hunk overlay" },
+                ["<leader>gr"] = {
+                    function()
+                        local line = vim.api.nvim_win_get_cursor(0)[1]
+                        require("mini.diff").do_hunks(0, "reset", { line_start = line, line_end = line })
+                    end,
+                    desc = "Reset Git hunk",
+                },
                 ["M"] = { function() require("mdkite").start() end, desc = "Markdown Preview" },
                 ["<leader>A"] = { cmd = ":Atlas<cr>", desc = "Atlas" },
                 ["<leader>M"] = { function() require("mdkite").stop() end, desc = "Close Markdown Preview" },
@@ -79,6 +87,10 @@ return {
                     end,
                     desc = "Wrap word in HTML tag, place cursor inside, and enter insert mode",
                 },
+            },
+            x = {
+                ["/"] = { "<Esc>/\\%V", desc = "Search within visual selection" },
+                ["?"] = { "<Esc>?\\%V", desc = "Search backward within visual selection" },
             },
         },
     },

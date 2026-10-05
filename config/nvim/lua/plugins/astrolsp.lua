@@ -75,9 +75,13 @@ return {
             },
             phpactor = {
                 init_options = {
-                    ["language_server.diagnostics_on_update"] = false,
-                    ["language_server.diagnostics_on_open"] = false,
-                    ["language_server.diagnostics_on_save"] = false,
+                    ["language_server.diagnostics_on_update"] = true,
+                    ["language_server.diagnostics_on_open"] = true,
+                    ["language_server.diagnostics_on_save"] = true,
+                    -- Its "worse reflection" checks (missing member, unresolved name) do
+                    -- not understand Eloquent's static magic or find PHP's built-in
+                    -- functions, so they flag valid code. PHPStan below covers it.
+                    ["language_server_worse_reflection.diagnostics.enable"] = false,
                     ["language_server_phpstan.enabled"] = true,
                     ["language_server_php_cs_fixer.enabled"] = true,
                     ["language_server_psalm.enabled"] = false,
