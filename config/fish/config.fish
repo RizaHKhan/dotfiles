@@ -103,3 +103,45 @@ function y
     end
     rm -f -- "$tmp"
 end
+
+function but-apply-open-prs --description "Select and apply open GitHub PR branches with GitButler"
+    if not type -q gh
+        echo "but-apply-open-prs: gh is not installed" >&2
+        return 127
+    end
+
+    if not type -q but
+        echo "but-apply-open-prs: but is not installed" >&2
+        return 127
+    end
+
+    # `type -q` checks whether the command exists without printing anything.
+    if not type -q fzf
+        echo "but-apply-open-prs: fzf is not installed" >&2
+        return 127
+    end
+
+    set -l prs (gh pr list --state open --json number,headRefName,title --jq '.[] | [.number, .headRefName, .title] | @tsv')
+    if test (count $prs) -eq 0
+        echo "No open PRs found."
+        return 0
+    end
+
+    # Pipe PRs into fzf; `--multi` enables Tab to mark multiple PRs, then Enter confirms them.
+    # `--accept-nth=2` returns only the selected PR branch names for `but apply`.
+    set -l selected_branches (printf "%s\n" $prs | fzf --multi --prompt="Apply PRs> " --delimiter="\t" --with-nth="1,3,2" --accept-nth=2 --preview='gh pr view {1} --comments')
+    if test $status -ne 0; or test (count $selected_branches) -eq 0
+        echo "No PRs selected."
+        return 0
+    end
+
+    for branch in $selected_branches
+        if test -z "$branch"
+            echo "but-apply-open-prs: selected PR did not include a branch name" >&2
+            return 1
+        end
+
+        echo "Applying $branch"
+        but apply "$branch"; or return $status
+    end
+end
