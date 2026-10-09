@@ -127,6 +127,12 @@ main:
     goToView:
         sequences: [gv]
         description: Go to view
+    openStructure:
+        sequences: [gS]
+        description: Open structure
+    openIndexes:
+        sequences: [gI]
+        description: Open indexes
 schema:
     expandAll:
         runes: [E]
@@ -257,6 +263,9 @@ structure:
     toggleDDLPane:
         runes: [p]
         description: Toggle DDL
+    copyColumnName:
+        sequences: [yc]
+        description: Copy column name
 history:
     purgeHistory:
         keys: [Alt+d]
