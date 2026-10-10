@@ -6,27 +6,27 @@ gui:
   border: "single" # 'single' | 'double' | 'rounded' | 'hidden'
   theme:
     activeBorderColor:
-      - "#89b4fa" # blue
+      - "#d8a657" # yellow
       - bold
     inactiveBorderColor:
-      - "#585b70" # overlay
+      - "#595959" # overlay0
     searchingActiveBorderColor:
-      - "#f5c2e7" # pink
+      - "#d3869b" # mauve
       - bold
     optionsTextColor:
-      - "#a6e3a1" # green
+      - "#a9b665" # green
     selectedLineBgColor:
-      - "#313244" # subtle line highlight
+      - "#292929" # surface0
     cherryPickedCommitBgColor:
-      - "#45475a"
+      - "#404040" # surface1
     cherryPickedCommitFgColor:
-      - "#89b4fa"
+      - "#7daea3" # blue
     unstagedChangesColor:
-      - "#f38ba8" # red
+      - "#ea6962" # red
     defaultFgColor:
-      - "#cdd6f4" # foreground
+      - "#ebdbb2" # text
     inactiveViewSelectedLineBgColor:
-      - "#313244"
+      - "#292929" # surface0
 git:
   autoFetch: true
   autoRefresh: true
