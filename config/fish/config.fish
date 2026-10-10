@@ -8,7 +8,7 @@ end
 # Keep Homebrew and user-installed tools available in every Fish session.
 fish_add_path --prepend /opt/homebrew/bin /opt/homebrew/opt/openssh/bin /opt/homebrew/opt/ruby/bin \
     "$HOME/.config/scripts" "$HOME/.local/bin" "$HOME/go/bin" "$HOME/.cargo/bin" \
-    /usr/local/bin
+    "$HOME/.composer/vendor/bin" /usr/local/bin
 
 set -U fish_prompt_pwd_dir_length 0
 set -gx XDG_CONFIG_HOME "$HOME/.config"
@@ -76,6 +76,7 @@ alias gcm 'git commit -m'
 alias gpush 'git push'
 alias gpull 'git pull'
 alias lg lazygit
+alias b 'but tui'
 alias scan 'nmap -Pn -F -sV'
 alias dig doggo
 
