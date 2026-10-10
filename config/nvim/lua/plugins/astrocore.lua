@@ -83,6 +83,7 @@ return {
                     desc = "Reset Git hunk",
                 },
                 ["M"] = { function() require("mdkite").start() end, desc = "Markdown Preview" },
+                ["<leader>?"] = { function() require("fzf-lua").keymaps() end, desc = "Search Keymaps" },
                 ["<leader>A"] = { cmd = ":Atlas<cr>", desc = "Atlas" },
                 ["<leader>M"] = { function() require("mdkite").stop() end, desc = "Close Markdown Preview" },
                 ["<leader>y"] = { cmd = ":YankPath<cr>", desc = "Yank path" },

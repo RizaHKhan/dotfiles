@@ -148,13 +148,6 @@ return {
         config = function() require("herdr-navigator").setup() end,
     },
     {
-        "cajames/copy-reference.nvim",
-        opts = {}, -- optional configuration
-        keys = {
-            { "Y", "<cmd>CopyReference line<cr>", mode = { "v" }, desc = "Copy file:line reference" },
-        },
-    },
-    {
         "selimacerbas/mdkite.nvim",
         -- a kitehost.nvim checkout under another dir name needs its spec to
         -- say name = "kitehost.nvim", or lazy.nvim clones upstream beside it
@@ -255,20 +248,6 @@ return {
                     provider = "fzf-lua", -- telescope | fzf-lua | snacks | ui.select
                 },
             },
-        },
-    },
-    {
-        "kopecmaciej/vi-sql.nvim",
-        config = function()
-            require("vi-sql").setup {
-                -- Press this inside vi-sql to hide the window (change to taste)
-                hide_key = "q",
-            }
-        end,
-        cmd = { "ViSQL", "ViSQLJump" },
-        keys = {
-            { "<leader>vs", "<cmd>ViSQL<cr>", desc = "Open vi-sql" },
-            -- { "<leader>vj", ":ViSQLJump ", desc = "vi-sql: jump to table", silent = false },
         },
     },
     {
