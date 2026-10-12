@@ -115,14 +115,6 @@ return {
         end,
     },
     {
-        "ravitemer/mcphub.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        build = "npm install -g mcp-hub@latest", -- Installs `mcp-hub` node binary globally
-        config = function() require("mcphub").setup() end,
-    },
-    {
         "stevearc/oil.nvim",
         ---@module 'oil'
         ---@type oil.SetupOpts
@@ -286,6 +278,7 @@ return {
             clear_after_send = true,
         },
         keys = {
+            { "<leader>Y", function() require("herdr-nvim").ref_line() end, desc = "Agent comments: reference line" },
             { "L", function() require("herdr-nvim").list_comments() end, desc = "Agent comments: list" },
             {
                 "C",

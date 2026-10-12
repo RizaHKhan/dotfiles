@@ -19,7 +19,7 @@ return {
                 file_icon = { hl = false },
                 filetype = false,
                 file_read_only = false,
-                hl = { fg = "#9ECE6A" },
+                hl = { fg = "#7A9E6A" },
                 padding = { right = 1 },
                 surround = { separator = "NONE", condition = false, color = "NONE" },
             },
@@ -35,7 +35,7 @@ return {
                         return branch ~= "" and (branch .. "  ") or ""
                     end,
                 },
-                hl = { fg = "#7DCFFF", bg = "NONE", bold = true },
+                hl = { fg = "#6E91B8", bg = "NONE", bold = true },
             },
             status.component.fill(),
             status.component.lsp {

@@ -21,7 +21,7 @@ return {
             error("Failed to download fff binary: " .. fatal_err)
         end
     end,
-    lazy = false,
+    lazy = true,
     opts = {
         title = "FFFiles",
         prompt = "🪿 ",
