@@ -219,6 +219,18 @@ return {
                     webRoot = "${workspaceFolder}",
                     sourceMaps = true,
                 },
+                {
+                    type = "pwa-node",
+                    request = "attach",
+                    name = "Vitest: attach to Docker",
+                    address = "localhost",
+                    port = 9229,
+                    cwd = "${workspaceFolder}",
+                    localRoot = "${workspaceFolder}",
+                    remoteRoot = "/var/www/html",
+                    sourceMaps = true,
+                    skipFiles = { "<node_internals>/**", "**/node_modules/**" },
+                },
             }
         end
     end,

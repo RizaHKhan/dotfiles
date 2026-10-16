@@ -33,6 +33,7 @@ end
 
 return {
     "emrearmagan/atlas.nvim",
+    branch = "dev",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
         "MeanderingProgrammer/render-markdown.nvim",
@@ -41,8 +42,8 @@ return {
     },
     config = function()
         local env = dotenv()
-        local jira_base_url = env.JIRA_BASE_URL or vim.env.JIRA_BASE_URL or ""
-        local jira_email = env.JIRA_EMAIL or vim.env.JIRA_EMAIL or ""
+        local jira_base_url = env.JIRA_BASE_URL or vim.env.JIRA_BASE_URL or "https://camcloud.atlassian.net"
+        local jira_email = env.JIRA_EMAIL or vim.env.JIRA_EMAIL or "rkhan@camcloud.com"
         local jira_token = env.JIRA_TOKEN or vim.env.JIRA_TOKEN or ""
         local jira_enabled = jira_base_url ~= "" and jira_email ~= "" and jira_token ~= ""
 
@@ -56,7 +57,9 @@ return {
                         {
                             key = "ga",
                             desc = "Approve PR",
-                            callback = function(context, done) require("atlas.pulls.actions").run("approve", context, done) end,
+                            callback = function(context, done)
+                                require("atlas.pulls.actions").run("approve", context, done)
+                            end,
                         },
                         {
                             key = "rc",
@@ -124,17 +127,26 @@ return {
                             name = "ALE-9803",
                             key = "2",
                             layout = "compact", -- "compact" or "plain"
-                            search = repository_search("camcloud", "~/camcloud/repos") .. ' (title ~ "ALE-9803" OR description ~ "ALE-9803")',
+                            search = repository_search("camcloud", "~/camcloud/repos")
+                                .. ' (title ~ "ALE-9803" OR description ~ "ALE-9803")',
                         },
                         {
                             name = "ALE-9817",
                             key = "3",
                             layout = "compact", -- "compact" or "plain"
-                            search = repository_search("camcloud", "~/camcloud/repos") .. ' (title ~ "ALE-9817" OR description ~ "ALE-9817")',
+                            search = repository_search("camcloud", "~/camcloud/repos")
+                                .. ' (title ~ "ALE-9817" OR description ~ "ALE-9817")',
+                        },
+                        {
+                            name = "ALE-9837",
+                            key = "4",
+                            layout = "compact", -- "compact" or "plain"
+                            search = repository_search("camcloud", "~/camcloud/repos")
+                                .. ' (title ~ "ALE-9837" OR description ~ "ALE-9837")',
                         },
                         {
                             name = "Others",
-                            key = "4",
+                            key = "5",
                             layout = "grouped", -- "compact", "grouped", or "plain"
                             search = repository_search("camcloud", "~/camcloud/repos") .. ' author.nickname != "rkhan"',
                         },
@@ -142,7 +154,8 @@ return {
                             name = "Mobile",
                             key = "m",
                             layout = "plain", -- "compact" or "plain"
-                            search = "repo:camcloud/camcloud-ios-v2 repo:camcloud/camcloud-android-v2" .. ' author.nickname != ""',
+                            search = "repo:camcloud/camcloud-ios-v2 repo:camcloud/camcloud-android-v2"
+                                .. ' author.nickname != ""',
                         },
                     },
                 },
@@ -171,6 +184,10 @@ return {
                 },
             },
             issues = {
+                -- Enables related-item loading. For Jira, atlas.nvim uses Jira's
+                -- dev-status API to surface linked Bitbucket PRs in the issue detail
+                -- related-items picker/chips (`gl` / "Open references").
+                with_relationships = true,
                 github = {
                     ---@type AtlasGitHubIssuesViewConfig[]
                     views = {
@@ -196,32 +213,42 @@ return {
                 },
                 jira = jira_enabled and {
                     project_config = {
+                        -- Current atlas.nvim Jira config uses global display options plus per-project
+                        -- custom fields keyed by Jira project key.
                         ALE = {
-                            customfield_10003 = {
-                                name = "Approvers",
-                                format = function(value)
-                                    if type(value) ~= "table" or #value == 0 then
-                                        return nil -- nil hides the field
-                                    end
-
-                                    return table.concat(value, ", ")
-                                end,
-                                hl_group = "AtlasChipActive",
-                                display = "chip", -- "chip" (default) or "table"
+                            components = {
+                                name = "Components",
+                                editor = true,
                             },
                         },
                     },
 
-                    ---@type JiraViewConfig[]
+                    ---@type AtlasJiraViewConfig[]
                     views = {
                         {
                             name = "My Board",
                             key = "M",
+                            layout = "plain",
                             jql = "project = ALE AND assignee = currentUser() ORDER BY updated DESC",
                         },
                     },
                 } or nil,
             },
         }
+
+        -- Atlas' Jira config accepts `components = { editor = true }`, but the
+        -- installed editor does not render project fields yet. Until that lands,
+        -- default ALE's required Components field so Jira accepts issue creation.
+        if jira_enabled then
+            local jira_issues = require "atlas.issues.providers.jira.api.issues"
+            jira_issues._dotfiles_create_issue = jira_issues._dotfiles_create_issue or jira_issues.create_issue
+            local create_issue = jira_issues._dotfiles_create_issue
+            jira_issues.create_issue = function(fields, callback)
+                if vim.tbl_get(fields, "project", "key") == "ALE" and fields.components == nil then
+                    fields = vim.tbl_deep_extend("force", {}, fields, { components = { { name = "Web" } } })
+                end
+                return create_issue(fields, callback)
+            end
+        end
     end,
 }

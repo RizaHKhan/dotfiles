@@ -18,7 +18,6 @@ return {
     { import = "astrocommunity.git.gitlinker-nvim" },
     { import = "astrocommunity.git.mini-diff" },
     { import = "astrocommunity.motion.mini-surround" },
-    { import = "astrocommunity.note-taking.obsidian-nvim" },
     { import = "astrocommunity.pack.angular" },
     { import = "astrocommunity.pack.nginx" },
     { import = "astrocommunity.pack.php" },

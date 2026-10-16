@@ -9,17 +9,12 @@ return {
 
         opts.sources = opts.sources or {}
 
-        if vim.fn.executable "prettier" == 1 then
-            table.insert(opts.sources, null_ls.builtins.formatting.prettier.with {
-                runtime_condition = function(params) return params.bufname ~= nil and params.bufname ~= "" end,
-            })
-        end
-
-        if vim.fn.executable "biome" == 1 then
-            table.insert(opts.sources, null_ls.builtins.formatting.biome.with {
-                runtime_condition = function(params) return params.bufname ~= nil and params.bufname ~= "" end,
-            })
-        end
+        table.insert(opts.sources, null_ls.builtins.formatting.prettier.with {
+            command = "oxfmt",
+            prefer_local = "node_modules/.bin",
+            args = { "--stdin-filepath", "$FILENAME" },
+            runtime_condition = function(params) return params.bufname ~= nil and params.bufname ~= "" end,
+        })
 
         return opts
     end,

@@ -13,7 +13,7 @@ local function toggle_scratch()
         vim.bo[scratch_buf].swapfile = false
         vim.bo[scratch_buf].filetype = "markdown"
     end
-    vim.cmd "botright 60vnew"
+    vim.cmd "botright 100vnew"
     vim.api.nvim_win_set_buf(0, scratch_buf)
 end
 
@@ -231,6 +231,11 @@ return {
                 "H",
                 function() require("fzf-lua").buffers { sort_lastused = true } end,
                 desc = "Buffers",
+            },
+            {
+                "<leader>fl",
+                function() require("fzf-lua").blines() end,
+                desc = "Find Lines",
             },
             {
                 "<leader>ls",
