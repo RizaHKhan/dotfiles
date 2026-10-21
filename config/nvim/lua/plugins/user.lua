@@ -61,6 +61,59 @@ return {
         end,
     },
     {
+        "saghen/blink.cmp",
+        opts = function(_, opts)
+            opts.sources = opts.sources or {}
+            opts.sources.per_filetype = opts.sources.per_filetype or {}
+            opts.sources.per_filetype.org = { "orgmode" }
+            opts.sources.providers = opts.sources.providers or {}
+            opts.sources.providers.orgmode = {
+                name = "Orgmode",
+                module = "orgmode.org.autocompletion.blink",
+                fallbacks = { "buffer" },
+            }
+        end,
+    },
+    {
+        "nvim-orgmode/orgmode",
+        config = function()
+            require("orgmode").setup {
+                org_agenda_files = "~/orgfiles/**/*",
+                org_default_notes_file = "~/orgfiles/notes.org",
+                org_capture_templates = {
+                    n = {
+                        description = "Note",
+                        template = "* %U %?",
+                        target = "~/orgfiles/notes.org",
+                    },
+                    r = {
+                        description = "Repo",
+                        template = "* [[%x][%(return string.match('%x', '([^/]+)$'))]]%?",
+                        target = "~/org/repos.org",
+                    },
+                },
+            }
+            vim.lsp.enable "org"
+        end,
+    },
+    {
+        "nvim-orgmode/telescope-orgmode.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            "nvim-orgmode/orgmode",
+            "nvim-telescope/telescope.nvim",
+        },
+        config = function()
+            require("telescope").load_extension "orgmode"
+
+            local ext = require("telescope").extensions.orgmode
+            vim.keymap.set("n", "<leader>fh", ext.search_headings, { desc = "Org headlines" })
+            vim.keymap.set("n", "<leader>ft", ext.search_tags, { desc = "Org tags" })
+            vim.keymap.set("n", "<leader>r", ext.refile_heading, { desc = "Org refile" })
+            vim.keymap.set("n", "<leader>li", ext.insert_link, { desc = "Org insert link" })
+        end,
+    },
+    {
         "okuuva/auto-save.nvim",
         version = "^1.0.0", -- see https://devhints.io/semver, alternatively use '*' to use the latest tagged release
         cmd = "ASToggle", -- optional for lazy loading on command
@@ -72,13 +125,6 @@ return {
     },
     {
         "vhyrro/luarocks.nvim",
-    },
-    {
-        "s1n7ax/nvim-window-picker",
-        name = "window-picker",
-        event = "VeryLazy",
-        version = "2.*",
-        config = function() require("window-picker").setup() end,
     },
     {
         "folke/flash.nvim",
@@ -138,6 +184,12 @@ return {
             require("oil").setup {
                 default_file_explorer = false,
             }
+            vim.api.nvim_create_autocmd("VimEnter", {
+                once = true,
+                callback = function()
+                    if vim.fn.argc() == 0 then vim.cmd "Oil" end
+                end,
+            })
         end,
         -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
         -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
@@ -257,7 +309,11 @@ return {
             clear_after_send = true,
         },
         keys = {
-            { "<leader>Y", function() require("herdr-nvim").ref_line() end, desc = "Agent comments: reference line" },
+            {
+                "<leader>Y",
+                function() require("herdr-nvim").ref_line() end,
+                desc = "Agent comments: reference line",
+            },
             { "L", function() require("herdr-nvim").list_comments() end, desc = "Agent comments: list" },
             {
                 "C",

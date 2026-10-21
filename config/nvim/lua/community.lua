@@ -30,7 +30,6 @@ return {
     { import = "astrocommunity.recipes.auto-session-restore" },
     { import = "astrocommunity.recipes.disable-borders" },
     { import = "astrocommunity.recipes.disable-tabline" },
-    { import = "astrocommunity.recipes.neo-tree-dark" },
     { import = "astrocommunity.recipes.picker-lsp-mappings" },
     { import = "astrocommunity.search.grug-far-nvim" },
     { import = "astrocommunity.startup.mini-starter" },
