@@ -4,12 +4,12 @@ return {
         {
             "microsoft/vscode-js-debug",
             -- After install, build it and rename the dist directory to out
-            build = "npm install --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out",
+            build = "npm install --include=dev --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out",
             version = "1.*",
         },
         {
             "xdebug/vscode-php-debug",
-            build = "npm install --legacy-peer-deps --no-save && npm run build",
+            build = "npm install --include=dev --legacy-peer-deps --no-save && npm run build",
         },
         {
             "mxsdev/nvim-dap-vscode-js",
@@ -115,6 +115,17 @@ return {
             {
                 type = "php",
                 request = "launch",
+                name = "Listen for Xdebug (Camcloud Joomla)",
+                port = 9003,
+                log = true,
+                hostname = "0.0.0.0",
+                pathMappings = {
+                    ["/var/www/html"] = "${workspaceFolder}/joomla",
+                },
+            },
+            {
+                type = "php",
+                request = "launch",
                 name = "Listen for Xdebug on Sail",
                 port = 9003,
                 pathMappings = {
@@ -206,7 +217,9 @@ return {
                 {
                     type = "pwa-chrome",
                     request = "launch",
-                    name = "Launch Chrome (nvim-dap)",
+                    name = "Launch Dia (nvim-dap)",
+                    runtimeExecutable = "/Applications/Dia.app/Contents/MacOS/Dia",
+                    runtimeArgs = { "--incognito" },
                     url = enter_launch_url,
                     webRoot = "${workspaceFolder}",
                     sourceMaps = true,

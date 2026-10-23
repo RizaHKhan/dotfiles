@@ -42,14 +42,14 @@ return {
     },
     config = function()
         local env = dotenv()
-        local jira_base_url = env.JIRA_BASE_URL or vim.env.JIRA_BASE_URL or "https://camcloud.atlassian.net"
-        local jira_email = env.JIRA_EMAIL or vim.env.JIRA_EMAIL or "rkhan@camcloud.com"
+        local jira_base_url = env.JIRA_BASE_URL or vim.env.JIRA_BASE_URL or ""
+        local jira_email = env.JIRA_EMAIL or vim.env.JIRA_EMAIL or ""
         local jira_token = env.JIRA_TOKEN or vim.env.JIRA_TOKEN or ""
         local jira_enabled = jira_base_url ~= "" and jira_email ~= "" and jira_token ~= ""
 
         require("atlas").setup {
             ui = {
-                picker = "fzf-lua",
+                picker = "snacks",
             },
             keymaps = {
                 pulls = {
@@ -215,12 +215,7 @@ return {
                     project_config = {
                         -- Current atlas.nvim Jira config uses global display options plus per-project
                         -- custom fields keyed by Jira project key.
-                        ALE = {
-                            components = {
-                                name = "Components",
-                                editor = true,
-                            },
-                        },
+                        ALE = {},
                     },
 
                     ---@type AtlasJiraViewConfig[]
