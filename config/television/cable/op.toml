@@ -1,0 +1,60 @@
+[metadata]
+name = "op"
+description = "Browse 1Password items across vaults"
+requirements = ["op", "jq", "pbcopy"]
+
+[source]
+command = "bash $HOME/.config/television/cable/scripts/op-source.sh"
+display = "{split:\t:3}  [{split:\t:2}]  {split:\t:4}"
+output = '{split:\t:0}'
+
+[preview]
+command = '''op item get {split:\t:0} --vault {split:\t:1} --format json | jq -r '
+  "  " + .title,
+  "",
+  "  Vault: " + (.vault.name // ""),
+  "  Category: " + (.category // ""),
+  "  ID: " + (.id // ""),
+  "",
+  (if ((.urls // []) | length) > 0 then
+    "  URLs:\n" + ([.urls[] | "    " + (.label // "url") + ": " + (.href // "")] | join("\n"))
+  else empty end),
+  (if ((.fields // []) | length) > 0 then
+    "  Fields:\n" + ([.fields[] | select((.type // "") != "CONCEALED" and (.value // "") != "") | "    " + (.label // .id // "field") + ": " + (.value | tostring)] | join("\n"))
+  else empty end)
+'
+'''
+
+[ui]
+layout = "portrait"
+
+[ui.preview_panel]
+size = 55
+
+[keybindings]
+enter = "actions:open"
+
+[actions.copy-share-link]
+description = "Create and copy a 7-day share link"
+command = "sh -c 'id=\"$1\"; vault=\"$2\"; if op item share --help >/dev/null 2>&1; then op item share \"$id\" --vault \"$vault\" --expires-in 7d | tee /dev/stderr | pbcopy; else op item get \"$id\" --vault \"$vault\" --share-link | tr -d \"\\n\" | pbcopy; echo \"op item share unavailable; copied item link instead\"; fi' sh {split:\t:0} {split:\t:1}"
+mode = "execute"
+
+[actions.copy-url]
+description = "Copy the first URL from the item"
+command = "op item get {split:\t:0} --vault {split:\t:1} --format json | jq -r '(.urls[0].href // .url // empty)' | tr -d '\n' | pbcopy && echo 'Copied URL'"
+mode = "execute"
+
+[actions.edit]
+description = "Edit the item JSON with $EDITOR and save via op item edit"
+command = "bash $HOME/.config/television/cable/scripts/op-edit-item.sh {split:\t:0} {split:\t:1}"
+mode = "execute"
+
+[actions.open]
+description = "Open the first URL and trigger 1Password browser autofill"
+command = "bash $HOME/.config/television/cable/scripts/op-open-url.sh {split:\t:0} {split:\t:1}"
+mode = "execute"
+
+[actions.open-1password-web]
+description = "Open the item in 1Password on the web"
+command = "sh -c 'open \"$(op item get \"$1\" --vault \"$2\" --share-link)\"' sh {split:\t:0} {split:\t:1}"
+mode = "execute"

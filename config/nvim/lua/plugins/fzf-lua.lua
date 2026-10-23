@@ -63,8 +63,6 @@ return {
             opts = opts or {}
             opts.picker = opts.picker or {}
             opts.picker.enabled = false
-            opts.input = opts.input or {}
-            opts.input.enabled = true
             return opts
         end,
     },
@@ -230,6 +228,11 @@ return {
                 desc = "Find Hidden Files",
             },
             {
+                "H",
+                function() require("fzf-lua").buffers { sort_lastused = true } end,
+                desc = "Buffers",
+            },
+            {
                 "<leader>fl",
                 function() require("fzf-lua").blines() end,
                 desc = "Find Lines",
@@ -243,6 +246,11 @@ return {
                 "<leader>lsw",
                 function() require("fzf-lua").lsp_live_workspace_symbols() end,
                 desc = "LSP Workspace Symbols",
+            },
+            {
+                "K",
+                function() require("fzf-lua").git_status() end,
+                desc = "Git Status Files",
             },
             {
                 "<leader>:",

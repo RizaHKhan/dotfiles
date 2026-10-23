@@ -49,7 +49,7 @@ return {
 
         require("atlas").setup {
             ui = {
-                picker = "snacks",
+                picker = "fzf-lua",
             },
             keymaps = {
                 pulls = {
@@ -215,7 +215,12 @@ return {
                     project_config = {
                         -- Current atlas.nvim Jira config uses global display options plus per-project
                         -- custom fields keyed by Jira project key.
-                        ALE = {},
+                        ALE = {
+                            components = {
+                                name = "Components",
+                                editor = true,
+                            },
+                        },
                     },
 
                     ---@type AtlasJiraViewConfig[]
