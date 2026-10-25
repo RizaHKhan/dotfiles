@@ -30,3 +30,4 @@ config/nvim/nvim-pack-lock.json
 /config/herdr/plugins/github
 /config/herdr/plugins/.tmp-install-*
 /config/herdr/plugins/config/herdr-lazy
+/config/claude/settings.json
