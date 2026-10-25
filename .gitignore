@@ -6,7 +6,7 @@
 ._*
 
 # Custom folder icons
-Icon
+Icon
 
 # Volume root files
 .DocumentRevisions-V100
@@ -25,3 +25,8 @@ config/nvim/.env
 config/nvim/nvim-pack-lock.json
 /config/opencode/.oh-my-opencode-slim/skills-manifest.json
 /config/vi-sql/history.txt
+/config/herdr/plugins/.locks
+/config/herdr/plugins/github-installations
+/config/herdr/plugins/github
+/config/herdr/plugins/.tmp-install-*
+/config/herdr/plugins/config/herdr-lazy

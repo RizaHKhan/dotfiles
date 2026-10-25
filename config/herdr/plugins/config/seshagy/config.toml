@@ -1,0 +1,85 @@
+[directories]
+  fd_command = "fd -H -a -d 2 -t d -E .Trash . \"$HOME\""
+
+[theme]
+  [theme.colors]
+    popup_border = "13"
+    border = "8"
+    popup_title = "12"
+    title = "12"
+    accent = "13"
+    key = "11"
+    muted = "8"
+    success = "10"
+    info = "14"
+    warning = "11"
+    danger = "9"
+    selection_bg = "236"
+
+[icons]
+  mode = "icons"
+  tmux_state_mode = "inherit"
+  agent_state_mode = "inherit"
+  [icons.session]
+    icon = "󰙀 "
+    label = "S"
+    color = "10"
+  [icons.workspace]
+    icon = "󰙀 "
+    label = "W"
+    color = "10"
+  [icons.zoxide]
+    icon = "󰉖 "
+    label = "Z"
+    color = "14"
+  [icons.fd]
+    icon = "󰥩 "
+    label = "F"
+    color = "11"
+  [icons.tmux_state]
+    [icons.tmux_state.attached]
+      icon = "●"
+      label = "attached"
+      color = "10"
+    [icons.tmux_state.detached]
+      icon = "◌"
+      label = "detached"
+      color = "8"
+  [icons.agent_state]
+    [icons.agent_state.idle]
+      icon = "○"
+      label = "idle"
+      color = "8"
+    [icons.agent_state.working]
+      icon = "●"
+      label = "working"
+      color = "10"
+    [icons.agent_state.blocked]
+      icon = "∅"
+      label = "blocked"
+      color = "9"
+    [icons.agent_state.done]
+      icon = "◉"
+      label = "done"
+      color = "14"
+    [icons.agent_state.unknown]
+      icon = "?"
+      label = "unknown"
+      color = "8"
+
+[setup]
+  install_menu_seen = true
+
+[agents]
+  manifest_fallback = false
+
+[tui]
+  layout = "dropdown"
+  preview = false
+
+[log]
+  level = "off"
+  file = ""
+
+[remote]
+  ssh_config_hosts = false

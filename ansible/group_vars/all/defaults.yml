@@ -8,9 +8,7 @@ ansible_python_interpreter: /usr/bin/python3
 # Run "op item list" to find items, then edit the refs here.
 atlas:
   bitbucket:
-    user: "rkhan@camcloud.com"
     credential_op_ref: "op://Camcloud/Bitbucket Nvim Camcloud/credential"
   jira:
-    base_url: ""
-    email: ""
+    # Supply JIRA_BASE_URL and JIRA_EMAIL through your local environment.
     credential_op_ref: "op://Camcloud/Jira Nvim Camcloud/credential"

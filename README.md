@@ -1,8 +1,8 @@
 # Emre`s dotfiles
 
 > **⚠️ Caution**  
->  Before using these dotfiles, you should **fork this repository**, review the code, and remove anything you **don’t want or need**.  
-⚠ **Use at your own risk!**
+> Before using these dotfiles, you should **fork this repository**, review the code, and remove anything you **don’t want or need**.  
+> ⚠ **Use at your own risk!**
 
 <img src="./examples/screenshot.png" style="border-radius: 8px;" alt="example" />
 &nbsp;
@@ -12,7 +12,6 @@
 ### Ansible Setup (Recommended)
 
 This repository includes an Ansible playbook for automated setup. **This is the recommended way to install and manage your dotfiles.**
-
 
 #### Running the Playbook
 
@@ -68,17 +67,22 @@ The script `ansible/test.sh` allows you to test your Ansible playbook within a D
 ---
 
 ### Install Script (Deprecated)
+
 #### **1. Clone the Repository**
+
 ```sh
 git clone https://github.com/emrearmagan/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ```
 
 ### **2. Run the Setup Script**
+
 ```sh
 sh setup.sh
 ```
+
 This script will:
+
 - Create **symlinks** for configuration files in your home directory.
 - Set up **iTerm2 preferences** (if installed).
 - Install **Homebrew packages** from the `Brewfile`.
@@ -87,8 +91,8 @@ You will also want a [Nerd Font](https://www.nerdfonts.com/).
 
 ---
 
-
 ## **Folder Structure**
+
 ```
 dotfiles/
 │── bat/          # Configuration for bat (better cat)
@@ -105,4 +109,5 @@ dotfiles/
 ---
 
 ## **License**
+
 MIT License – Use freely, but **at your own risk**.

@@ -5,3 +5,7 @@
 !/config.toml
 !/herdr-lazy
 !/herdr-lazy/*
+!/plugins
+!/plugins/config
+!/plugins/config/seshagy
+!/plugins/config/seshagy/config.toml

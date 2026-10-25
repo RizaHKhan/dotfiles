@@ -1,10 +1,9 @@
 [metadata]
 name = "vi-sql"
 description = "Browse vi-sql connections — select to open in a new Herdr tab"
-requirements = ["vi-sql", "herdr", "jq"]
 
 [source]
-command = "vi-sql -l | awk 'NR>3 { if (NF==0) exit; gsub(/^\\*[ \\t]+/, \"\"); print $1}'"
+command = "$HOME/.local/bin/vi-sql -l | awk 'NR>3 { if (NF==0) exit; gsub(/^\\*[ \\t]+/, \"\"); print $1}'"
 display = "{split:|:0}"
 no_sort = true
 
@@ -13,5 +12,5 @@ enter = "actions:open-in-herdr-tab"
 
 [actions.open-in-herdr-tab]
 description = "Open vi-sql for the selected connection in a new Herdr tab"
-command = "new_pane=$(herdr tab create --label 'vi-sql:{split:|:0}' --focus | jq -r '.result.root_pane.pane_id') && herdr pane run \"$new_pane\" vi-sql --connection-name '{split:|:0}'"
+command = "new_pane=$(herdr tab create --label 'vi-sql:{split:|:0}' --focus | jq -r '.result.root_pane.pane_id') && herdr pane run \"$new_pane\" $HOME/.local/bin/vi-sql --connection-name '{split:|:0}'"
 mode = "execute"

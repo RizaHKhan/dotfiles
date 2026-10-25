@@ -53,6 +53,11 @@ return {
             },
             keymaps = {
                 pulls = {
+                    review = {
+                        -- atlas defaults to ]c/[c, which shadows codediff's hunk navigation
+                        next_comment = "]C",
+                        prev_comment = "[C",
+                    },
                     custom = {
                         {
                             key = "ga",

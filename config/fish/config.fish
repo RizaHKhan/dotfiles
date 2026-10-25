@@ -15,9 +15,9 @@ set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
-set -gx EDITOR nvim
-set -gx VISUAL nvim
-set -gx MANPAGER 'nvim +Man!'
+set -gx EDITOR /opt/homebrew/bin/nvim
+set -gx VISUAL /opt/homebrew/bin/nvim
+set -gx MANPAGER '/opt/homebrew/bin/nvim +Man!'
 set -gx GOBIN "$HOME/go/bin"
 set -gx LUA_PATH 'lua/?.lua;lua/?/init.lua;;'
 
@@ -46,6 +46,8 @@ end
 alias pname 'herdr pane rename "$HERDR_PANE_ID" "$PWD"'
 alias reload 'exec fish -l'
 alias ld lazydocker
+alias dcdn 'docker compose down'
+alias dcupd 'docker compose up -d'
 alias lg lazygit
 alias cls clear
 alias cl clear
@@ -79,6 +81,18 @@ alias lg lazygit
 alias b 'but tui'
 alias scan 'nmap -Pn -F -sV'
 alias dig doggo
+
+function refresh-neovim --description "Remove Neovim plugins, cache, and state"
+    read -P "Remove all installed Neovim plugins and state? [y/N] " answer
+    if not string match -qi "y" -- $answer
+        echo "Cancelled."
+        return 0
+    end
+
+    rm -rf -- "$HOME/.local/share/nvim/lazy" "$HOME/.local/share/nvim/site" \
+        "$HOME/.local/state/nvim" "$HOME/.cache/nvim"
+    echo "Neovim plugins, cache, and state removed."
+end
 
 function cpath
     if not test -e "$argv[1]"
@@ -146,3 +160,24 @@ function but-apply-open-prs --description "Select and apply open GitHub PR branc
         but apply "$branch"; or return $status
     end
 end
+
+function camc-search --description "Search camcloud repos for a value"
+    grep -R \
+        --include='*.php' --include='*.js' --include='*.html' \
+        --exclude-dir=vendor --exclude-dir=node_modules \
+        -- $argv ~/camcloud/repos/ | fzf --delimiter ':' \
+        --preview 'bat --color=always --highlight-line {2} {1}'
+end
+
+function y
+	set tmp (mktemp -t "yazi-cwd.XXXXXX")
+	command yazi $argv --cwd-file="$tmp"
+	if read -z cwd < "$tmp"; and [ "$cwd" != "$PWD" ]; and test -d "$cwd"
+		builtin cd -- "$cwd"
+	end
+	command rm -f -- "$tmp"
+end
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :

@@ -3,4 +3,7 @@ on = [ "c", "r" ]
 run = "plugin path-from-root"
 desc = "Copies path from git root"
 
-
+[[mgr.prepend_keymap]]
+on   = [ "g", "r" ]
+run  = 'shell -- ya emit cd "$(git rev-parse --show-toplevel)"'
+desc = "Cd to git root"

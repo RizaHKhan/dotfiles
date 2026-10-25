@@ -62,3 +62,8 @@
   register: herdr_lazy_restore
   changed_when: "'  ok' in herdr_lazy_restore.stdout or 'restoring the pin' in herdr_lazy_restore.stdout"
   failed_when: herdr_lazy_restore.rc != 0 or 'FAILED' in herdr_lazy_restore.stdout
+
+- name: Remove obsolete seshagy plugin configuration
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/seshagy/config.toml"
+    state: absent

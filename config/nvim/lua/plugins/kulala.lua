@@ -115,8 +115,9 @@ return {
             -- enable/disable request summary in the output window
             show_request_summary = true,
 
-            -- do not show responses over maximum size, in bytes
-            max_response_size = 32768,
+            -- do not show responses over maximum size, in bytes (default 32 KB, too small
+            -- for a paginated /data/inventory response; bigger ones go to a file instead)
+            max_response_size = 5 * 1024 * 1024,
 
             -- used by `Copy as Curl` command to determine whether to inline request body
             max_request_size = 2048,

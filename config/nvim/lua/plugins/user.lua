@@ -2,6 +2,11 @@
 
 return {
     {
+        "nvim-neotest/neotest",
+        -- diagnostics consumer caches wiped CodeDiff buffers -> "Invalid buffer id" from nio
+        opts = { diagnostic = { enabled = false } },
+    },
+    {
         "akinsho/toggleterm.nvim",
         enabled = true,
         opts = {
@@ -69,7 +74,7 @@ return {
             opts.sources.providers = opts.sources.providers or {}
             opts.sources.providers.orgmode = {
                 name = "Orgmode",
-                module = "orgmode.org.autocompletion.blink",
+                module = "org.completion.blink",
                 fallbacks = { "buffer" },
             }
         end,
@@ -80,8 +85,7 @@ return {
         cmd = "ASToggle", -- optional for lazy loading on command
         event = { "InsertLeave", "TextChanged" }, -- optional for lazy loading on trigger events
         opts = {
-            -- your config goes here
-            -- or just leave it empty :)
+            condition = function(buf) return vim.bo[buf].filetype ~= "org" end,
         },
     },
     {
@@ -122,39 +126,9 @@ return {
         end,
     },
     {
-        "stevearc/oil.nvim",
-        ---@module 'oil'
-        ---@type oil.SetupOpts
+        "yousefhadder/markdown-plus.nvim",
+        ft = "markdown",
         opts = {},
-        -- Optional dependencies
-        dependencies = {
-            { "nvim-mini/mini.icons", opts = {} },
-
-            { -- AstroCore is always loaded on startup, so making it a dependency doesn't matter
-                "AstroNvim/astrocore",
-                opts = {
-                    mappings = { -- define a mapping to load the plugin module
-                        n = {
-                            ["="] = { cmd = ":Oil<cr>", desc = "Oil" },
-                        },
-                    },
-                },
-            },
-        },
-        config = function()
-            require("oil").setup {
-                default_file_explorer = false,
-            }
-            vim.api.nvim_create_autocmd("VimEnter", {
-                once = true,
-                callback = function()
-                    if vim.fn.argc() == 0 then vim.cmd "Oil" end
-                end,
-            })
-        end,
-        -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
-        -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
-        lazy = false,
     },
     {
         "willfish/herdr-navigator.nvim",

@@ -2,117 +2,121 @@ dotfiles:
   # Fish config (managed alongside Zsh during the migration)
   - {
       src: "{{ playbook_dir }}/../config/fish",
-      dest: "{{ ansible_env.HOME }}/.config/fish",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/fish",
     }
   - {
       src: "{{ playbook_dir }}/../config/1Password/.config/1Password/ssh/agent.toml",
-      dest: "{{ ansible_env.HOME }}/.config/1Password/ssh/agent.toml",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/1Password/ssh/agent.toml",
     }
     # Alias
   - {
       src: "{{ playbook_dir }}/../config/system/alias",
-      dest: "{{ ansible_env.HOME }}/.config/alias",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/alias",
     }
   - {
       src: "{{ playbook_dir }}/../config/system/scripts",
-      dest: "{{ ansible_env.HOME }}/.config/scripts",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/scripts",
     }
 
     # Git
   - {
       src: "{{ playbook_dir }}/../config/git/.gitconfig",
-      dest: "{{ ansible_env.HOME }}/.gitconfig",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.gitconfig",
     }
   - {
       src: "{{ playbook_dir }}/../config/git/.gitignore_global",
-      dest: "{{ ansible_env.HOME }}/.gitignore_global",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.gitignore_global",
     }
 
   # --- Some more stuff
   - {
       src: "{{ playbook_dir }}/../config/kitty",
-      dest: "{{ ansible_env.HOME }}/.config/kitty",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/kitty",
     }
   - {
       src: "{{ playbook_dir }}/../config/nvim",
-      dest: "{{ ansible_env.HOME }}/.config/nvim",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/nvim",
     }
   - {
       src: "{{ playbook_dir }}/../config/vim/vimrc",
-      dest: "{{ ansible_env.HOME }}/.vimrc",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.vimrc",
     }
   - {
       src: "{{ playbook_dir }}/../config/bat",
-      dest: "{{ ansible_env.HOME }}/.config/bat",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/bat",
     }
   - {
       src: "{{ playbook_dir }}/../config/lazygit",
-      dest: "{{ ansible_env.HOME }}/.config/lazygit",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/lazygit",
     }
   - {
       src: "{{ playbook_dir }}/../config/aerospace",
-      dest: "{{ ansible_env.HOME }}/.config/aerospace",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/aerospace",
     }
   - {
       src: "{{ playbook_dir }}/../config/opencode",
-      dest: "{{ ansible_env.HOME }}/.config/opencode",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/opencode",
     }
   - {
       src: "{{ playbook_dir }}/../config/claude/settings.json",
-      dest: "{{ ansible_env.HOME }}/.claude/settings.json",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.claude/settings.json",
     }
   - {
       src: "{{ playbook_dir }}/../config/agy/settings.json",
-      dest: "{{ ansible_env.HOME }}/.gemini/antigravity-cli/settings.json",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.gemini/antigravity-cli/settings.json",
     }
   - {
       src: "{{ playbook_dir }}/../config/codex/hooks.json",
-      dest: "{{ ansible_env.HOME }}/.codex/hooks.json",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.codex/hooks.json",
     }
   - {
       src: "{{ playbook_dir }}/../config/mcp/mcp.json",
-      dest: "{{ ansible_env.HOME }}/.config/mcp/mcp.json",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/mcp/mcp.json",
     }
   - {
       src: "{{ playbook_dir }}/../config/btop",
-      dest: "{{ ansible_env.HOME }}/.config/btop",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/btop",
     }
   - {
       src: "{{ playbook_dir }}/../config/lazydocker",
-      dest: "{{ ansible_env.HOME }}/.config/lazydocker",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/lazydocker",
     }
   - {
       src: "{{ playbook_dir }}/../config/ripgrep",
-      dest: "{{ ansible_env.HOME }}/.config/ripgrep",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/ripgrep",
     }
   - {
       src: "{{ playbook_dir }}/../config/worktrunk",
-      dest: "{{ ansible_env.HOME }}/.config/worktrunk",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/worktrunk",
     }
   - {
       src: "{{ playbook_dir }}/../config/herdr",
-      dest: "{{ ansible_env.HOME }}/.config/herdr",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/herdr",
+    }
+  - {
+      src: "{{ playbook_dir }}/../config/herdr/plugins/config/seshagy",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/seshagy",
     }
   - {
       src: "{{ playbook_dir }}/../config/atuin",
-      dest: "{{ ansible_env.HOME }}/.config/atuin",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/atuin",
     }
   - {
       src: "{{ playbook_dir }}/../config/mise",
-      dest: "{{ ansible_env.HOME }}/.config/mise",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/mise",
     }
   - {
       src: "{{ playbook_dir }}/../config/television",
-      dest: "{{ ansible_env.HOME }}/.config/television",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/television",
     }
   - {
       src: "{{ playbook_dir }}/../config/vi-sql",
-      dest: "{{ ansible_env.HOME }}/.config/vi-sql",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/vi-sql",
     }
   - {
       src: "{{ playbook_dir }}/../config/yazi",
-      dest: "{{ ansible_env.HOME }}/.config/yazi",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi",
     }
 
 dotfiles_path: "{{ playbook_dir }}/../config"
-dotfiles_backup_path: "{{ ansible_env.HOME }}/.dotfiles_backup"
+dotfiles_backup_path: "{{ ansible_facts['env']['HOME'] }}/.dotfiles_backup"

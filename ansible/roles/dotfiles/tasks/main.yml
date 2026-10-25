@@ -9,9 +9,9 @@
     path: "{{ item }}"
     state: directory
   loop:
-    - "{{ ansible_env.HOME }}/.local/share"
-    - "{{ ansible_env.HOME }}/.local/state"
-    - "{{ ansible_env.HOME }}/.cache"
+    - "{{ ansible_facts['env']['HOME'] }}/.local/share"
+    - "{{ ansible_facts['env']['HOME'] }}/.local/state"
+    - "{{ ansible_facts['env']['HOME'] }}/.cache"
 
 - name: Register Homebrew Fish as an allowed login shell
   lineinfile:
@@ -19,19 +19,21 @@
     line: /opt/homebrew/bin/fish
     state: present
   become: true
-  when: ansible_system == "Darwin"
+  when: ansible_facts['system'] == "Darwin"
 
 - name: Read the configured login shell
-  command: "dscl . -read /Users/{{ ansible_user_id }} UserShell"
+  command: "dscl . -read /Users/{{ ansible_facts['user_id'] }} UserShell"
   register: configured_login_shell
   changed_when: false
-  when: ansible_system == "Darwin"
+  when: ansible_facts['system'] == "Darwin"
 
 - name: Set Fish as the user's login shell
-  command: "chsh -s /opt/homebrew/bin/fish {{ ansible_user_id }}"
-  when:
-    - ansible_system == "Darwin"
-    - configured_login_shell.stdout is not search('UserShell: /opt/homebrew/bin/fish')
+  command: >-
+    dscl . -change /Users/{{ ansible_facts['user_id'] }} UserShell
+    "{{ configured_login_shell.stdout | regex_replace('^UserShell: ', '') }}"
+    /opt/homebrew/bin/fish
+  become: true
+  when: "ansible_facts['system'] == 'Darwin' and configured_login_shell.stdout != 'UserShell: /opt/homebrew/bin/fish'"
 
 - name: Stat existing dotfiles
   stat:
@@ -86,7 +88,7 @@
   changed_when: false
   no_log: true
   failed_when: false
-  when: ansible_system == "Darwin"
+  when: ansible_facts['system'] == 'Darwin'
 
 - name: Read Jira token from 1Password
   command: op read "{{ atlas.jira.credential_op_ref }}" --no-newline
@@ -94,12 +96,12 @@
   changed_when: false
   no_log: true
   failed_when: false
-  when: ansible_system == "Darwin"
+  when: ansible_facts['system'] == 'Darwin'
 
 - name: Generate Neovim atlas .env file
   template:
     src: nvim-env.j2
-    dest: "{{ ansible_env.HOME }}/.config/nvim/.env"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/nvim/.env"
     mode: "0600"
   vars:
     bitbucket_user: "{{ atlas.bitbucket.user | default('') }}"

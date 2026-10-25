@@ -5,5 +5,5 @@ font_url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/{{ f
 font_glob: "{{ nf_fonts_dir }}/{{ font_name }}*Nerd*Font*"
 
 # Font installation directories for the account running the local playbook.
-nf_linux_fonts_dir: "{{ ansible_env.HOME }}/.local/share/fonts/NerdFonts"
-nf_macos_fonts_dir: "{{ ansible_env.HOME }}/Library/Fonts"
+nf_linux_fonts_dir: "{{ ansible_facts['env']['HOME'] }}/.local/share/fonts/NerdFonts"
+nf_macos_fonts_dir: "{{ ansible_facts['env']['HOME'] }}/Library/Fonts"
