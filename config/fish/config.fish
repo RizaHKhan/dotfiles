@@ -178,6 +178,12 @@ function y
 	command rm -f -- "$tmp"
 end
 
+function stagingIp
+    nslookup lb-web-x-staging-application-2122346514.us-east-1.elb.amazonaws.com |
+        awk '/^Address:/ { ip = $2 } END { print ip }' |
+        pbcopy
+end
+
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :

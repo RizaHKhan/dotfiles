@@ -41,7 +41,7 @@ brew "atuin"                # shell history sync/search
 brew "mise"                 # runtime manager
 brew "yazi"                 # terminal file manager
 brew "television"           # fuzzy finder channels
-brew "sesh"                 # tmux session manager
+# brew "sesh"                 # tmux session manager
 
 # Core Dev Tools
 brew "neovim"               # editor

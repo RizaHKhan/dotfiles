@@ -14,6 +14,7 @@ return {
             ensure_installed = {
                 -- install language servers
                 "lua-language-server",
+                "taplo",
                 "laravel-ls",
                 "phpactor",
                 "vtsls",
@@ -22,6 +23,7 @@ return {
                 -- install formatters
                 "stylua",
                 "pint",
+                "oxfmt",
 
                 -- install debuggers
                 "debugpy",

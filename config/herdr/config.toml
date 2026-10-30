@@ -326,19 +326,13 @@ description = "Opens Lazydocker"
 [[keys.command]]
 key = "prefix+s"
 type = "popup"
-command = "seshagy --ephemeral"
-description = "seshagy session manager"
-
-# key = "prefix+s"
-# type = "plugin_action"
-# command = "fullerzz.sesh.open-picker"
-# description = "Sesh picker"
+command = "tv herdr-workspaces"
+description = "Herdr Workspaces"
 
 [[keys.command]]
 key = "prefix+l"
 type = "plugin_action"
-# command = "third774.last-workspace.toggle"
-command = "fullerzz.sesh.last"
+command = "third774.last-workspace.toggle"
 description = "toggle to the last workspace"
 
 [[keys.command]]
@@ -349,26 +343,9 @@ description = "command bar"
 
 [[keys.command]]
 key = "prefix+S"
-type = "pane"
+type = "popup"
 command = "tv zoxide"
 description = "Browse zoxide directories"
-
-[[keys.command]] # open in a split pane
-key = "prefix+y"
-type = "plugin_action"
-command = "ray.file-explorer.open"
-description = "open file explorer"
-
-[[keys.command]] # open in a new tab
-key = "prefix+Y"
-type = "plugin_action"
-command = "ray.file-explorer.open-tab"
-
-[[keys.command]]
-key = "prefix+z"
-type = "plugin_action"
-command = "ray.plugin-manager.open"
-description = "open plugin manager"
 
 [[keys.command]]
 key = "prefix+P"
@@ -383,7 +360,7 @@ command = "tv text"
 description = "Find words"
 
 [[keys.command]]
-key = "prefix+shift+e"
+key = "prefix+E"
 type = "shell"
 command = "herdr plugin pane open --plugin herdr-arrange --entrypoint ui"
 

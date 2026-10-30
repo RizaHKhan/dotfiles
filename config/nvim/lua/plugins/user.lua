@@ -24,6 +24,41 @@ return {
     },
     { "max397574/better-escape.nvim", enabled = false },
     {
+        "stevearc/oil.nvim",
+        ---@module 'oil'
+        ---@type oil.SetupOpts
+        opts = {},
+        -- Optional dependencies
+        dependencies = {
+            { "nvim-mini/mini.icons", opts = {} },
+
+            { -- AstroCore is always loaded on startup, so making it a dependency doesn't matter
+                "AstroNvim/astrocore",
+                opts = {
+                    mappings = { -- define a mapping to load the plugin module
+                        n = {
+                            ["="] = { cmd = ":Oil<cr>", desc = "Oil" },
+                        },
+                    },
+                },
+            },
+        },
+        config = function()
+            require("oil").setup {
+                default_file_explorer = false,
+            }
+            vim.api.nvim_create_autocmd("VimEnter", {
+                once = true,
+                callback = function()
+                    if vim.fn.argc() == 0 then vim.cmd "Oil" end
+                end,
+            })
+        end,
+        -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+        -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+        lazy = false,
+    },
+    {
         "L3MON4D3/LuaSnip",
         config = function(plugin, opts)
             require "astronvim.plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call

@@ -33,7 +33,7 @@ end
 
 return {
     "emrearmagan/atlas.nvim",
-    branch = "dev",
+    branch = "feat/jira-editor-fields",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
         "MeanderingProgrammer/render-markdown.nvim",

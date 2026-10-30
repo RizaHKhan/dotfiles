@@ -26,7 +26,6 @@ command = "zoxide remove '{}'"
 mode = "fork"
 
 [actions.pane]
-description = "Rename the current pane to the selected directory"
-command = "cd '{}' && fish -C pname"
+description = "Open the selected directory in a new pane"
+command = "sh ~/.config/television/cable/scripts/herdr-open-directory-pane.sh '{}'"
 mode = "execute"
-shell = "fish"

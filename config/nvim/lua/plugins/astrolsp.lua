@@ -41,11 +41,23 @@ return {
         },
         -- enable servers that you already have installed without mason
         servers = {
-            -- "pyright"
+            "taplo",
         },
         -- customize language server configuration options passed to `vim.lsp.config`
         ---@diagnostic disable: missing-fields
         config = {
+            taplo = {
+                settings = {
+                    taplo = {
+                        schema = {
+                            enabled = true,
+                            associations = {
+                                [".*sesh\\.toml$"] = "https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json",
+                            },
+                        },
+                    },
+                },
+            },
             -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
             vtsls = {
                 filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },

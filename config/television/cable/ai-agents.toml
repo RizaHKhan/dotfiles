@@ -11,5 +11,5 @@ enter = "actions:open"
 
 [actions.open]
 description = "Open selected agent"
-command = '''pane=$(herdr pane split --current --direction right --focus | jq -r '.result.pane.pane_id') && herdr pane run "$pane" '{}' '''
+command = "pane=$(herdr pane split --current --direction right --focus | jq -er '.result.pane.pane_id') && herdr pane run \"$pane\" {split:|:0}"
 mode = "execute"
