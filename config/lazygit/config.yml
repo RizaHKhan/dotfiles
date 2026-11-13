@@ -6,27 +6,27 @@ gui:
   border: "single" # 'single' | 'double' | 'rounded' | 'hidden'
   theme:
     activeBorderColor:
-      - "#d8a657" # yellow
+      - "#FFE77A" # Teide darker: yellow
       - bold
     inactiveBorderColor:
-      - "#595959" # overlay0
+      - "#586172" # Teide darker: comment
     searchingActiveBorderColor:
-      - "#d3869b" # mauve
+      - "#A592FF" # Teide darker: purple
       - bold
     optionsTextColor:
-      - "#a9b665" # green
+      - "#38FFA5" # Teide darker: green
     selectedLineBgColor:
-      - "#292929" # surface0
+      - "#2C313A" # Teide darker: bg_highlight
     cherryPickedCommitBgColor:
-      - "#404040" # surface1
+      - "#2f3546" # Teide darker: bg_visual
     cherryPickedCommitFgColor:
-      - "#7daea3" # blue
+      - "#5CCEFF" # Teide darker: blue
     unstagedChangesColor:
-      - "#ea6962" # red
+      - "#F97791" # Teide darker: red
     defaultFgColor:
-      - "#ebdbb2" # text
+      - "#E7EAEE" # Teide darker: fg
     inactiveViewSelectedLineBgColor:
-      - "#292929" # surface0
+      - "#2C313A" # Teide darker: bg_highlight
 git:
   autoFetch: true
   autoRefresh: true
