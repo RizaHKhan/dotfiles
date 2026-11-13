@@ -155,12 +155,6 @@ type = "plugin_action"
 command = "willfish.herdr-navigator.right"
 description = "navigate right"
 
-[[keys.command]]
-key = "prefix+q"
-type = "popup"
-command = "tv vi-sql"
-description = "ViSQL"
-
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
 # [keys.indexed]
@@ -305,18 +299,6 @@ type = "plugin_action"
 command = "layouts.cycle"
 description = "cycle pane layouts"
 
-# [[keys.command]]
-# key = "prefix+O"
-# type = "popup"
-# command = "tv agents"
-# description = "Running Agents"
-
-[[keys.command]]
-key = "prefix+h"
-type = "popup"
-command = "sudo nvim /etc/hosts"
-description = "Hosts"
-
 [[keys.command]]
 key = "prefix+L"
 type = "pane"
@@ -325,9 +307,9 @@ description = "Opens Lazydocker"
 
 [[keys.command]]
 key = "prefix+s"
-type = "popup"
-command = "tv herdr-workspaces"
-description = "Herdr Workspaces"
+type = "plugin_action"
+command = "fullerzz.sesh.open-picker"
+description = "open Sesh picker"
 
 [[keys.command]]
 key = "prefix+l"
@@ -393,6 +375,11 @@ key = "prefix+f"
 type = "plugin_action"
 command = "chmarax.herdr-nvim.pick-file"
 description = "open file from agent output"
+
+[[keys.command]]
+key = "alt+k"          # toggle the floating beads board
+type = "plugin_action"
+command = "herdr-beads.open-board"
 
 [theme.custom]
 # Matches config/nvim/lua/plugins/catppuccin.lua mocha overrides.

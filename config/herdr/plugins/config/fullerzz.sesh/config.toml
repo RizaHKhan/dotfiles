@@ -1,0 +1,8 @@
+version = 1
+
+[picker]
+show_preview = false
+show_icons = true
+workspace_sort = 'recent'
+preview_mode = 'command'
+
