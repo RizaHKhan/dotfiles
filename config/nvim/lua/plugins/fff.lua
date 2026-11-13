@@ -27,6 +27,10 @@ return {
         prompt = "🪿 ",
         max_threads = 4,
         lazy_sync = true,
+        keymaps = {
+            move_down = { "<Down>", "<C-j>" },
+            move_up = { "<Up>", "<C-k>" },
+        },
         layout = {
             height = 0.8,
             width = 0.8,

@@ -53,7 +53,10 @@ return {
             n = {
                 -- navigate buffer tabs
                 ["tt"] = { cmd = ":tabnew <cr>", desc = "New tab" },
+                ["<leader>G"] = { cmd = ":Guh<cr>", desc = "Guh" },
                 ["tc"] = { cmd = ":tabclose <cr>", desc = "Close tab" },
+                ["<lt>"] = { "<Cmd>tabprevious<CR>", desc = "Previous tab" },
+                [">"] = { "<Cmd>tabnext<CR>", desc = "Next tab" },
                 ["<leader>jq"] = { cmd = ":JqPlayground<cr>", desc = "JQ" },
                 [";d"] = { cmd = ":CodeDiff<cr>", desc = "Open Diffview" },
                 [";h"] = { cmd = ":CodeDiff history %<cr>", desc = "Close Diffview" },

@@ -33,7 +33,6 @@ end
 
 return {
     "emrearmagan/atlas.nvim",
-    branch = "feat/jira-editor-fields",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
         "MeanderingProgrammer/render-markdown.nvim",
@@ -129,29 +128,8 @@ return {
                             search = repository_search("camcloud", "~/camcloud/repos") .. ' author.nickname = "rkhan"',
                         },
                         {
-                            name = "ALE-9803",
-                            key = "2",
-                            layout = "compact", -- "compact" or "plain"
-                            search = repository_search("camcloud", "~/camcloud/repos")
-                                .. ' (title ~ "ALE-9803" OR description ~ "ALE-9803")',
-                        },
-                        {
-                            name = "ALE-9817",
-                            key = "3",
-                            layout = "compact", -- "compact" or "plain"
-                            search = repository_search("camcloud", "~/camcloud/repos")
-                                .. ' (title ~ "ALE-9817" OR description ~ "ALE-9817")',
-                        },
-                        {
-                            name = "ALE-9837",
-                            key = "4",
-                            layout = "compact", -- "compact" or "plain"
-                            search = repository_search("camcloud", "~/camcloud/repos")
-                                .. ' (title ~ "ALE-9837" OR description ~ "ALE-9837")',
-                        },
-                        {
                             name = "Others",
-                            key = "5",
+                            key = "2",
                             layout = "grouped", -- "compact", "grouped", or "plain"
                             search = repository_search("camcloud", "~/camcloud/repos") .. ' author.nickname != "rkhan"',
                         },

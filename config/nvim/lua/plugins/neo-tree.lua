@@ -7,6 +7,11 @@ return {
             function() require("neo-tree.command").execute({ action = "focus", source = "last" }) end,
             desc = "Focus Neo-tree",
         },
+        {
+            "<leader>gg",
+            function() require("neo-tree.command").execute({ action = "focus", source = "git_status" }) end,
+            desc = "Show Git files in Neo-tree",
+        },
     },
     dependencies = {
         "nvim-lua/plenary.nvim",

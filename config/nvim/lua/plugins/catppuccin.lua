@@ -1,5 +1,6 @@
 return {
     "catppuccin/nvim",
+    enabled = false,
     lazy = false,
     priority = 1000,
     name = "catppuccin",
@@ -86,6 +87,8 @@ return {
                     GitSignsChange = { fg = colors.peach },
                     LineNr = { fg = colors.overlay0 },
                     LspInfoBorder = { link = "FloatBorder" },
+                    LspHoverNormal = { bg = colors.surface0, fg = colors.text },
+                    LspHoverBorder = { bg = colors.surface0, fg = colors.overlay1 },
                     NeoTreeDirectoryIcon = { fg = colors.subtext1 },
                     NeoTreeDirectoryName = { fg = colors.subtext1 },
                     NeoTreeFloatBorder = { link = "TelescopeResultsBorder" },

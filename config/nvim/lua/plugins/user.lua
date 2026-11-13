@@ -145,6 +145,12 @@ return {
         },
     },
     {
+        "serhez/teide.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+    },
+    {
         "esmuellert/codediff.nvim",
         version = "2.67.2", -- atlas.nvim 0.7.x targets codediff 2.67.x (v4.x removed ui/scroll)
         cmd = "CodeDiff",
@@ -265,6 +271,12 @@ return {
             },
         },
         opts = {
+            -- These async extensions access deleted CodeDiff buffers after yielding.
+            -- Disable until laravel.nvim checks buffer validity after async work.
+            extensions = {
+                model_info = { enable = false },
+                diagnostic = { enable = false },
+            },
             features = {
                 pickers = {
                     provider = "fzf-lua", -- telescope | fzf-lua | snacks | ui.select
@@ -273,29 +285,6 @@ return {
         },
     },
     {
-        "ChmaraX/herdr-nvim",
-        opts = {
-            keymaps = false,
-            clear_after_send = true,
-        },
-        keys = {
-            {
-                "<leader>Y",
-                function() require("herdr-nvim").ref_line() end,
-                desc = "Agent comments: reference line",
-            },
-            { "L", function() require("herdr-nvim").list_comments() end, desc = "Agent comments: list" },
-            {
-                "C",
-                function() require("herdr-nvim").comment_selection() end,
-                mode = "x",
-                desc = "Agent comments: comment selection",
-            },
-            {
-                "S",
-                function() require("herdr-nvim").send_all { submit = true } end,
-                desc = "Agent comments: send to agent",
-            },
-        },
-    },
+        'justinmk/guh.nvim'
+    }
 }
