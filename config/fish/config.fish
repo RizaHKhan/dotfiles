@@ -1,3 +1,6 @@
+# >>> lig pre >>>
+eval ('/opt/homebrew/opt/lig/bin/lig' init fish pre | string collect)
+# <<< lig pre <<<
 # Interactive Fish configuration managed by Ansible.
 # Keep machine-specific credentials and overrides in ~/.config/fish/local.fish.
 
@@ -184,6 +187,36 @@ function stagingIp
         pbcopy
 end
 
+function joomla44Ip
+    nslookup lb-web-x-dev-application-44-937135642.us-east-1.elb.amazonaws.com |
+        awk '/^Address:/ { ip = $2 } END { print ip }' |
+        pbcopy
+end
+
+function apache-dev
+    aws ec2 describe-instances \
+        --filters 'Name=tag:Name,Values=dev-apache' \
+        --query 'Reservations[].Instances[].{ID:InstanceId,PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress}' \
+        --output table
+end
+
+function web-staging
+    aws ec2 describe-instances \
+        --filters 'Name=tag:Name,Values=web-staging' \
+        --query 'Reservations[].Instances[].{ID:InstanceId,PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress}' \
+        --output table
+end
+
+function web-x
+    aws ec2 describe-instances \
+        --filters 'Name=tag:Name,Values=web-x' \
+        --query 'Reservations[].Instances[].{ID:InstanceId,PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress}' \
+        --output table
+end
+
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+# >>> lig post >>>
+eval ('/opt/homebrew/opt/lig/bin/lig' init fish post | string collect)
+# <<< lig post <<<
