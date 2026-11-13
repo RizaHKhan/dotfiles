@@ -93,11 +93,6 @@
         "--pull=always",
         "mcr.microsoft.com/playwright/mcp"
       ]
-    },
-    "vi-sql": {
-      "type": "remote",
-      "enabled": true,
-      "url": "http://127.0.0.1:9741/mcp"
     }
   },
   "permission": {
