@@ -34,6 +34,10 @@ dotfiles:
       dest: "{{ ansible_facts['env']['HOME'] }}/.config/kitty",
     }
   - {
+      src: "{{ playbook_dir }}/../config/rex",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/rex",
+    }
+  - {
       src: "{{ playbook_dir }}/../config/nvim",
       dest: "{{ ansible_facts['env']['HOME'] }}/.config/nvim",
     }
@@ -44,6 +48,10 @@ dotfiles:
   - {
       src: "{{ playbook_dir }}/../config/bat",
       dest: "{{ ansible_facts['env']['HOME'] }}/.config/bat",
+    }
+  - {
+      src: "{{ playbook_dir }}/../config/lig",
+      dest: "{{ ansible_facts['env']['HOME'] }}/.config/lig",
     }
   - {
       src: "{{ playbook_dir }}/../config/lazygit",
