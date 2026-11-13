@@ -26,6 +26,7 @@ command = "zoxide remove '{}'"
 mode = "fork"
 
 [actions.pane]
-description = "Open the selected directory in a new pane"
-command = "sh ~/.config/television/cable/scripts/herdr-open-directory-pane.sh '{}'"
+description = "Open each selected directory in a new pane"
+# Television quotes each selected entry as a separate argument.
+command = "sh ~/.config/television/cable/scripts/herdr-open-directory-pane.sh {}"
 mode = "execute"

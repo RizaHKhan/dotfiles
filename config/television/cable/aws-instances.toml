@@ -25,7 +25,7 @@ ctrl-u = "scroll_preview_half_page_up"
 
 [actions.ssh]
 description = "Connect to the SSH instance via SSH (herdr)"
-command = "herdr pane rename \"$HERDR_PANE_ID\" \"{split:\t:2}\" && bash ~/.config/television/cable/scripts/aws-ssh.sh {split:\t:0}"
+command = "bash ~/.config/television/cable/scripts/aws-ssh.sh {split:\t:0}"
 mode = "execute"
 
 [actions.start]
