@@ -13,7 +13,7 @@ return {
             inactive = false,
         },
         -- change colorscheme
-        colorscheme = "teide-darker", -- set the colorscheme to use
+        colorscheme = "misty-forest", -- set the colorscheme to use
         -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
         highlights = {
             init = {
@@ -27,6 +27,16 @@ return {
                 NeoTreeNormalNC = { bg = "NONE" },
                 NeoTreeWinSeparator = { fg = "#606060", bg = "NONE" },
             }, -- this table overrides highlights in all themes
+            ["misty-forest"] = {
+                NormalNC = { fg = "#c4d2c5", bg = "#131a16" },
+                NormalFloat = { fg = "#c4d2c5", bg = "#1c2620" },
+                FloatBorder = { fg = "#55665a", bg = "#1c2620" },
+                WinSeparator = { fg = "#2c3f33", bg = "#131a16" },
+                SignColumn = { bg = "#131a16" },
+                NeoTreeNormal = { fg = "#c4d2c5", bg = "#131a16" },
+                NeoTreeNormalNC = { fg = "#c4d2c5", bg = "#131a16" },
+                NeoTreeWinSeparator = { fg = "#2c3f33", bg = "#131a16" },
+            },
             astrodark = { -- a table of overrides/changes when applying the astrotheme theme
                 Normal = { bg = "#212830" },
                 NormalNC = { bg = "NONE" }, -- set the background of NormalNC to transparent

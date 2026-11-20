@@ -210,6 +210,11 @@ return {
         end,
         keys = {
             {
+                "H",
+                function() require("fzf-lua").buffers() end,
+                desc = "Find Active Buffers",
+            },
+            {
                 "<leader>F",
                 function()
                     require("fzf-lua").files {

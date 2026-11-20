@@ -2,16 +2,7 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     enabled = true,
     keys = {
-        {
-            "<leader>o",
-            function() require("neo-tree.command").execute({ action = "focus", source = "last" }) end,
-            desc = "Focus Neo-tree",
-        },
-        {
-            "<leader>gg",
-            function() require("neo-tree.command").execute({ action = "focus", source = "git_status" }) end,
-            desc = "Show Git files in Neo-tree",
-        },
+        { "<leader>ge", false },
     },
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -21,14 +12,17 @@ return {
     },
     opts = function(_, opts)
         opts.use_popups_for_input = false
-        opts.enable_git_status = true
-        opts.sources = { "filesystem", "buffers", "git_status" }
+        opts.enable_git_status = false
+        opts.sources = { "filesystem" }
         opts.filesystem = opts.filesystem or {}
         opts.filesystem.filtered_items = opts.filesystem.filtered_items or {}
         opts.filesystem.filtered_items.hide_gitignored = false
         opts.source_selector = {
-        winbar = true,
-            statusline = true,
+            winbar = true,
+            statusline = false,
+            sources = {
+                { source = "filesystem" },
+            },
         }
     end,
 }

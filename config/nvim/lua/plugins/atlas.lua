@@ -36,7 +36,7 @@ return {
     dependencies = {
         "nvim-tree/nvim-web-devicons",
         "MeanderingProgrammer/render-markdown.nvim",
-        { "esmuellert/codediff.nvim", version = "2.67.2" }, -- atlas targets codediff 2.67.x; v4 breaks diff
+        "esmuellert/codediff.nvim", -- Version policy lives in plugins/user.lua.
         "dlyongemallo/diffview-plus.nvim",
     },
     config = function()
@@ -204,15 +204,41 @@ return {
                     ---@type AtlasJiraViewConfig[]
                     views = {
                         {
+                            name = "ALE-7582",
+                            key = "E",
+                            layout = "plain",
+                            jql = 'key = ALE-7582 OR parent = ALE-7582 OR issue in linkedIssues("ALE-7582") ORDER BY status ASC, updated DESC',
+                        },
+                        {
                             name = "My Board",
                             key = "M",
                             layout = "plain",
-                            jql = "project = ALE AND assignee = currentUser() ORDER BY updated DESC",
+                            jql = "project = ALE ORDER BY updated DESC",
                         },
                     },
                 } or nil,
             },
         }
+
+        -- Atlas has no Bitbucket title-sort option. Sort the Me view's loaded page
+        -- before rendering so refreshes and individual PR updates keep title order.
+        local pulls_renderer = require "atlas.pulls.ui.dashboard.renderer"
+        pulls_renderer._dotfiles_render = pulls_renderer._dotfiles_render or pulls_renderer.render
+        local render_pulls = pulls_renderer._dotfiles_render
+        pulls_renderer.render = function(opts)
+            local state = require "atlas.pulls.state"
+            if state.provider and state.provider.id == "bitbucket" and state.view and state.view.name == "Me" then
+                table.sort(state.pulls, function(left, right)
+                    local left_title = (left.title or ""):lower()
+                    local right_title = (right.title or ""):lower()
+                    if left_title ~= right_title then return left_title < right_title end
+                    local left_ref = tostring(left.repo_full_name) .. ":" .. tostring(left.id)
+                    local right_ref = tostring(right.repo_full_name) .. ":" .. tostring(right.id)
+                    return left_ref < right_ref
+                end)
+            end
+            return render_pulls(opts)
+        end
 
         -- Atlas' Jira config accepts `components = { editor = true }`, but the
         -- installed editor does not render project fields yet. Until that lands,

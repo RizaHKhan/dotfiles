@@ -100,28 +100,12 @@ return {
             )
         end,
     },
-    {
-        "saghen/blink.cmp",
-        opts = function(_, opts)
-            opts.sources = opts.sources or {}
-            opts.sources.per_filetype = opts.sources.per_filetype or {}
-            opts.sources.per_filetype.org = { "orgmode" }
-            opts.sources.providers = opts.sources.providers or {}
-            opts.sources.providers.orgmode = {
-                name = "Orgmode",
-                module = "org.completion.blink",
-                fallbacks = { "buffer" },
-            }
-        end,
-    },
+
     {
         "okuuva/auto-save.nvim",
         version = "^1.0.0", -- see https://devhints.io/semver, alternatively use '*' to use the latest tagged release
         cmd = "ASToggle", -- optional for lazy loading on command
         event = { "InsertLeave", "TextChanged" }, -- optional for lazy loading on trigger events
-        opts = {
-            condition = function(buf) return vim.bo[buf].filetype ~= "org" end,
-        },
     },
     {
         "vhyrro/luarocks.nvim",
@@ -145,17 +129,19 @@ return {
         },
     },
     {
-        "serhez/teide.nvim",
+        "sainnhe/everforest",
         lazy = false,
         priority = 1000,
-        opts = {},
     },
     {
         "esmuellert/codediff.nvim",
-        version = "2.67.2", -- atlas.nvim 0.7.x targets codediff 2.67.x (v4.x removed ui/scroll)
+        version = "*", -- Track stable releases; current Atlas requires CodeDiff >= 3.0.0.
         cmd = "CodeDiff",
+        -- Conflict workflow: accept every hunk, then :w in the result pane (bottom).
+        -- Accepting edits the buffer; saving alone does not mark the Git conflict resolved.
+        -- In the CodeDiff explorer, press - on that file to stage/mark it resolved.
+        -- Review the result before staging, then continue the merge/rebase in your Git tool.
     },
-    { "yochem/jq-playground.nvim" },
     {
         "ywpkwon/yank-path.nvim",
         dependencies = { "ibhagwan/fzf-lua" },
@@ -285,6 +271,11 @@ return {
         },
     },
     {
-        'justinmk/guh.nvim'
-    }
+        "RizaHKhan/yq-parser",
+    },
+    {
+        "basola21/PDFview",
+        lazy = false,
+        dependencies = { "nvim-telescope/telescope.nvim" },
+    },
 }

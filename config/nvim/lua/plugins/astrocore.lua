@@ -12,7 +12,7 @@ return {
         features = {
             large_buf = { size = 1024 * 256, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
             autopairs = true, -- enable autopairs at start
-            cmp = true, -- enable completion at start
+            cmp = false, -- completion engine disabled
             diagnostics_mode = 3, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
             highlighturl = true, -- highlight URLs at start
             notifications = false, -- enable notifications at start
@@ -29,7 +29,7 @@ return {
         options = {
             opt = { -- vim.opt.<key>
                 relativenumber = false, -- sets vim.opt.relativenumber
-                number = true, -- sets vim.opt.number
+                number = false, -- sets vim.opt.number
                 spell = false, -- sets vim.opt.spell
                 signcolumn = "yes", -- sets vim.opt.signcolumn to yes
                 wrap = false, -- sets vim.opt.wrap
@@ -51,13 +51,13 @@ return {
         mappings = {
             -- first key is the mode
             n = {
+                ["<leader>J"] = { cmd = ":YqParser<cr>" },
                 -- navigate buffer tabs
                 ["tt"] = { cmd = ":tabnew <cr>", desc = "New tab" },
                 ["<leader>G"] = { cmd = ":Guh<cr>", desc = "Guh" },
                 ["tc"] = { cmd = ":tabclose <cr>", desc = "Close tab" },
                 ["<lt>"] = { "<Cmd>tabprevious<CR>", desc = "Previous tab" },
                 [">"] = { "<Cmd>tabnext<CR>", desc = "Next tab" },
-                ["<leader>jq"] = { cmd = ":JqPlayground<cr>", desc = "JQ" },
                 [";d"] = { cmd = ":CodeDiff<cr>", desc = "Open Diffview" },
                 [";h"] = { cmd = ":CodeDiff history %<cr>", desc = "Close Diffview" },
                 ["<leader>gp"] = {
@@ -113,6 +113,7 @@ return {
                 },
             },
             x = {
+                ["<leader>J"] = { cmd = ":YqParser<cr>" },
                 ["/"] = { "<Esc>/\\%V", desc = "Search within visual selection" },
                 ["?"] = { "<Esc>?\\%V", desc = "Search backward within visual selection" },
             },

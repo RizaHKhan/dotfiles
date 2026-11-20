@@ -9,8 +9,6 @@ rex.bind("alt+j", "pane.focus.down")
 rex.bind("alt+k", "pane.focus.up")
 rex.bind("alt+l", "pane.focus.right")
 
-rex.bind("cmd+s", "scratch_float")
-
 rex.bind("cmd+e", "floating_scrollback")
 rex.bind("cmd+g", "lazygit_float")
 rex.bind("cmd+l", "lazydocker_float")

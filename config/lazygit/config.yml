@@ -1,7 +1,7 @@
 gui:
   screenMode: "normal" # one of 'normal' | 'half' | 'full'
   scrollHeight: 2
-  showIcons: true
+  showIcons: false
   showFileTree: true
   border: "single" # 'single' | 'double' | 'rounded' | 'hidden'
   theme:
